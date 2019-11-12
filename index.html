@@ -61,7 +61,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand" href="#">memorial</a>
+            <a class="navbar-brand" href="/index.html">memorial</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -142,10 +142,12 @@
                     'lki'
                 ];
                 var needed = data_files.length;
+                var finished = 0;
                 for (let i in data_files) {
                     $.getJSON('./data/' + data_files[i] + '.json', function (json) {
                         records = records.concat(json);
-                        if (Number(i) === (needed - 1)) {
+                        ++finished;
+                        if (finished === needed) {
                             document.dispatchEvent(loaded_event);
                         }
                     });
@@ -209,16 +211,36 @@
 
                 });
 
-                let iterator = iterate(records);
-                let interval = setInterval(function () {
-                    let iteritem = iterator.next();
-                    if (iteritem.done) {
-                        clearInterval(interval);
-                    } else {
-                        draw_card(iteritem.value);
+                draw(records);
+
+                var years = {};
+                var sources = {};
+
+                for (let i in records) {
+                    let record = records[i];
+                    if (!years[record.date.year]) {
+                        years[record.date.year] = 0;
                     }
-                }, 50);
+                    ++years[record.date.year];
+                }
+
+                for (let i in records) {
+                    let record = records[i];
+                    if (!sources[record.where]) {
+                        sources[record.where] = 0;
+                    }
+                    ++sources[record.where];
+                }
+
+                $.each(years, function (year, count) {
+                    $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>');
+                });
+                $.each(sources, function (source, count) {
+                    $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>');
+                });
             });
+
+
 
             function draw_card(record) {
                 let card = base_card
@@ -249,6 +271,63 @@
             }
 
             compile_all();
+
+
+            $('body').on('click', '#filters_year [data-year]', function () {
+                $('.memorial-card').remove();
+                draw(filter({'year': Number($(this).attr("data-year"))}));
+            });
+            $('body').on('click', '#filters_where [data-where]', function () {
+                $('.memorial-card').remove();
+                draw(filter({'where': $(this).attr("data-where")}));
+            });
+
+            function filter(filters) {
+                var year;
+                if (filters['year'] !== undefined) {
+                    year = filters['year'];
+                }
+
+                var where;
+                if (filters['where'] !== undefined) {
+                    where = filters['where'];
+                }
+                var _records = records.filter(function (record) {
+                    if (year !== undefined && where !== undefined) {
+                        return record.date.year === year && record.where === where;
+                    } else if (year !== undefined) {
+                        return record.date.year === year;
+                    } else if (where !== undefined) {
+                        return record.where === where;
+                    } else {
+                        return true;
+                    }
+                });
+
+                return _records;
+
+
+            }
+
+            function draw(_records) {
+                let iterator = iterate(_records);
+                let interval = setInterval(function () {
+                    let iteritem = iterator.next();
+                    if (iteritem.done) {
+                        clearInterval(interval);
+                    } else {
+                        draw_card(iteritem.value);
+                    }
+                }, 1);
+            }
+
+            $('#unfilter_year').on('click', function () {
+                draw(records);
+            });
+
+            $('#unfilter_where').on('click', function () {
+                draw(records);
+            });
 
         </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
