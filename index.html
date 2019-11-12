@@ -112,7 +112,7 @@
             }
 
             var base_card = `
-                <div class="card memorial-card">
+                <div class="card memorial-card" data-year="{year}" data-what="{where}">
                     {logo}
                     {img}
                     <div class="card-body d-flex flex-column">
@@ -183,7 +183,9 @@
                 let card = base_card
                         .replace("{title}", record.title)
                         .replace("{teaser_text}", record.teaser_text)
-                        .replace("{date}", record.date.year + "." + record.date.month + "." + record.date.day);
+                        .replace("{date}", record.date.year + "." + record.date.month + "." + record.date.day)
+                        .replace("{year}", record.date.year)
+                        .replace("{where}", record.where);
                 if (record.url) {
                     card = card.replace("{url}", card_url.replace("{url}", record.url));
                 } else {
