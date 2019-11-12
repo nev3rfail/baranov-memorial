@@ -111,7 +111,7 @@
 
             var base_card = `
                 <div class="card memorial-card">
-                    <img class="logo" src="{logo}">
+                    {logo}
                     {img}
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{title}</h5>
@@ -122,6 +122,7 @@
                 </div>`;
             var card_image = '<img src="{img}" class="card-img-top"/>';
             var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
+            var card_logo = '<img class="logo" src="{logo}">';
             function* iterate(_records) {
                 for (let i in _records) {
                     yield _records[i];
@@ -193,7 +194,11 @@
                     card = card.replace("{img}", "");
                 }
 
-                card = card.replace("{logo}", "./res/image/" + logos[record.where]);
+                if (logos[record.where]) {
+                    card = card.replace("{logo}", card_logo.replace("{logo}", "./res/image/" + logos[record.where]));
+                } else {
+                    card = card.replace("{logo}", "");
+                }
 
                 $('#records_container').append(card);
             }
