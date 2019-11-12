@@ -18,6 +18,13 @@
                 float:right;
             }
 
+            .memorial-card .logo {
+                width: 50px;
+                position: absolute;
+                margin: 5px;
+                right: 0;
+            }
+
             #records_container {
                 padding:50px;
             }
@@ -70,6 +77,14 @@
             </div>
         </footer>
         <script>
+
+            var logos = {
+                "igromania": "igromania.svg",
+                "dtf": "dtf.png",
+                "stopgame": "stopgame.png",
+                "kanobu": "kanobu.png"
+            };
+
             var records = [];
             var loaded_event = new CustomEvent('records.loaded', {
                 bubbles: true
@@ -94,8 +109,10 @@
                 }
             }
 
-            var base_card = `<div class="card memorial-card">
-                            {img}
+            var base_card = `
+                <div class="card memorial-card">
+                    <img class="logo" src="{logo}">
+                    {img}
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{title}</h5>
                         <p class="card-text">{teaser_text}</p>
@@ -175,6 +192,9 @@
                 } else {
                     card = card.replace("{img}", "");
                 }
+
+                card = card.replace("{logo}", "./res/image/" + logos[record.where]);
+
                 $('#records_container').append(card);
             }
 
