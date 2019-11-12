@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Harry Potter and the Goblet of Fire",
+        "teaser_text": "пока вы при помощи особой магии удерживае",
+        "date": {
+            "year": 2006,
+            "month": 3,
+            "day": 6
+        },
+        "img": "https://cdn.igromania.ru/mnt/articles/c/f/8/d/8/c/4917/639656a52b96205b_272x153.jpg",
+        "where": "igromania",
+        "url": "https://www.igromania.ru/article/4917/Harry_Potter_and_the_Goblet_of_Fire.html"
+    },
+    {
+        "title": "The Settlers: Heritage of Kings",
+        "teaser_text": "разработчики отнюдь не случайно убрали цифру V из названия очередной части сериала — Heritage of Kings по большому счету не имеет со всеми предыдущими The Settlers ничего общего. Это больше не игра о маленьких человечках, которые возделывают пашни, охотят",
+        "date": {
+            "year": 2005,
+            "month": 3,
+            "day": 30
+        },
+        "img": "https://cdn.igromania.ru/mnt/articles/f/b/8/e/5/1/4267/b118f3b1ed2b6a1e_272x153.jpg",
+        "where": "igromania",
+        "url": "https://www.igromania.ru/article/4267/The_Settlers_Heritage_of_Kings.html"
+    },
+    {
+        "title": "Mashed",
+        "teaser_text": "ей-богу, с виду — ничего необычного. Ничем не выдающаяся графика (решительно непонятно, зачем для игры был лицензирован GTA-движок Renderware), три кнопки (одна — чтобы ездить, одна — чтобы язвить коллег по трассе пакостными бонусами, и еще одна — чтобы о",
+        "date": {
+            "year": 2004,
+            "month": 8,
+            "day": 30
+        },
+        "img": "https://cdn.igromania.ru/mnt/articles/c/b/f/e/5/6/3890/5ba21509818b8d8e_272x153.jpg",
+        "where": "igromania",
+        "url": "https://www.igromania.ru/article/3890/Mashed.html"
+    },
+    {
+        "title": "Spider-Man 2",
+        "teaser_text": "Совершать всевозможные супергеройские кульбиты вроде перекатов, зацепов и акробатических сальто просто и весело, так что первые полчаса Spider-Man 2 проходят в совершенном свинячьем восторге",
+        "date": {
+            "year": 2004,
+            "month": 8,
+            "day": 30
+        },
+        "img": "https://cdn.igromania.ru/mnt/articles/8/d/c/f/2/4/3884/7dd5e64ab7bef063_272x153.jpg",
+        "where": "igromania",
+        "url": "https://www.igromania.ru/article/3884/Spider-Man_2.html"
+    }
+]
