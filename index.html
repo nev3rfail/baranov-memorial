@@ -82,7 +82,8 @@
                 "igromania": "igromania.svg",
                 "dtf": "dtf.png",
                 "stopgame": "stopgame.png",
-                "kanobu": "kanobu.png"
+                "kanobu": "kanobu.png",
+                "lki": "lki.gif",
             };
 
             var records = [];
@@ -96,7 +97,8 @@
                     'igromania_raul',
                     'stopgame_main',
                     'stopgame_stream',
-                    'kanobu'
+                    'kanobu',
+                    'lki'
                 ];
                 var needed = data_files.length;
                 for (let i in data_files) {
@@ -174,7 +176,7 @@
                     } else {
                         draw_card(iteritem.value);
                     }
-                }, 100);
+                }, 50);
             });
 
             function draw_card(record) {
