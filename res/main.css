@@ -49,3 +49,7 @@ body {
     line-height: 60px; /* Vertically center the text there */
     background-color: #303030;
 }
+
+body > div.container.description {
+    padding-top: 80px !important;
+}
