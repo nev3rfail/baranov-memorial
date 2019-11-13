@@ -451,7 +451,7 @@
       "month": 4,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   },
@@ -511,7 +511,7 @@
       "month": 5,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   },
@@ -631,7 +631,7 @@
       "month": 8,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   },
@@ -859,7 +859,7 @@
       "month": 11,
       "year": 2019
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   }
