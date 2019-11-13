@@ -167,15 +167,6 @@ $(document).ready(function () {
         $('#records_container').append(card)
     }
 
-    function draw_card_width_fix(count) {
-        if (count) {
-            for (let index = 0; index < count; index++) {
-                // const element = array[index];
-                $('#records_container').append('<div class="card memorial-card"></div>')
-            }
-        }
-    }
-
     compile_all();
 
     $('body').on('click', '#filters_year [data-year]', function () {
@@ -224,7 +215,6 @@ $(document).ready(function () {
         let interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
-                draw_card_width_fix(10);
                 clearInterval(interval)
             } else {
                 draw_card(iteritem.value)
