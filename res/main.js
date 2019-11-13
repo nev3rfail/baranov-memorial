@@ -61,7 +61,7 @@ $(document).ready(function () {
                     </div>
                 </div>`;
     var card_image = '<img src="{img}" class="card-img-top"/>';
-    var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
+    var card_url = '<a href="{url}" target="_blank" class="btn btn-primary">Перейти к материалу</a>';
     var card_logo = '<img class="logo" src="{logo}">';
 
     function* iterate(_records) {
