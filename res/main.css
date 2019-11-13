@@ -1,10 +1,18 @@
 .memorial-card {
-    width: 25rem;
     margin: 1.25rem;
+    -ms-flex: 1 1 15rem;
+    flex: 1 1 15rem;
+    max-width: 25rem;
+}
+
+.memorial-card .card-img-top {
+    max-height: 22rem;
+    object-fit: cover;
 }
 
 .memorial-card .date {
-    float: right;
+    text-align: right;
+    flex: 1 0 auto;
 }
 
 .memorial-card .logo {
@@ -33,6 +41,11 @@
     -webkit-box-align: end;
     -ms-flex-align: end;
     align-items: flex-end;
+    margin-top: 1rem;
+}
+
+.memorial-card .bottomstuff .btn {
+    flex: 1 1 auto;
 }
 
 html {

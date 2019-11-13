@@ -41,15 +41,17 @@ $(document).ready(function () {
                 <div class="card memorial-card" data-year="{year}" data-what="{where}">
                     {logo}
                     {img}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{title}</h5>
-                        <p class="card-text">{teaser_text}</p>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{title}</h5>
+                            <p class="card-text">{teaser_text}</p>
+                        </div>
 
-                        <div class="bottomstuff">{url} <span class="date">{date}</span></div>
+                        <div class="bottomstuff flex-wrap">{url} <span class="date">{date}</span></div>
                     </div>
                 </div>`;
     var card_image = '<img src="{img}" class="card-img-top"/>';
-    var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
+    var card_url = '<a href="{url}" class="btn btn-primary" target="_blank">Перейти к материалу</a>';
     var card_logo = '<img class="logo" src="{logo}">';
 
     function* iterate(_records) {
