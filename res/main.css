@@ -1,17 +1,6 @@
 .memorial-card {
     margin: 1.25rem;
-    -ms-flex: 1 1 15rem;
-    flex: 1 1 15rem;
-    max-width: 25rem;
-}
-
-/* fix dynamic width for card in last row */
-.memorial-card:empty {
-    height: 0;
-    background: none;
-    border: none;
-    margin-top: 0;
-    margin-bottom: 0;
+    width: 25rem;
 }
 
 .memorial-card .card-img-top {
