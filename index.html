@@ -1,171 +1,179 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Curriculum Vitae</title>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="./res/css/bootstrap.min.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            .memorial-card {
-                width: 25rem; margin:1.25rem;
-            }
+<html lang="ru">
+<head>
+    <title>Мемориал Евгения Баранова</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .memorial-card {
+            width: 25rem;
+            margin: 1.25rem;
+        }
 
-            .memorial-card .date {
-                float:right;
-            }
+        .memorial-card .date {
+            float: right;
+        }
 
-            .memorial-card .logo {
-                width: 50px;
-                position: absolute;
-                margin: 5px;
-                right: 0;
-            }
+        .memorial-card .logo {
+            width: 50px;
+            position: absolute;
+            margin: 5px;
+            right: 0;
+        }
 
-            #records_container {
-                padding:50px;
-            }
+        #records_container {
+            padding: 50px;
+        }
 
-            .jumbotron {
-                margin-top: 1rem;
-            }
+        .jumbotron {
+            margin-top: 1rem;
+        }
 
-            /*.memorial-card .bottomstuff {
-                bottom: 0;
-                left: 0;
-                position: absolute;
-                margin-bottom: 1.25rem;
-                margin-left: 1.25rem;
-            }*/
-            html {
-                position: relative;
-                min-height: 100%;
-            }
-            body {
-                /* Margin bottom by footer height */
-                margin-bottom: 60px;
-            }
-            .footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                /* Set the fixed height of the footer here */
-                height: 60px;
-                line-height: 60px; /* Vertically center the text there */
-                background-color: #303030;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand" href="/index.html">memorial</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        /*.memorial-card .bottomstuff {
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            margin-bottom: 1.25rem;
+            margin-left: 1.25rem;
+        }*/
+        html {
+            position: relative;
+            min-height: 100%;
+        }
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Издания
-                        </a>
-                        <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" id="unfilter_where" href="#">Показать все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Годы
-                        </a>
-                        <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" id="unfilter_year" href="#">Показать все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://discord.gg/zDxKb44">Помоги проекту в Discord</a>
-                    </li>
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+        }
 
-                </ul>
-                <!--form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form-->
-            </div>
-        </nav>
-        <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-4">Мемориал Евгения Баранова</h1>
-                <p class="lead">На этой странице можно найти созданные Женей статьи, видео и записи стримов.<br/>Есть что добавить? Добро пожаловать в Discord.</p>
-                <hr class="my-4">
-                <p>
-                    Для наполнения этой страницы требуется помощь сообщества.<br/>
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #303030;
+        }
+    </style>
+</head>
 
-                    Для начала нужно добавить ссылки к имеющимся элементам, для которых нет ссылок: <a class="nav-link" onclick="draw_nourl()" href="#">Показать элементы без ссылок</a><br/>
-                    Затем нужно пройтись по результатам поиска на StopGame и добавить стримы, которых ещё нет здесь: <a class="nav-link" href="https://stopgame.ru/search/?s=%D0%91%D0%B0%D1%80%D0%B0%D0%BD%D0%BE%D0%B2&where=video&sort=date%D0%B0&p=1" _target="blank">Результаты поиска</a><br/>
-                    Инструкция по формату данных находится в Дискорде: <a class="nav-link" href="https://discord.gg/zDxKb44">Discord</a><br/>
-                    По-хорошему ещё надо достать ссылки на твиты от людей из изданий, а также на новости с игровых и не игровых порталов.<br/>
-                    <br/>
-                    Также, Женя работал со множеством людей и писал для множества сайтов. Сейчас данные есть только о dtf, lki, stopgame и kanobu. Ссылки на статьи в других изданиях будут очень полезны.
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/index.html">Мемориал Евгения Баранова</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Издания
+                </a>
+                <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="unfilter_where" href="#">Показать все</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Годы
+                </a>
+                <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="unfilter_year" href="#">Показать все</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://discord.gg/zDxKb44">Помоги проекту в Discord</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">Github</a>
+            </li>
 
-                </p>
-                <a class="btn btn-primary btn-lg" href="https://dtf.ru/life/81082-zhenya-spasibo" role="button">Запись "Женя, спасибо" на DTF</a>
-            </div>
+        </ul>
+        <!--form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form-->
+    </div>
+</nav>
+<div class="container">
+    <div class="jumbotron">
+        <img src="https://stopga.me/images/news/2019/11/12/c216x121/oaDhFZXsgH2TzTP-Rp-Z8Q/4fZlAf_sP.jpg" alt="" class="float-right">
+        <h1 class="display-4">Мемориал Евгения Баранова</h1>
+        <p class="lead"><i>12 ноября 2019 года не стало игрового журналиста Евгения Баранова. Ему было 27 лет.<br>Данная страница - дань уважения за все, что Женя сделал для российского игрожура.</i></p>
+        <p class="lead">Здесь можно найти созданные Женей статьи, видео и записи стримов.<br/>Есть что добавить? Добро пожаловать в Discord.</p>
+        <hr class="my-4">
+        <div>
+            Для наполнения этой страницы требуется помощь сообщества.<br/>
+
+            Добавить ссылки к имеющимся элементам, для которых нет ссылок: <a class="nav-link" onclick="draw_nourl()" href="#">Показать элементы без ссылок</a><br/>
+            Затем нужно пройтись по результатам поиска на StopGame и добавить стримы, которых ещё нет здесь: <a class="nav-link" target="_blank" href="https://stopgame.ru/search/?s=%D0%91%D0%B0%D1%80%D0%B0%D0%BD%D0%BE%D0%B2&where=video&sort=date%D0%B0&p=1" _target="blank">Результаты поиска</a><br/>
+            Инструкция по формату данных находится в Дискорде: <a class="nav-link" target="_blank" href="https://discord.gg/zDxKb44">Discord</a><br/>
+            По-хорошему, ещё надо достать ссылки на твиты от людей из изданий, а также на новости с игровых и неигровых порталов.<br/>
+            <br/>
+            Также Женя работал со множеством людей и писал для множества сайтов. Сейчас данные есть только о DTF, ЛКИ, StopGame и Канобу. Ссылки на статьи в других изданиях будут очень полезны.
         </div>
-        <div class="container-fluid">
-            <div class="row" id="records_container">
+        <a class="btn btn-primary btn-lg" href="https://dtf.ru/life/81082-zhenya-spasibo" role="button">Запись "Женя, спасибо" на DTF</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row" id="records_container">
 
-            </div>
-        </div>
+    </div>
+</div>
 
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted"><a href="https://github.com/nev3rfail/baranov-memorial"><img style="width:80px" src="./res/image/github.png" alt="Помоги данными"></a>Начальные материалы собраны <a href="https://github.com/nev3rfail">nev3rfail</a>. Код и данные доступны по лицензии Creative Commons. </span>
-            </div>
-        </footer>
-        <script>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"><a href="https://github.com/nev3rfail/baranov-memorial"><img style="width:80px" src="./res/image/github.png" alt="Помоги данными"></a>Начальные материалы собраны <a href="https://github.com/nev3rfail">nev3rfail</a>. Код и данные доступны по лицензии Creative Commons. </span>
+    </div>
+</footer>
+<script>
 
-            var logos = {
-                "igromania": "igromania.svg",
-                "dtf": "dtf.png",
-                "stopgame": "stopgame.png",
-                "kanobu": "kanobu.png",
-                "lki": "lki.gif",
-            };
+    var logos = {
+        "igromania": "igromania.svg",
+        "dtf": "dtf.png",
+        "stopgame": "stopgame.png",
+        "kanobu": "kanobu.png",
+        "lki": "lki.gif",
+    };
 
-            var records = [];
-            var loaded_event = new CustomEvent('records.loaded', {
-                bubbles: true
-            });
-            function compile_all() {
-                var data_files = [
-                    'dtf_main',
-                    'igromania_main',
-                    'igromania_raul',
-                    'stopgame_main',
-                    'stopgame_stream',
-                    'kanobu',
-                    'lki'
-                ];
-                var needed = data_files.length;
-                var finished = 0;
-                for (let i in data_files) {
-                    $.getJSON('./data/' + data_files[i] + '.json', function (json) {
-                        records = records.concat(json);
-                        ++finished;
-                        if (finished === needed) {
-                            document.dispatchEvent(loaded_event);
-                        }
-                    });
+    var records = [];
+    var loaded_event = new CustomEvent('records.loaded', {
+        bubbles: true
+    });
+
+    function compile_all() {
+        var data_files = [
+            'dtf_main',
+            'igromania_main',
+            'igromania_raul',
+            'stopgame_main',
+            'stopgame_stream',
+            'kanobu',
+            'lki'
+        ];
+        var needed = data_files.length;
+        var finished = 0;
+        for (let i in data_files) {
+            $.getJSON('./data/' + data_files[i] + '.json', function (json) {
+                records = records.concat(json);
+                ++finished;
+                if (finished === needed) {
+                    document.dispatchEvent(loaded_event);
                 }
-            }
+            });
+        }
+    }
 
-            var base_card = `
+    var base_card = `
                 <div class="card memorial-card" data-year="{year}" data-what="{where}">
                     {logo}
                     {img}
@@ -176,187 +184,190 @@
                         <div class="bottomstuff">{url} <span class="date">{date}</span></div>
                     </div>
                 </div>`;
-            var card_image = '<img src="{img}" class="card-img-top"/>';
-            var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
-            var card_logo = '<img class="logo" src="{logo}">';
-            function* iterate(_records) {
-                for (let i in _records) {
-                    yield _records[i];
-                }
+    var card_image = '<img src="{img}" class="card-img-top"/>';
+    var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
+    var card_logo = '<img class="logo" src="{logo}">';
+
+    function* iterate(_records) {
+        for (let i in _records) {
+            yield _records[i];
+        }
+    }
+
+    document.addEventListener('records.loaded', function () {
+        records = records.sort(function (a, b) {
+            let amonth;
+            let bmonth;
+            let aday;
+            let bday;
+            a = a.date;
+            b = b.date;
+            if ((a.month + "").length === 1) {
+                amonth = "0" + a.month;
+            } else {
+                amonth = a.month;
             }
-            document.addEventListener('records.loaded', function () {
-                records = records.sort(function (a, b) {
-                    let amonth;
-                    let bmonth;
-                    let aday;
-                    let bday;
-                    a = a.date;
-                    b = b.date;
-                    if ((a.month + "").length === 1) {
-                        amonth = "0" + a.month;
-                    } else {
-                        amonth = a.month;
-                    }
-                    if ((b.month + "").length === 1) {
-                        bmonth = "0" + b.month;
-                    } else {
-                        bmonth = b.month;
-                    }
-                    if ((a.day + "").length === 1) {
-                        aday = "0" + a.day;
-                    } else {
-                        aday = a.day;
-                    }
-                    if ((b.day + "").length === 1) {
-                        bday = "0" + b.day;
-                    } else {
-                        bday = b.day;
-                    }
-                    if (Number(a.year + "" + amonth + "" + aday) > Number(b.year + "" + bmonth + "" + bday)) {
-                        return -1;
-                    }
-                    if (Number(a.year + "" + amonth + "" + aday) < Number(b.year + "" + bmonth + "" + bday)) {
-                        return 1;
-                    }
-                    return 0;
-
-                });
-
-                draw(records);
-
-                var years = {};
-                var sources = {};
-
-                for (let i in records) {
-                    let record = records[i];
-                    if (!years[record.date.year]) {
-                        years[record.date.year] = 0;
-                    }
-                    ++years[record.date.year];
-                }
-
-                for (let i in records) {
-                    let record = records[i];
-                    if (!sources[record.where]) {
-                        sources[record.where] = 0;
-                    }
-                    ++sources[record.where];
-                }
-
-                $.each(years, function (year, count) {
-                    $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>');
-                });
-                $.each(sources, function (source, count) {
-                    $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>');
-                });
-            });
-
-
-
-            function draw_card(record) {
-                let card = base_card
-                        .replace("{title}", record.title)
-                        .replace("{teaser_text}", record.teaser_text)
-                        .replace("{date}", record.date.year + "." + record.date.month + "." + record.date.day)
-                        .replace("{year}", record.date.year)
-                        .replace("{where}", record.where);
-                if (record.url) {
-                    card = card.replace("{url}", card_url.replace("{url}", record.url));
-                } else {
-                    card = card.replace("{url}", "");
-                }
-
-                if (record.img) {
-                    card = card.replace("{img}", card_image.replace("{img}", record.img));
-                } else {
-                    card = card.replace("{img}", "");
-                }
-
-                if (logos[record.where]) {
-                    card = card.replace("{logo}", card_logo.replace("{logo}", "./res/image/" + logos[record.where]));
-                } else {
-                    card = card.replace("{logo}", "");
-                }
-
-                $('#records_container').append(card);
+            if ((b.month + "").length === 1) {
+                bmonth = "0" + b.month;
+            } else {
+                bmonth = b.month;
             }
-
-            compile_all();
-
-
-            $('body').on('click', '#filters_year [data-year]', function () {
-                $('.memorial-card').remove();
-                draw(filter({'year': Number($(this).attr("data-year"))}));
-            });
-            $('body').on('click', '#filters_where [data-where]', function () {
-                $('.memorial-card').remove();
-                draw(filter({'where': $(this).attr("data-where")}));
-            });
-
-            function filter(filters) {
-                var year;
-                if (filters['year'] !== undefined) {
-                    year = filters['year'];
-                }
-
-                var where;
-                if (filters['where'] !== undefined) {
-                    where = filters['where'];
-                }
-                var _records = records.filter(function (record) {
-                    if (year !== undefined && where !== undefined) {
-                        return record.date.year === year && record.where === where;
-                    } else if (year !== undefined) {
-                        return record.date.year === year;
-                    } else if (where !== undefined) {
-                        return record.where === where;
-                    } else {
-                        return true;
-                    }
-                });
-
-                return _records;
+            if ((a.day + "").length === 1) {
+                aday = "0" + a.day;
+            } else {
+                aday = a.day;
             }
-
-            function draw_nourl() {
-                $('.memorial-card').remove();
-                draw(records.filter(function (record) {
-                    return !record.url;
-                }));
-
+            if ((b.day + "").length === 1) {
+                bday = "0" + b.day;
+            } else {
+                bday = b.day;
             }
-
-            function draw(_records) {
-                let iterator = iterate(_records);
-                let interval = setInterval(function () {
-                    let iteritem = iterator.next();
-                    if (iteritem.done) {
-                        clearInterval(interval);
-                    } else {
-                        draw_card(iteritem.value);
-                    }
-                }, 1);
+            if (Number(a.year + "" + amonth + "" + aday) > Number(b.year + "" + bmonth + "" + bday)) {
+                return -1;
             }
-
-            $('#unfilter_year').on('click', function () {
-                draw(records);
-            });
-
-            $('#unfilter_where').on('click', function () {
-                draw(records);
-            });
-
-        </script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
+            if (Number(a.year + "" + amonth + "" + aday) < Number(b.year + "" + bmonth + "" + bday)) {
+                return 1;
             }
-            gtag('js', new Date());
+            return 0;
 
-            gtag('config', 'UA-152337165-1');
-        </script>
-    </body>
+        });
+
+        draw(records);
+
+        var years = {};
+        var sources = {};
+
+        for (let i in records) {
+            let record = records[i];
+            if (!years[record.date.year]) {
+                years[record.date.year] = 0;
+            }
+            ++years[record.date.year];
+        }
+
+        for (let i in records) {
+            let record = records[i];
+            if (!sources[record.where]) {
+                sources[record.where] = 0;
+            }
+            ++sources[record.where];
+        }
+
+        $.each(years, function (year, count) {
+            $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>');
+        });
+        $.each(sources, function (source, count) {
+            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>');
+        });
+    });
+
+
+    function draw_card(record) {
+        let card = base_card
+            .replace("{title}", record.title)
+            .replace("{teaser_text}", record.teaser_text)
+            .replace("{date}", record.date.year + "." + record.date.month + "." + record.date.day)
+            .replace("{year}", record.date.year)
+            .replace("{where}", record.where);
+        if (record.url) {
+            card = card.replace("{url}", card_url.replace("{url}", record.url));
+        } else {
+            card = card.replace("{url}", "");
+        }
+
+        if (record.img) {
+            card = card.replace("{img}", card_image.replace("{img}", record.img));
+        } else {
+            card = card.replace("{img}", "");
+        }
+
+        if (logos[record.where]) {
+            card = card.replace("{logo}", card_logo.replace("{logo}", "./res/image/" + logos[record.where]));
+        } else {
+            card = card.replace("{logo}", "");
+        }
+
+        $('#records_container').append(card);
+    }
+
+    compile_all();
+
+
+    $('body').on('click', '#filters_year [data-year]', function () {
+        $('.memorial-card').remove();
+        draw(filter({'year': Number($(this).attr("data-year"))}));
+    });
+    $('body').on('click', '#filters_where [data-where]', function () {
+        $('.memorial-card').remove();
+        draw(filter({'where': $(this).attr("data-where")}));
+    });
+
+    function filter(filters) {
+        var year;
+        if (filters['year'] !== undefined) {
+            year = filters['year'];
+        }
+
+        var where;
+        if (filters['where'] !== undefined) {
+            where = filters['where'];
+        }
+        var _records = records.filter(function (record) {
+            if (year !== undefined && where !== undefined) {
+                return record.date.year === year && record.where === where;
+            } else if (year !== undefined) {
+                return record.date.year === year;
+            } else if (where !== undefined) {
+                return record.where === where;
+            } else {
+                return true;
+            }
+        });
+
+        return _records;
+    }
+
+    function draw_nourl() {
+        $('.memorial-card').remove();
+        draw(records.filter(function (record) {
+            return !record.url;
+        }));
+
+    }
+
+    function draw(_records) {
+        let iterator = iterate(_records);
+        let interval = setInterval(function () {
+            let iteritem = iterator.next();
+            if (iteritem.done) {
+                clearInterval(interval);
+            } else {
+                draw_card(iteritem.value);
+            }
+        }, 1);
+    }
+
+    $('#unfilter_year').on('click', function () {
+        draw(records);
+    });
+
+    $('#unfilter_where').on('click', function () {
+        draw(records);
+    });
+
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-152337165-1');
+</script>
+</body>
 </html>
