@@ -12,7 +12,7 @@ $(document).ready(function () {
     var fancy_names = {
         'igromania': 'Игромания',
         'dtf': 'DTF',
-        'stopgame': 'Stopgame.ru',
+        'stopgame': 'StopGame.ru',
         'kanobu': 'Канобу',
         'lki': 'ЛКИ',
         'bestgamer': 'BestGamer.ru',
@@ -167,15 +167,6 @@ $(document).ready(function () {
         $('#records_container').append(card)
     }
 
-    function draw_card_width_fix(count) {
-        if (count) {
-            for (let index = 0; index < count; index++) {
-                // const element = array[index];
-                $('#records_container').append('<div class="card memorial-card"></div>')
-            }
-        }
-    }
-
     compile_all();
 
     $('body').on('click', '#filters_year [data-year]', function () {
@@ -217,7 +208,6 @@ $(document).ready(function () {
         draw(records.filter(function (record) {
             return !record.url
         }))
-
     }
 
     function draw(_records) {
@@ -225,7 +215,6 @@ $(document).ready(function () {
         let interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
-                draw_card_width_fix(10);
                 clearInterval(interval)
             } else {
                 draw_card(iteritem.value)
@@ -239,6 +228,10 @@ $(document).ready(function () {
 
     $('#unfilter_where').on('click', function () {
         draw(records)
+    });
+
+    $('#draw_nourl').on('click', function () {
+        draw_nourl()
     })
 });
 
