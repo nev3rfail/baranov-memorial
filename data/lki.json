@@ -1,61 +1,61 @@
 [
   {
     "title": "Мини-игры",
-    "teaser_text": "",
+    "teaser_text": "Мини-рецензии на мини-игры: NightSky, System Protocol One, Zen Bound 2, Cross Worlds: The Flying City",
     "date": {
       "day": 0,
       "month": 3,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://i.postimg.cc/662Vj3sB/digest.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6223"
   },
   {
-    "title": "Team Fortress 2",
+    "title": "Team Fortress 2. Руководство медика",
     "teaser_text": "Доктор Стрейнджлав, или Как я перестал волноваться и полюбил хирургическую пилу",
     "date": {
       "day": 0,
       "month": 2,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://wiki.teamfortress.com/w/images/thumb/9/93/MedicVidSplash.png/300px-MedicVidSplash.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6197"
   },
   {
-    "title": "Team Fortress 2",
+    "title": "Team Fortress 2. Руководство инженера",
     "teaser_text": "Очумелые ручки",
     "date": {
       "day": 0,
       "month": 3,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://wiki.teamfortress.com/w/images/thumb/2/21/EngineerVidSplash.png/300px-EngineerVidSplash.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6239"
   },
   {
-    "title": "Игры XX века",
-    "teaser_text": "Год 1999-й",
+    "title": "Игры XX века. Год 1999й",
+    "teaser_text": "По сравнению с предыдущим, 1998-м, годом и следующим, 2000-м, этот год не может похвастаться изобилием революций и жанровых свершений. Зато его можно по праву окрестить годом киберспорта",
     "date": {
       "day": 0,
       "month": 4,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://cs11.pikabu.ru/post_img/big/2019/04/08/11/1554751734151928391.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6313"
   },
   {
-    "title": "Игры XX века.",
-    "teaser_text": "Год 2000-й",
+    "title": "Игры XX века. Год 2000й",
+    "teaser_text": "Если памятный 1998-й гремел исполинскими по значимости релизами, то последний год века двадцатого повлиял на индустрию чуть ли не больше, чем все лихие девяностые.",
     "date": {
       "day": 0,
       "month": 5,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://i.ytimg.com/vi/04m9HACCUPU/maxresdefault.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6364"
   },
@@ -67,44 +67,44 @@
       "month": 2,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "https://i.postimg.cc/Jhfhx27R/tf2evo.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6264"
   },
   {
-    "title": "Капкан на мыша",
-    "teaser_text": "Классификация ловушек в играх",
+    "title": "Team Fortress 2. История противостояния RED и BLU",
+    "teaser_text": "Мало того, что за свою долгую жизнь TF2 успел невероятно измениться, это еще и единственный боевик с глубокой интересной вселенной и проработанными персонажами. Игра так густо обросла псевдоисторическими материалами, что впору провести масштабную перепись всех событий, от приезда Зефанайи Манна в Штаты до великой вражды Джейна Доу и Тавиша Дегрута. Этим мы сейчас и займемся!",
     "date": {
       "day": 0,
       "month": 6,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
-    "where": "lki",
-    "url": "http://lki.ru/text.php?id=6471"
-  },
-  {
-    "title": "Team Fortress 2",
-    "teaser_text": "История противостояния RED и BLU",
-    "date": {
-      "day": 0,
-      "month": 6,
-      "year": 2011
-    },
-    "img": "./res/image/placeholder.png",
+    "img": "https://i.postimg.cc/Xqf4nz7j/badland.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6430"
   },
   {
-    "title": "Team Fortress 2",
-    "teaser_text": "Трудно быть братом. История противостояния RED и BLU. Часть 2",
+    "title": "Team Fortress 2. Трудно быть братом. История противостояния RED и BLU. Часть 2",
+    "teaser_text": "Итак, после смерти Зефанайи Манна братья по крови и наследству остались одни. Вскоре разума непутевых братьев достигла простая истина: легитимными методами наследство уже не отобрать. И не успел старик Зефанайя обратиться в прах, как на смену законникам пришли лучшие наемники середины XIX века. Хотя... наемники ли?",
     "date": {
       "day": 0,
       "month": 7,
       "year": 2011
     },
-    "img": "./res/image/placeholder.png",
+    "img": "http://www.psychologyofgames.com/wp-content/uploads/2015/02/tf2_rvb.jpg",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6467"
+  },
+  {
+    "title": "Капкан на мыша. Классификация ловушек в играх",
+    "teaser_text": "Древний волосатый гений был почище любого да Винчи, ибо своим изобретением определил человеческую историю. Когда первый зверь, удивленно взревев на всю округу, провалился в волчью яму, тогда и начала отсчет история ловушек. Немудрено, что хитроумные приспособления нашли воплощение в искусстве, в том числе в интерактивном. Среди персонажей игр немало тех, кто на «ты» с нажимными плитами, самострелами и прочими смертоносными устройствами, — об этих гражданах и пойдет речь.",
+    "date": {
+      "day": 0,
+      "month": 6,
+      "year": 2011
+    },
+    "img": "https://i.postimg.cc/FzGkx47q/mouse.jpg",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6471"
   }
 ]
