@@ -7,7 +7,7 @@
       "month": 3,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6223"
   },
@@ -19,7 +19,7 @@
       "month": 2,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6197"
   },
@@ -31,7 +31,7 @@
       "month": 3,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6239"
   },
@@ -43,7 +43,7 @@
       "month": 4,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6313"
   },
@@ -55,7 +55,7 @@
       "month": 5,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6364"
   },
@@ -67,7 +67,7 @@
       "month": 2,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6264"
   },
@@ -79,7 +79,7 @@
       "month": 6,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6471"
   },
@@ -91,7 +91,7 @@
       "month": 6,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6430"
   },
@@ -103,7 +103,7 @@
       "month": 7,
       "year": 2011
     },
-    "img": "",
+    "img": "./res/image/placeholder.png",
     "where": "lki",
     "url": "http://lki.ru/text.php?id=6467"
   }
