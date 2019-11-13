@@ -5,7 +5,8 @@ $(document).ready(function () {
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
         'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico'
+        'bestgamer': 'bestgamer.ico',
+        'zog': 'zog.jpg'
     };
 
     var fancy_names = {
@@ -14,7 +15,8 @@ $(document).ready(function () {
         'stopgame': 'Stopgame.ru',
         'kanobu': 'Канобу',
         'lki': 'ЛКИ',
-        'bestgamer': 'BestGamer.ru'
+        'bestgamer': 'BestGamer.ru',
+        'zog': 'Zone of Games'
     };
 
     var records = [];
@@ -31,7 +33,8 @@ $(document).ready(function () {
             'stopgame_stream',
             'kanobu',
             'lki',
-            'bestgamer'
+            'bestgamer',
+            'zog'
         ];
         var needed = data_files.length;
         var finished = 0;
