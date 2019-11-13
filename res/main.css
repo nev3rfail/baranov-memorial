@@ -23,13 +23,12 @@
     margin-top: 1rem;
 }
 
-/*.memorial-card .bottomstuff {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    margin-bottom: 1.25rem;
-    margin-left: 1.25rem;
-}*/
+.memorial-card .bottomstuff {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
 html {
     position: relative;
     min-height: 100%;
