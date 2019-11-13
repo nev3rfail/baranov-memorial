@@ -100,9 +100,20 @@
         <div class="container">
             <div class="jumbotron">
                 <h1 class="display-4">Мемориал Евгения Баранова</h1>
-                <p class="lead">На этой странице можно найти созданные Женей статьи, видео и записи стримов. Есть что добавить? Добро пожаловать в Discord.</p>
+                <p class="lead">На этой странице можно найти созданные Женей статьи, видео и записи стримов.<br/>Есть что добавить? Добро пожаловать в Discord.</p>
                 <hr class="my-4">
-                <p></p>
+                <p>
+                    Для наполнения этой страницы требуется помощь сообщества.<br/>
+
+                    Для начала нужно добавить ссылки к имеющимся элементам, для которых нет ссылок: <a class="nav-link" onclick="draw_nourl()" href="#">Показать элементы без ссылок</a><br/>
+                    Затем нужно пройтись по результатам поиска на StopGame и добавить стримы, которых ещё нет здесь: <a class="nav-link" href="https://stopgame.ru/search/?s=%D0%91%D0%B0%D1%80%D0%B0%D0%BD%D0%BE%D0%B2&where=video&sort=date%D0%B0&p=1" _target="blank">Результаты поиска</a><br/>
+                    Инструкция по формату данных находится в Дискорде: <a class="nav-link" href="https://discord.gg/zDxKb44">Discord</a><br/>
+                    По-хорошему ещё надо достать ссылки на твиты от людей из изданий, а также на новости с игровых и не игровых порталов.<br/>
+                    <br/>
+                    Также, Женя работал со множеством людей и писал для множества сайтов. Сейчас данные есть только о dtf, lki, stopgame и kanobu. Ссылки на статьи в других изданиях будут очень полезны.
+
+
+                </p>
                 <a class="btn btn-primary btn-lg" href="https://dtf.ru/life/81082-zhenya-spasibo" role="button">Запись "Женя, спасибо" на DTF</a>
             </div>
         </div>
@@ -305,7 +316,13 @@
                 });
 
                 return _records;
+            }
 
+            function draw_nourl() {
+                $('.memorial-card').remove();
+                draw(records.filter(function (record) {
+                    return !record.url;
+                }));
 
             }
 
