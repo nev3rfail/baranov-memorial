@@ -77,3 +77,7 @@ html {
     -ms-flex-align: center;
     align-items: center;
 }
+
+body > div.container.description {
+    padding-top: 80px !important;
+}
