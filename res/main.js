@@ -12,7 +12,7 @@ $(document).ready(function () {
     var fancy_names = {
         'igromania': 'Игромания',
         'dtf': 'DTF',
-        'stopgame': 'Stopgame.ru',
+        'stopgame': 'StopGame.ru',
         'kanobu': 'Канобу',
         'lki': 'ЛКИ',
         'bestgamer': 'BestGamer.ru',
@@ -208,7 +208,6 @@ $(document).ready(function () {
         draw(records.filter(function (record) {
             return !record.url
         }))
-
     }
 
     function draw(_records) {
@@ -229,6 +228,10 @@ $(document).ready(function () {
 
     $('#unfilter_where').on('click', function () {
         draw(records)
+    });
+
+    $('#draw_nourl').on('click', function () {
+        draw_nourl()
     })
 });
 
