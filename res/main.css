@@ -35,17 +35,14 @@ html {
     min-height: 100%;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+.footer {
+    width: 100%;
+    background-color: #303030;
+    /* Set the dynamic height of the footer by content */
+    padding: 15px 0;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #303030;
+.footer .container {
+    display: flex;
+    align-items: center;
 }
