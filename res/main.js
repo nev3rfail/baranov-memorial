@@ -8,6 +8,15 @@ $(document).ready(function () {
         'bestgamer': 'bestgamer.ico'
     };
 
+    var fancy_names = {
+        'igromania': 'Игромания',
+        'dtf': 'DTF',
+        'stopgame': 'Stopgame.ru',
+        'kanobu': 'Канобу',
+        'lki': 'ЛКИ',
+        'bestgamer': 'BestGamer.ru'
+    };
+
     var records = [];
     var loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
@@ -121,7 +130,7 @@ $(document).ready(function () {
             $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>')
         });
         $.each(sources, function (source, count) {
-            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>')
+            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + fancy_names[source] + ' (' + count + ')</a>')
         })
     });
 
