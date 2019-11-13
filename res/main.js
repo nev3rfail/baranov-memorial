@@ -143,9 +143,15 @@ $(document).ready(function () {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
             .replace('{year}', record.date.year)
             .replace('{where}', record.where);
+        
+        if (record.date.day>0) {
+            card = card.replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
+        } else {
+            card = card.replace('{date}', record.date.year + '.' + record.date.month)
+        }         
+        
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url))
         } else {
