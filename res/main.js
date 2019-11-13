@@ -5,7 +5,18 @@ $(document).ready(function () {
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
         'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico'
+        'bestgamer': 'bestgamer.ico',
+        'zog': 'zog.jpg'
+    };
+
+    var fancy_names = {
+        'igromania': 'Игромания',
+        'dtf': 'DTF',
+        'stopgame': 'Stopgame.ru',
+        'kanobu': 'Канобу',
+        'lki': 'ЛКИ',
+        'bestgamer': 'BestGamer.ru',
+        'zog': 'Zone of Games'
     };
 
     var records = [];
@@ -22,7 +33,8 @@ $(document).ready(function () {
             'stopgame_stream',
             'kanobu',
             'lki',
-            'bestgamer'
+            'bestgamer',
+            'zog'
         ];
         var needed = data_files.length;
         var finished = 0;
@@ -121,7 +133,7 @@ $(document).ready(function () {
             $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>')
         });
         $.each(sources, function (source, count) {
-            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>')
+            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + fancy_names[source] + ' (' + count + ')</a>')
         })
     });
 
