@@ -10,8 +10,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <a class="navbar-brand" href="/">
         <img src="logo/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Мемориал Евгения Баранова
@@ -53,7 +52,8 @@
         </form-->
     </div>
 </nav>
-<div class="container">
+
+<div class="container description">
     <div class="jumbotron">
         <img src="res/image/RAULduke.jpg" alt="" class="rounded float-right">
         <h1 class="display-4">Мемориал Евгения Баранова</h1>
@@ -86,7 +86,8 @@
 
 <footer class="footer">
     <div class="container">
-        <span class="text-muted"><a href="https://github.com/nev3rfail/baranov-memorial"><img style="width:80px" src="./res/image/github.png" alt="Помоги данными"></a>Начальные материалы собраны <a href="https://github.com/nev3rfail">nev3rfail</a>. Код и данные доступны по лицензии Creative Commons. </span>
+        <a href="https://github.com/nev3rfail/baranov-memorial"><img style="width:80px" src="./res/image/github.png" alt="Помоги данными"></a>
+        <span class="text-muted">Начальные материалы собраны <a href="https://github.com/nev3rfail">nev3rfail</a>. Код и данные доступны по лицензии Creative Commons. </span>
     </div>
 </footer>
 
@@ -99,15 +100,15 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || []
+    window.dataLayer = window.dataLayer || []
 
-  function gtag () {
-    dataLayer.push(arguments)
-  }
+    function gtag() {
+        dataLayer.push(arguments)
+    }
 
-  gtag('js', new Date());
+    gtag('js', new Date());
 
-  gtag('config', 'UA-152337165-1')
+    gtag('config', 'UA-152337165-1')
 </script>
 </body>
 </html>
