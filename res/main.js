@@ -5,7 +5,18 @@ $(document).ready(function () {
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
         'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico'
+        'bestgamer': 'bestgamer.ico',
+        'zog': 'zog.jpg'
+    };
+
+    var fancy_names = {
+        'igromania': 'Игромания',
+        'dtf': 'DTF',
+        'stopgame': 'Stopgame.ru',
+        'kanobu': 'Канобу',
+        'lki': 'ЛКИ',
+        'bestgamer': 'BestGamer.ru',
+        'zog': 'Zone of Games'
     };
 
     var records = [];
@@ -22,7 +33,8 @@ $(document).ready(function () {
             'stopgame_stream',
             'kanobu',
             'lki',
-            'bestgamer'
+            'bestgamer',
+            'zog'
         ];
         var needed = data_files.length;
         var finished = 0;
@@ -41,15 +53,17 @@ $(document).ready(function () {
                 <div class="card memorial-card" data-year="{year}" data-what="{where}">
                     {logo}
                     {img}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{title}</h5>
-                        <p class="card-text">{teaser_text}</p>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{title}</h5>
+                            <p class="card-text">{teaser_text}</p>
+                        </div>
 
-                        <div class="bottomstuff">{url} <span class="date">{date}</span></div>
+                        <div class="bottomstuff flex-wrap">{url} <span class="date">{date}</span></div>
                     </div>
                 </div>`;
     var card_image = '<img src="{img}" class="card-img-top"/>';
-    var card_url = '<a href="{url}" class="btn btn-primary">Перейти к материалу</a>';
+    var card_url = '<a href="{url}" target="_blank" class="btn btn-primary">Перейти к материалу</a>';
     var card_logo = '<img class="logo" src="{logo}">';
 
     function* iterate(_records) {
@@ -121,7 +135,7 @@ $(document).ready(function () {
             $('#filters_year').prepend('<a class="dropdown-item" data-year="' + year + '" href="#">' + year + ' (' + count + ')</a>')
         });
         $.each(sources, function (source, count) {
-            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + source + ' (' + count + ')</a>')
+            $('#filters_where').prepend('<a class="dropdown-item" data-where="' + source + '" href="#">' + fancy_names[source] + ' (' + count + ')</a>')
         })
     });
 
@@ -151,6 +165,15 @@ $(document).ready(function () {
         }
 
         $('#records_container').append(card)
+    }
+
+    function draw_card_width_fix(count) {
+        if (count) {
+            for (let index = 0; index < count; index++) {
+                // const element = array[index];
+                $('#records_container').append('<div class="card memorial-card"></div>')
+            }
+        }
     }
 
     compile_all();
@@ -202,6 +225,7 @@ $(document).ready(function () {
         let interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
+                draw_card_width_fix(10);
                 clearInterval(interval)
             } else {
                 draw_card(iteritem.value)
