@@ -1,110 +1,110 @@
 [
-    {
-        "title": "Мини-игры",
-        "teaser_text": "",
-        "date": {
-            "day": 0,
-            "month": 3,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6223"
+  {
+    "title": "Мини-игры",
+    "teaser_text": "",
+    "date": {
+      "day": 0,
+      "month": 3,
+      "year": 2011
     },
-    {
-        "title": "Team Fortress 2",
-        "teaser_text": "Доктор Стрейнджлав, или Как я перестал волноваться и полюбил хирургическую пилу",
-        "date": {
-            "day": 0,
-            "month": 2,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6197"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6223"
+  },
+  {
+    "title": "Team Fortress 2",
+    "teaser_text": "Доктор Стрейнджлав, или Как я перестал волноваться и полюбил хирургическую пилу",
+    "date": {
+      "day": 0,
+      "month": 2,
+      "year": 2011
     },
-    {
-        "title": "Team Fortress 2",
-        "teaser_text": "Очумелые ручки",
-        "date": {
-            "day": 0,
-            "month": 3,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6239"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6197"
+  },
+  {
+    "title": "Team Fortress 2",
+    "teaser_text": "Очумелые ручки",
+    "date": {
+      "day": 0,
+      "month": 3,
+      "year": 2011
     },
-    {
-        "title": "Игры XX века",
-        "teaser_text": "Год 1999-й",
-        "date": {
-            "day": 0,
-            "month": 4,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6313"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6239"
+  },
+  {
+    "title": "Игры XX века",
+    "teaser_text": "Год 1999-й",
+    "date": {
+      "day": 0,
+      "month": 4,
+      "year": 2011
     },
-    {
-        "title": "Игры XX века.",
-        "teaser_text": "Год 2000-й",
-        "date": {
-            "day": 0,
-            "month": 5,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6364"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6313"
+  },
+  {
+    "title": "Игры XX века.",
+    "teaser_text": "Год 2000-й",
+    "date": {
+      "day": 0,
+      "month": 5,
+      "year": 2011
     },
-    {
-        "title": "Эволюция Team Fortress 2",
-        "teaser_text": "Во что может превратиться сетевой боевик",
-        "date": {
-            "day": 0,
-            "month": 2,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6264"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6364"
+  },
+  {
+    "title": "Эволюция Team Fortress 2",
+    "teaser_text": "Во что может превратиться сетевой боевик",
+    "date": {
+      "day": 0,
+      "month": 2,
+      "year": 2011
     },
-    {
-        "title": "Капкан на мыша",
-        "teaser_text": "Классификация ловушек в играх",
-        "date": {
-            "day": 0,
-            "month": 6,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6471"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6264"
+  },
+  {
+    "title": "Капкан на мыша",
+    "teaser_text": "Классификация ловушек в играх",
+    "date": {
+      "day": 0,
+      "month": 6,
+      "year": 2011
     },
-    {
-        "title": "Team Fortress 2",
-        "teaser_text": "История противостояния RED и BLU",
-        "date": {
-            "day": 0,
-            "month": 6,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6430"
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6471"
+  },
+  {
+    "title": "Team Fortress 2",
+    "teaser_text": "История противостояния RED и BLU",
+    "date": {
+      "day": 0,
+      "month": 6,
+      "year": 2011
     },
-    {
-        "title": "Team Fortress 2",
-        "teaser_text": "Трудно быть братом. История противостояния RED и BLU. Часть 2",
-        "date": {
-            "day": 0,
-            "month": 7,
-            "year": 2011
-        },
-        "img": "",
-        "where": "lki",
-        "url": "http://lki.ru/text.php?id=6467"
-    }
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6430"
+  },
+  {
+    "title": "Team Fortress 2",
+    "teaser_text": "Трудно быть братом. История противостояния RED и BLU. Часть 2",
+    "date": {
+      "day": 0,
+      "month": 7,
+      "year": 2011
+    },
+    "img": "",
+    "where": "lki",
+    "url": "http://lki.ru/text.php?id=6467"
+  }
 ]

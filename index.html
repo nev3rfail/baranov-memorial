@@ -2,13 +2,10 @@
 <html lang="ru">
 <head>
     <title>Мемориал Евгения Баранова</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
     <style>
         .memorial-card {
             width: 25rem;
@@ -144,14 +141,20 @@
         <span class="text-muted"><a href="https://github.com/nev3rfail/baranov-memorial"><img style="width:80px" src="./res/image/github.png" alt="Помоги данными"></a>Начальные материалы собраны <a href="https://github.com/nev3rfail">nev3rfail</a>. Код и данные доступны по лицензии Creative Commons. </span>
     </div>
 </footer>
-<script>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%2Calways&rum=true"></script>
+
+<script>
   var logos = {
     'igromania': 'igromania.svg',
     'dtf': 'dtf.png',
     'stopgame': 'stopgame.png',
     'kanobu': 'kanobu.png',
     'lki': 'lki.gif',
+    'bestgamer': 'bestgamer.ico'
   }
 
   var records = []
@@ -167,7 +170,8 @@
       'stopgame_main',
       'stopgame_stream',
       'kanobu',
-      'lki'
+      'lki',
+      'bestgamer'
     ]
     var needed = data_files.length
     var finished = 0
@@ -298,7 +302,9 @@
     $('#records_container').append(card)
   }
 
-  compile_all()
+  $(document).ready(function () {
+    compile_all()
+  })
 
   $('body').on('click', '#filters_year [data-year]', function () {
     $('.memorial-card').remove()
