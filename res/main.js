@@ -53,11 +53,13 @@ $(document).ready(function () {
                 <div class="card memorial-card" data-year="{year}" data-what="{where}">
                     {logo}
                     {img}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{title}</h5>
-                        <p class="card-text">{teaser_text}</p>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{title}</h5>
+                            <p class="card-text">{teaser_text}</p>
+                        </div>
 
-                        <div class="bottomstuff">{url} <span class="date">{date}</span></div>
+                        <div class="bottomstuff flex-wrap">{url} <span class="date">{date}</span></div>
                     </div>
                 </div>`;
     var card_image = '<img src="{img}" class="card-img-top"/>';
@@ -165,6 +167,15 @@ $(document).ready(function () {
         $('#records_container').append(card)
     }
 
+    function draw_card_width_fix(count) {
+        if (count) {
+            for (let index = 0; index < count; index++) {
+                // const element = array[index];
+                $('#records_container').append('<div class="card memorial-card"></div>')
+            }
+        }
+    }
+
     compile_all();
 
     $('body').on('click', '#filters_year [data-year]', function () {
@@ -214,6 +225,7 @@ $(document).ready(function () {
         let interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
+                draw_card_width_fix(10);
                 clearInterval(interval)
             } else {
                 draw_card(iteritem.value)
