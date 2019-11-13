@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var logos = {
         'igromania': 'igromania.svg',
         'dtf': 'dtf.png',
@@ -217,4 +216,7 @@ $(document).ready(function () {
     $('#unfilter_where').on('click', function () {
         draw(records)
     })
-})
+});
+
+// Hack :(
+window.scrollTo(0, 0);
