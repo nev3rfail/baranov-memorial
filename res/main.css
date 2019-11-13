@@ -24,9 +24,15 @@
 }
 
 .memorial-card .bottomstuff {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
 }
 
 html {
@@ -42,6 +48,10 @@ html {
 }
 
 .footer .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
