@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
-		}
+        }
 
-		let imgPlaceholder = './logo/placeholder.jpg'
+        let imgPlaceholder = './logo/placeholder.jpg'
 
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
@@ -104,16 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', card_logo.replace('{logo}', './res/image/' + logos[record.where]))
         } else {
             card = card.replace('{logo}', '')
-		}
+        }
 
-		let tmpNode = document.createElement('div')
-		tmpNode.innerHTML = card
+        let tmpNode = document.createElement('div')
+        tmpNode.innerHTML = card
 
-		tmpNode.querySelector('.card-img-top').addEventListener('error', e => {
-			let parentNode = e.target.parentNode
-			console.warn(`Ошибка загрузки изображения у материала "${parentNode.querySelector('.card-title').textContent}".`)
-			e.target.src = imgPlaceholder
-		})
+        tmpNode.querySelector('.card-img-top').addEventListener('error', e => {
+            let parentNode = e.target.parentNode
+            console.warn(`Ошибка загрузки изображения у материала "${parentNode.querySelector('.card-title').textContent}".`)
+            e.target.src = imgPlaceholder
+        })
 
         document.querySelector('#records_container').appendChild(tmpNode.firstChild)
     }
