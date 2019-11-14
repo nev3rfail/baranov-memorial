@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
+    const records_container = document.querySelector('#records_container');
 
     function draw_card(record) {
         let card = base_card
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        document.querySelector('#records_container').insertAdjacentHTML('beforeend', card)
+        records_container.insertAdjacentHTML('beforeend', card)
     }
 
     function* iterate(_records) {
