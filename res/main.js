@@ -1,33 +1,32 @@
-if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
-
+if (self.document && !("insertAdjacentHTML" in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
     HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
         "use strict";
 
         let ref = this,
-            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
+            container = ref.ownerDocument.createElementNS('http://www.w3.org/1999/xhtml', '_'),
             ref_parent = ref.parentNode,
             node, first_child, next_sibling;
 
         container.innerHTML = html;
 
         switch (position.toLowerCase()) {
-            case "beforebegin":
+            case 'beforebegin':
                 while ((node = container.firstChild)) {
                     ref_parent.insertBefore(node, ref);
                 }
                 break;
-            case "afterbegin":
+            case 'afterbegin':
                 first_child = ref.firstChild;
                 while ((node = container.lastChild)) {
                     first_child = ref.insertBefore(node, first_child);
                 }
                 break;
-            case "beforeend":
+            case 'beforeend':
                 while ((node = container.firstChild)) {
                     ref.appendChild(node);
                 }
                 break;
-            case "afterend":
+            case 'afterend':
                 next_sibling = ref.nextSibling;
                 while ((node = container.lastChild)) {
                     next_sibling = ref_parent.insertBefore(node, next_sibling);
