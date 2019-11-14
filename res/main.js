@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'zog': 'Zone of Games'
     };
 
-    let records = [];
+    let full_recordset = [];
+    let current_recordset = [];
     let running_interval;
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch('./data/' + data_files[i] + '.json')
                 .then(res => res.json())
                 .then(data => {
-                    records = records.concat(data);
+                    full_recordset = full_recordset.concat(data);
                     ++finished;
                     if (finished === needed) {
                         document.dispatchEvent(loaded_event)
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg'
+
 
     function draw_card(record) {
         let card = base_card
@@ -155,7 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * draw центральная функция, вызывая её с записями в аргументе
+     * мы присваиваем глобальному current_recordset значение этих записей.
+     * если draw вызывается без аргумента то мы просто рендерит current_recordset
+     * с учётом текущего current_page.
+     * Это всё нужно для того, чтоб при применении фильтров нам не приходилось
+     * шерстить полный рекордсет и фильтровать при каждом переходе по страницам
+     * в пагинации.
+     *
+     */
     function draw(_records) {
+        if(_records === undefined) {
+            _records = current_recordset;
+        } else {
+            current_recordset = _records;
+        }
+
         let mode = window.localStorage.getItem("draw_mode");
         switch(mode) {
             case "foreach":
@@ -193,7 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('records.loaded', function () {
-        records = records.sort(function (a, b) {
+        /**
+         * Необходимо отсортировать полный recordset
+         * для дальнейшего использования
+         *
+         */
+        full_recordset = full_recordset.sort(function (a, b) {
             let amonth;
             let bmonth;
             let aday;
@@ -229,15 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0
         });
 
-
-        draw(records);
+        draw(full_recordset);
         document.getElementById('placeholder').remove();
 
         const years = {};
         const sources = {};
 
-        for (let i in records) {
-            let record = records[i];
+        for (let i in full_recordset) {
+            let record = full_recordset[i];
 
             if (!years[record.date.year]) {
                 years[record.date.year] = 0
@@ -290,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             where = filters['where']
         }
 
-        return records.filter(function (record) {
+        return full_recordset.filter(function (record) {
             if (year !== undefined && where !== undefined) {
                 return record.date.year === year && record.where === where
             } else if (year !== undefined) {
@@ -324,13 +346,13 @@ document.addEventListener('DOMContentLoaded', () => {
     Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
         document.querySelector(id).onclick = () => {
             remove_cards();
-            draw(records)
+            draw(full_recordset)
         }
     });
 
     document.querySelector('#draw_nourl').onclick = () => {
         remove_cards();
-        draw(records.filter(function (record) {
+        draw(full_recordset.filter(function (record) {
             return !record.url
         }))
     }
