@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var logos = {
+    const logos = {
         'igromania': 'igromania.svg',
         'dtf': 'dtf.png',
         'stopgame': 'stopgame.png',
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'zog': 'zog.png'
     };
 
-    var fancy_names = {
+    const fancy_names = {
         'igromania': 'Игромания',
         'dtf': 'DTF',
         'stopgame': 'StopGame.ru',
@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         'zog': 'Zone of Games'
     };
 
-    var records = [];
-    var loaded_event = new CustomEvent('records.loaded', {
+    let records = [];
+    const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
     });
 
     function compile_all() {
-        var data_files = [
+        const data_files = [
             'dtf_main',
             'igromania_main',
             'stopgame_main',
@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'bestgamer',
             'zog'
         ];
-        var needed = data_files.length;
-        var finished = 0;
+        const needed = data_files.length;
+        let finished = 0;
         for (let i in data_files) {
             fetch('./data/' + data_files[i] + '.json')
                 .then(res => res.json())
@@ -51,22 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    var base_card = `
-        <div class="card memorial-card" data-year="{year}" data-what="{where}">
-            {logo}
-            {img}
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <h5 class="card-title">{title}</h5>
-                    <p class="card-text">{teaser_text}</p>
+    const base_card = `
+        <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
+                <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
+                    {logo}
+                    {img}
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{title}</h5>
+                            <p class="card-text">{teaser_text}</p>
+                        </div>
+                    </div>
+                        <div class="card-footer text-muted">
+                            {url} <span class="float-right">{date}</span>
+                        </div>
                 </div>
-
-                <div class="bottomstuff flex-wrap">{url} <span class="date">{date}</span></div>
-            </div>
         </div>`;
-    var card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
-    var card_url = '<a href="{url}" target="_blank" class="btn btn-primary">Перейти к материалу</a>';
-    var card_logo = '<img class="logo" src="{logo}">';
+    const card_logo = '<img class="logo" src="{logo}">';
+    const card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
+    const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
+    const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
 
     function draw_card(record) {
         let card = base_card
@@ -83,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.url) {
-            card = card.replace('{url}', card_url.replace('{url}', record.url))
+            card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
-            card = card.replace('{url}', '')
+            card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
         }
 
         if (record.img) {
@@ -151,8 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         draw(records);
         document.getElementById('placeholder').remove();
 
-        var years = {};
-        var sources = {};
+        const years = {};
+        const sources = {};
 
         for (let i in records) {
             let record = records[i];
@@ -194,20 +198,21 @@ document.addEventListener('DOMContentLoaded', () => {
     compile_all();
 
     function remove_cards() {
-        Array.from(document.querySelectorAll('.memorial-card')).forEach(card => card.remove())
+        Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
     function filter(filters) {
-        var year;
+        let year;
         if (filters['year'] !== undefined) {
             year = filters['year']
         }
 
-        var where;
+        let where;
         if (filters['where'] !== undefined) {
             where = filters['where']
         }
-        var _records = records.filter(function (record) {
+
+        return records.filter(function (record) {
             if (year !== undefined && where !== undefined) {
                 return record.date.year === year && record.where === where
             } else if (year !== undefined) {
@@ -217,9 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 return true
             }
-        });
-
-        return _records
+        })
     }
 
     document.body.addEventListener('click', e => {

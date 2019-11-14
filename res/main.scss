@@ -1,0 +1,33 @@
+.memorial-card {
+    height: 100%;
+
+    .logo {
+        width: 50px;
+        position: absolute;
+        margin: 5px;
+        right: 0;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #303030;
+    padding: 15px 0;
+
+    .container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
+
+div.description, div#records_container {
+    padding-top: 80px !important;
+}
+
+.container-fluid {
+    width: 95%;
+}
