@@ -428,7 +428,7 @@
       "year": 2018
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/03/31/normal_1522453127.jpg",
-    "url": "https://stopgame.ru/click/?https://www.youtube.com/watch?v=dxzzGUPE0qw",
+    "url": "https://www.youtube.com/watch?v=dxzzGUPE0qw",
     "where": "stopgame"
   },
   {
@@ -916,7 +916,7 @@
     "teaser_text": "Максим Кулаков и Евгений Баранов выдвигаются на испытательные поля давно забытых сражений, чтобы прочувствовать на себе бородатую стратегию XX века, переизданную на движке бородатой стратегии XXI века.",
     "date": {
       "day": 3,
-      "month": 10,
+      "month": 11,
       "year": 2019
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2019/11/04/normal_1572871051.jpg",
@@ -1257,6 +1257,102 @@
     },
     "img": "https://i.ytimg.com/vi/Ot9OVZvU5f4/maxresdefault.jpg",
     "url": "https://www.youtube.com/watch?v=Ot9OVZvU5f4",
+    "where": "stopgame"
+  },
+  {
+    "title": "Tom Clancy’s The Division 2. Дрожи от страха, Вашингтон!",
+    "teaser_text": "Четверо агентов «Спецотряда» крадутся по опустевшей столице США. Они уже пошатнули мемориал Вашингтона, облили пивом статую Линкольна и пустили на самокрутки Декларацию Независимости, а The Division 2 ещё даже не началась! Теми агентами были Евгений Баранов, Антон Паули, Александр Вилисов и Дмитрий Бурдуков.",
+    "date": {
+      "day": 12,
+      "month": 3,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/UaNhk3FrH9Y/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=UaNhk3FrH9Y&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "Satisfactory. Космонавты на заводе",
+    "teaser_text": "Ведущие: Евгений Баранов и Иван Лоев",
+    "date": {
+      "day": 10,
+      "month": 3,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/ezCaxTPh78I/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=ezCaxTPh78I&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "Half-Life. aftersteamawards party",
+    "teaser_text": "[Баранов/Паули/Кулаков]",
+    "date": {
+      "day": 8,
+      "month": 2,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/CBDSKJ3FI0A/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=CBDSKJ3FI0A&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "Frostpunk. Спасение Винтерхоума",
+    "teaser_text": "[Баранов/Паули]",
+    "date": {
+      "day": 22,
+      "month": 10,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/sZ1xJGv2RE0/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=sZ1xJGv2RE0&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "Call of Cthulhu на Halloween",
+    "teaser_text": "[Баранов/Лоев]",
+    "date": {
+      "day": 1,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/Oqm9PzR5oW8/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=Oqm9PzR5oW8&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "HITMAN 2. Релизный внезапнострим",
+    "teaser_text": "[Кулаков/Баранов/Нарица]",
+    "date": {
+      "day": 13,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/6O9w7bVjuEM/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=6O9w7bVjuEM&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "HITMAN 2. Призрачный кооператив. Постофициальная часть",
+    "teaser_text": "[Кулаков/Баранов/Нарица]",
+    "date": {
+      "day": 17,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/MBbz4Rf3bPc/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=MBbz4Rf3bPc&feature=youtu.be",
+    "where": "stopgame"
+  },
+  {
+    "title": "Hitman 2. Ищем уникальные убийства!",
+    "teaser_text": "[Баранов]",
+    "date": {
+      "day": 21,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/rgjGMHK_s-Y/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=rgjGMHK_s-Y&feature=youtu.be",
     "where": "stopgame"
   }
 ]

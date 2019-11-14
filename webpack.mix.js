@@ -4,7 +4,9 @@ mix.js('res/main.js', 'dist')
     .sass('res/main.scss', 'dist')
     .options({
         postCss: [
-            require('postcss-fixes')(),
+            require('postcss-fixes')({
+                preset: 'enable-all'
+            }),
             require('autoprefixer')(),
             require('cssnano')({
                 'safe': true,

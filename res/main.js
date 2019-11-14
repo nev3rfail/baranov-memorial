@@ -1,3 +1,42 @@
+if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
+
+    HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
+        "use strict";
+
+        let ref = this,
+            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
+            ref_parent = ref.parentNode,
+            node, first_child, next_sibling;
+
+        container.innerHTML = html;
+
+        switch (position.toLowerCase()) {
+            case "beforebegin":
+                while ((node = container.firstChild)) {
+                    ref_parent.insertBefore(node, ref);
+                }
+                break;
+            case "afterbegin":
+                first_child = ref.firstChild;
+                while ((node = container.lastChild)) {
+                    first_child = ref.insertBefore(node, first_child);
+                }
+                break;
+            case "beforeend":
+                while ((node = container.firstChild)) {
+                    ref.appendChild(node);
+                }
+                break;
+            case "afterend":
+                next_sibling = ref.nextSibling;
+                while ((node = container.lastChild)) {
+                    next_sibling = ref_parent.insertBefore(node, next_sibling);
+                }
+                break;
+        }
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const logos = {
         'igromania': 'igromania.svg',
@@ -53,19 +92,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const base_card = `
         <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
-                <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
-                    {logo}
-                    {img}
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h5 class="card-title">{title}</h5>
-                            <p class="card-text">{teaser_text}</p>
-                        </div>
+            <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
+                {logo}
+                {img}
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title">{title}</h5>
+                        <p class="card-text">{teaser_text}</p>
                     </div>
-                        <div class="card-footer text-muted">
-                            {url} <span class="float-right">{date}</span>
-                        </div>
                 </div>
+                    <div class="card-footer text-muted">
+                        {url} <span class="float-right">{date}</span>
+                    </div>
+            </div>
         </div>`;
     const card_logo = '<img class="logo" src="{logo}">';
     const card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
@@ -93,9 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', record.img))
+            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
         } else {
-            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.png'))
+            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.jpg'))
         }
 
         if (logos[record.where]) {
@@ -148,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 1
             }
             return 0
-
         });
 
 
@@ -257,6 +295,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }))
     }
 });
-
-// Hack :(
-window.scrollTo(0, 0);

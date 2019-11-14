@@ -7,6 +7,12 @@
         margin: 5px;
         right: 0;
     }
+
+    img.card-img-top {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 1px;
+    }
 }
 
 .footer {
@@ -26,6 +32,10 @@
 
 div.description, div#records_container {
     padding-top: 80px !important;
+}
+
+div#records_container {
+    max-width: 100%;
 }
 
 .container-fluid {
