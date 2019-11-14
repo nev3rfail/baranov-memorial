@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let records = [];
+    let running_interval;
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
     });
@@ -178,10 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw_generator(_records) {
         console.log("drawing with generator");
         let iterator = iterate(_records);
-        let interval = setInterval(function () {
+        if(running_interval) {
+            clearInterval(running_interval);
+        }
+        running_interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
-                clearInterval(interval);
+                clearInterval(running_interval);
             } else {
                 draw_card(iteritem.value);
             }
