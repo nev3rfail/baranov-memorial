@@ -146,10 +146,43 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#records_container').insertAdjacentHTML('beforeend', card)
     }
 
+    function* iterate(_records) {
+        for (let i in _records) {
+            yield _records[i];
+        }
+    }
+
     function draw(_records) {
+        let mode = window.localStorage.getItem("draw_mode");
+        switch(mode) {
+            case "deffered":
+                draw_generator(_records);
+                break;
+            case 'instant':
+            case null:
+                draw_foreach(_records);
+                break;
+        }
+    }
+
+    function draw_foreach(_records) {
+        console.log("drawing instant");
         _records.forEach(record => {
             draw_card(record)
         })
+    }
+
+    function draw_generator(_records) {
+        console.log("drawing deffered");
+        let iterator = iterate(records);
+        let interval = setInterval(function () {
+            let iteritem = iterator.next();
+            if (iteritem.done) {
+                clearInterval(interval);
+            } else {
+                draw_card(iteritem.value);
+            }
+        }, 10);
     }
 
     document.addEventListener('records.loaded', function () {
