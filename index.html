@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="dns-prefetch" href="//stopga.me">
+    <link rel="dns-prefetch" href="//cdn.igromania.ru">
+    <link rel="dns-prefetch" href="//leonardo.osnova.io">
+    <link rel="dns-prefetch" href="//i.ytimg.com">
+    <link rel="dns-prefetch" href="//www.kritikanstvo.ru">
+    <link rel="dns-prefetch" href="//upload.wikimedia.org">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
     <link rel="stylesheet" href="res/main.css">
 </head>
@@ -22,21 +29,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Издания
                 </a>
                 <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_where" href="#">Показать все</a>
+                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)">Показать все</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Годы
                 </a>
                 <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_year" href="#">Показать все</a>
+                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)">Показать все</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -65,8 +72,8 @@
         <div>
             Для наполнения этой страницы требуется помощь сообщества.<br/>
 
-            Добавить ссылки к имеющимся элементам, для которых нет ссылок: <a class="nav-link" id="draw_nourl" href="#">Показать элементы без ссылок</a><br/>
-            Затем нужно пройтись по результатам поиска на StopGame и добавить стримы, которых ещё нет здесь: <a class="nav-link" target="_blank" href="https://stopgame.ru/search/?s=%D0%91%D0%B0%D1%80%D0%B0%D0%BD%D0%BE%D0%B2&where=video&sort=date%D0%B0&p=1" _target="blank">Результаты поиска</a><br/>
+            Добавить ссылки к имеющимся элементам, для которых нет ссылок: <a class="nav-link" id="draw_nourl" href="javascript:void(0)">Показать элементы без ссылок</a><br/>
+            Затем нужно пройтись по результатам поиска на StopGame и добавить стримы, которых ещё нет здесь: <a class="nav-link" target="_blank" href="https://stopgame.ru/search/?s=Баранов&where=video&sort=date%D0%B0&p=1" _target="blank">Результаты поиска</a><br/>
             Инструкция по формату данных находится в Дискорде: <a class="nav-link" target="_blank" href="https://discord.gg/zDxKb44">Discord</a><br/>
             Также не помешает найти ссылки на превью материалов StopGame в более высоком качестве (например, с соцсетей или с превью YouTube)<br/>
             По-хорошему, ещё надо достать ссылки на твиты от людей из изданий, а также на новости с игровых и неигровых порталов.<br/>
@@ -91,12 +98,12 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%2Calways&rum=true"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%2Calways&rum=true" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/popper.min.js" integrity="sha256-1XfFQxRfNvDJW3FdZ+xlo2SbodG2+rFArw6XsVzu3bc=" crossorigin="anonymous" type="module" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous" defer></script>
 
-<script src="res/main.js"></script>
+<script src="res/main.js" defer></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
 <script>
