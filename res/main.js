@@ -4,9 +4,9 @@ $(document).ready(function () {
         'dtf': 'dtf.png',
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
-        'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico',
-        'zog': 'zog.jpg'
+        'lki': 'lki.png',
+        'bestgamer': 'bestgamerICON.png',
+        'zog': 'zog.png'
     };
 
     var fancy_names = {
