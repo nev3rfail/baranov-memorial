@@ -1,3 +1,41 @@
+if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
+    HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
+        "use strict";
+
+        let ref = this,
+            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
+            ref_parent = ref.parentNode,
+            node, first_child, next_sibling;
+
+        container.innerHTML = html;
+
+        switch (position.toLowerCase()) {
+            case "beforebegin":
+                while ((node = container.firstChild)) {
+                    ref_parent.insertBefore(node, ref);
+                }
+                break;
+            case "afterbegin":
+                first_child = ref.firstChild;
+                while ((node = container.lastChild)) {
+                    first_child = ref.insertBefore(node, first_child);
+                }
+                break;
+            case "beforeend":
+                while ((node = container.firstChild)) {
+                    ref.appendChild(node);
+                }
+                break;
+            case "afterend":
+                next_sibling = ref.nextSibling;
+                while ((node = container.lastChild)) {
+                    next_sibling = ref_parent.insertBefore(node, next_sibling);
+                }
+                break;
+        }
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const logos = {
         'igromania': 'igromania.svg',
@@ -72,6 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
 
+    let records_container = document.querySelector('#records_container')
+
+    let imgPlaceholder = './logo/placeholder.jpg'
+
     function draw_card(record) {
         let card = base_card
             .replace('{title}', record.title)
@@ -92,10 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
         }
 
-        let imgPlaceholder = './logo/placeholder.jpg'
-
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
+            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=50&w=480&l=5&il'))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
@@ -106,16 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        let tmpNode = document.createElement('div')
-        tmpNode.innerHTML = card
-
-        tmpNode.querySelector('.card-img-top').addEventListener('error', e => {
-            let parentNode = e.target.parentNode
-            console.warn(`Ошибка загрузки изображения у материала "${parentNode.querySelector('.card-title').textContent}".`)
-            e.target.src = imgPlaceholder
-        })
-
-        document.querySelector('#records_container').appendChild(tmpNode.firstChild)
+        records_container.insertAdjacentHTML('beforeend', card)
     }
 
     function* iterate(_records) {
@@ -135,6 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw_foreach(_records);
                 break;
         }
+
+        Array.from(records_container.querySelectorAll('.card-img-top')).forEach(img => {
+            img.addEventListener('error', e => {
+                let parentNode = e.target.parentNode
+                console.warn(`Ошибка загрузки изображения у материала "${parentNode.querySelector('.card-title').textContent}".`)
+                e.target.src = imgPlaceholder
+            })
+        })
     }
 
     function draw_foreach(_records) {
