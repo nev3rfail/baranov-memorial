@@ -155,26 +155,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(_records) {
         let mode = window.localStorage.getItem("draw_mode");
         switch(mode) {
-            case "deffered":
+            case null:
+            case "generator":
                 draw_generator(_records);
                 break;
-            case 'instant':
-            case null:
+            case 'foreach':
                 draw_foreach(_records);
                 break;
         }
     }
 
     function draw_foreach(_records) {
-        console.log("drawing instant");
+        console.log("drawing with foreach");
         _records.forEach(record => {
             draw_card(record)
         })
     }
 
     function draw_generator(_records) {
-        console.log("drawing deffered");
-        let iterator = iterate(records);
+        console.log("drawing with generator");
+        let iterator = iterate(_records);
         let interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
