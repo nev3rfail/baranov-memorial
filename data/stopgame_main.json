@@ -1,5 +1,17 @@
 [
   {
+    "title": "Овальная революция. История серии Ecstatica",
+    "teaser_text": "В 90-е, когда все 3D-миры состояли исключительно из полигонов, на свет появилась она — лучшая игра, о которой вы не слышали. Ecstatica. Эллипсоидный проект казался то ли смелым экспериментом, то ли революцией в геймдеве. Какая судьба ждала эту серию? Узнаете из краткой истории, которую подготовили Максим Кулаков, Евгений Баранов и Леонид Логинов",
+    "date": {
+      "day": 6,
+      "month": 11,
+      "year": 2019
+    },
+    "img": "https://stopga.me/images/video/2019/11/06/-vximwE.jpg",
+    "where": "stopgame",
+    "url": "https://stopgame.ru/show/106582/"
+  },
+  {
     "title": "Видеообзор Outer Worlds, The",
     "teaser_text": "Видеоигры редко позволяют себе оценивать современную реальность, будь то война, политика или экономика (а некоторые врут…",
     "date": {
@@ -415,7 +427,7 @@
       "month": 8,
       "year": 2018
     },
-    "img": "https://stopga.me/images/articles/2018/08/06/c170x95/5nKDYICknOJDI9c3NT-PDw/fiAcK0j.jpg",
+    "img": "https://stopga.me/images/articles/2018/08/06/fiAcK0j.jpg",
     "where": "stopgame",
     "url": "https://stopgame.ru/show/100691/"
   },

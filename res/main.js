@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', record.img))
         } else {
-            card = card.replace('{img}', card_image.replace('{img}', './res/image/placeholder.png'))
+            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.png'))
         }
 
         if (logos[record.where]) {
