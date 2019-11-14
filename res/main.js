@@ -155,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function draw(_records) {
-        let mode = window.localStorage.getItem("draw_mode");
+        let mode = localStorage.getItem("draw_mode");
+
         switch(mode) {
             case "foreach":
                 draw_foreach(_records);
@@ -302,6 +303,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    function scroll_to_rc() {
+        return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
+    }
+
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
             if ('year' in e.target.dataset || 'where' in e.target.dataset) {
@@ -316,7 +321,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(filter({'where': e.target.dataset.where}))
             }
 
-            document.querySelector('#records_container').scrollIntoView({behavior: 'smooth', block: 'start'})
+            let mode = localStorage.getItem('draw_mode')
+
+            switch (mode) {
+                case "deffered":
+                    setTimeout(() => {
+                        scroll_to_rc()
+                    }, 10);
+                    break;
+                case 'instant':
+                case null:
+                    scroll_to_rc()
+                    break;
+            }
         }
     });
 
