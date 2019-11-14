@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
+    const imgPlaceholder = './logo/placeholder.jpg'
 
     function draw_card(record) {
         let card = base_card
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
         } else {
-            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.jpg'))
+            card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
         if (logos[record.where]) {
