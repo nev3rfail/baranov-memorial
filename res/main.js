@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg'
 
-    function generate_date(date) {
+    function format_date(date) {
         let date_str = date.day + ''
 
         if (date_str == '0') {             // no day
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', generate_date(record.date))
+            .replace('{date}', format_date(record.date))
             .replace('{year}', record.date.year)
             .replace('{where}', record.where);
 
