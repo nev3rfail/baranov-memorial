@@ -4,9 +4,9 @@ $(document).ready(function () {
         'dtf': 'dtf.png',
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
-        'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico',
-        'zog': 'zog.jpg'
+        'lki': 'lki.png',
+        'bestgamer': 'bestgamerICON.png',
+        'zog': 'zog.png'
     };
 
     var fancy_names = {
@@ -143,9 +143,15 @@ $(document).ready(function () {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
             .replace('{year}', record.date.year)
             .replace('{where}', record.where);
+        
+        if (record.date.day>0) {
+            card = card.replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
+        } else {
+            card = card.replace('{date}', record.date.year + '.' + record.date.month)
+        }         
+        
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url))
         } else {
@@ -155,7 +161,7 @@ $(document).ready(function () {
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', record.img))
         } else {
-            card = card.replace('{img}', '')
+            card = card.replace('{img}', card_image.replace('{img}', './res/image/placeholder.png'))
         }
 
         if (logos[record.where]) {
