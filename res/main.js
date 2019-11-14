@@ -157,12 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(_records) {
         let mode = window.localStorage.getItem("draw_mode");
         switch(mode) {
+            case "foreach":
+                draw_foreach(_records);
+                break;
             case null:
             case "generator":
+            default:
                 draw_generator(_records);
-                break;
-            case 'foreach':
-                draw_foreach(_records);
                 break;
         }
     }
