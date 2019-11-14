@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'igromania_main',
             'stopgame_main',
             'stopgame_stream',
+            'stopgame_infact',
             'kanobu',
             'lki',
             'bestgamer',
