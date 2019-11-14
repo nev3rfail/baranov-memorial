@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         var data_files = [
             'dtf_main',
             'igromania_main',
-            'igromania_raul',
             'stopgame_main',
             'stopgame_stream',
             'kanobu',
