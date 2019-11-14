@@ -1,42 +1,3 @@
-if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
-
-    HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
-        "use strict";
-
-        let ref = this,
-            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
-            ref_parent = ref.parentNode,
-            node, first_child, next_sibling;
-
-        container.innerHTML = html;
-
-        switch (position.toLowerCase()) {
-            case "beforebegin":
-                while ((node = container.firstChild)) {
-                    ref_parent.insertBefore(node, ref);
-                }
-                break;
-            case "afterbegin":
-                first_child = ref.firstChild;
-                while ((node = container.lastChild)) {
-                    first_child = ref.insertBefore(node, first_child);
-                }
-                break;
-            case "beforeend":
-                while ((node = container.firstChild)) {
-                    ref.appendChild(node);
-                }
-                break;
-            case "afterend":
-                next_sibling = ref.nextSibling;
-                while ((node = container.lastChild)) {
-                    next_sibling = ref_parent.insertBefore(node, next_sibling);
-                }
-                break;
-        }
-    };
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const logos = {
         'igromania': 'igromania.svg',
@@ -90,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const base_card = `
-        <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
+    const base_card =
+        `<div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
                 {logo}
                 {img}
@@ -106,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
             </div>
         </div>`;
-    const card_logo = '<img class="logo" src="{logo}">';
-    const card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
+    const card_logo = '<img class="logo" src="{logo}" alt="logo">';
+    const card_image = '<img src="{img}" class="card-img-top" alt="card image" loading="lazy">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
 
@@ -129,21 +90,32 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
-        }
+		}
+
+		let imgPlaceholder = './logo/placeholder.jpg'
 
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
         } else {
-            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.jpg'))
+            card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
         if (logos[record.where]) {
             card = card.replace('{logo}', card_logo.replace('{logo}', './res/image/' + logos[record.where]))
         } else {
             card = card.replace('{logo}', '')
-        }
+		}
 
-        document.querySelector('#records_container').insertAdjacentHTML('beforeend', card)
+		let tmpNode = document.createElement('div')
+		tmpNode.innerHTML = card
+
+		tmpNode.querySelector('.card-img-top').addEventListener('error', e => {
+			let parentNode = e.target.parentNode
+			console.warn(`Ошибка загрузки изображения у материала "${parentNode.querySelector('.card-title').textContent}".`)
+			e.target.src = imgPlaceholder
+		})
+
+        document.querySelector('#records_container').appendChild(tmpNode.firstChild)
     }
 
     function* iterate(_records) {
