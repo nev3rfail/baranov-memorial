@@ -116,7 +116,7 @@
       "year": 2017
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2017/09/21/normal_1505978524.jpg",
-    "url": "",
+    "url": "https://www.youtube.com/watch?v=6MJVDnhKiUA",
     "where": "stopgame"
   },
   {
@@ -428,7 +428,7 @@
       "year": 2018
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/03/31/normal_1522453127.jpg",
-    "url": "",
+    "url": "https://stopgame.ru/click/?https://www.youtube.com/watch?v=dxzzGUPE0qw",
     "where": "stopgame"
   },
   {
@@ -451,7 +451,7 @@
       "month": 4,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   },
@@ -511,7 +511,7 @@
       "month": 5,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   },
@@ -528,6 +528,18 @@
     "where": "stopgame"
   },
   {
+    "title": "Внезапный (нет) долгострим Predynastic Egypt",
+    "teaser_text": "Солнечным утром тяжелого понедельника Евгений Баранов просто взял и вынудил многих наших вахтёров на канале Twitch внезапно проснуться в Древнем Египте...",
+    "date": {
+      "day": 25,
+      "month": 6,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/Iw7RIopEWQA/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=Iw7RIopEWQA",
+    "where": "stopgame"
+  },
+  {
     "title": "Egypt: Old Kingdom. Когда сфинксы были котятами",
     "teaser_text": "Прошлый стрим по Egypt был неожиданным, однако что самое внезапное для нас — его заметили сами разработчики! На сей раз посетим Египет времён Древнего Царства в прямом эфире уже не случайно, а вполне целенаправленно, причём нашим гидом выступит глава разработки Михаил Васильев. Он ответит на вопросы зрителей и ведущих, тогда как ведущие, Евгений Баранов и примкнувший к нему Иван Лоев, продолжат покорять жалкие народцы во славу фараонов самых первых династий.",
     "date": {
@@ -535,8 +547,8 @@
       "month": 7,
       "year": 2018
     },
-    "img": "https://www.youtube.com/watch?v=weRarS-NlFM",
-    "url": "https://i.ytimg.com/vi/weRarS-NlFM/maxresdefault.jpg",
+    "img": "https://i.ytimg.com/vi/weRarS-NlFM/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=weRarS-NlFM",
     "where": "stopgame"
   },
   {
@@ -596,7 +608,7 @@
       "year": 2018
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/07/30/normal_1532976071.jpg",
-    "url": "https://www.youtube.com/watch?v=GFa8_p2CZkk",
+    "url": "",
     "where": "stopgame"
   },
   {
@@ -631,8 +643,68 @@
       "month": 8,
       "year": 2018
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
+    "where": "stopgame"
+  },
+  {
+    "title": "Игрочтиво. Жирная Сага и приключения Трояна",
+    "teaser_text": "Две небольшие визуальные новеллы из трешовой категории. В первой истории Евгений Шостик в роли задрота WoW постарается задействовать всё своё обаяние и заромансить женщину, а во второй Антон Паули отправится в упоротые приключение в шкуре кота. Контролировать всё это безумие согласился Евгений Баранов.",
+    "date": {
+      "day": 22,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/F-ynxb-gcPM/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=F-ynxb-gcPM",
+    "where": "stopgame"
+  },
+  {
+    "title": "Tropico 6. Шестой срок подряд",
+    "teaser_text": "Шестую Tropico уже перенесли всего один раз, и бац – игра почти готова. Настолько готова, что в Steam началась (и уже почти закончилась) открытая бета Tropico 6. Проверять, как дела у карибских диктаторов, вызвались Евгений Баранов и Антон Паули.",
+    "date": {
+      "day": 8,
+      "month": 3,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/FIB536QHVTg/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=FIB536QHVTg",
+    "where": "stopgame"
+  },
+  {
+    "title": "Lost Ark. Убиватели потерянного ковчега",
+    "teaser_text": "Евгений Баранов и Эльман Гусейнов на чужбине.",
+    "date": {
+      "day": 4,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/QAb-Myut8rM/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=QAb-Myut8rM",
+    "where": "stopgame"
+  },
+  {
+    "title": "The Sinking City. Ненастоящий детектив",
+    "teaser_text": "Евгений Баранов с Иваном Лоевым зовут Ктулху. Или он их.",
+    "date": {
+      "day": 27,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/RjmytRvgU3I/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=RjmytRvgU3I",
+    "where": "stopgame"
+  },
+  {
+    "title": "Conqueror's Blade. Враг сношает наши ворота!",
+    "teaser_text": "Евгений Баранов с Иваном Лоевым отправились на перепаханные поля очередных сражений.",
+    "date": {
+      "day": 29,
+      "month": 8,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/M3cOz5Freig/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=M3cOz5Freig",
     "where": "stopgame"
   },
   {
@@ -859,7 +931,7 @@
       "month": 11,
       "year": 2019
     },
-    "img": "./res/image/placeholder.png",
+    "img": "",
     "url": "",
     "where": "stopgame"
   }

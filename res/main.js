@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'dtf': 'dtf.png',
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
-        'lki': 'lki.gif',
-        'bestgamer': 'bestgamer.ico',
-        'zog': 'zog.jpg'
+        'lki': 'lki.png',
+        'bestgamer': 'bestgamerICON.png',
+        'zog': 'zog.png'
     };
 
     var fancy_names = {
@@ -72,9 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
+            .replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
             .replace('{year}', record.date.year)
-            .replace('{where}', record.where);
+			.replace('{where}', record.where);
+
+		if (record.date.day > 0) {
+			card = card.replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
+		} else {
+			card = card.replace('{date}', record.date.year + '.' + record.date.month)
+		}
+
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url))
         } else {
@@ -84,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (record.img) {
             card = card.replace('{img}', card_image.replace('{img}', record.img))
         } else {
-            card = card.replace('{img}', '')
+            card = card.replace('{img}', card_image.replace('{img}', './res/image/placeholder.png'))
         }
 
         if (logos[record.where]) {
@@ -103,8 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('records.loaded', function () {
-        console.log(records)
-
         records = records.sort(function (a, b) {
             let amonth;
             let bmonth;
