@@ -1,33 +1,32 @@
-if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
-
+if (self.document && !("insertAdjacentHTML" in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
     HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
         "use strict";
 
         let ref = this,
-            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
+            container = ref.ownerDocument.createElementNS('http://www.w3.org/1999/xhtml', '_'),
             ref_parent = ref.parentNode,
             node, first_child, next_sibling;
 
         container.innerHTML = html;
 
         switch (position.toLowerCase()) {
-            case "beforebegin":
+            case 'beforebegin':
                 while ((node = container.firstChild)) {
                     ref_parent.insertBefore(node, ref);
                 }
                 break;
-            case "afterbegin":
+            case 'afterbegin':
                 first_child = ref.firstChild;
                 while ((node = container.lastChild)) {
                     first_child = ref.insertBefore(node, first_child);
                 }
                 break;
-            case "beforeend":
+            case 'beforeend':
                 while ((node = container.firstChild)) {
                     ref.appendChild(node);
                 }
                 break;
-            case "afterend":
+            case 'afterend':
                 next_sibling = ref.nextSibling;
                 while ((node = container.lastChild)) {
                     next_sibling = ref_parent.insertBefore(node, next_sibling);
@@ -59,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let records = [];
+    let running_interval;
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
     });
@@ -106,10 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
             </div>
         </div>`;
-    const card_logo = '<img class="logo" src="{logo}">';
-    const card_image = '<img src="{img}" class="card-img-top" loading="lazy">';
+    const card_logo = '<img class="logo" src="{logo}" alt="logo">';
+    const card_image = '<img src="{img}" class="card-img-top" alt="card image" loading="lazy">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
+    const records_container = document.querySelector('#records_container');
+    const imgPlaceholder = './logo/placeholder.jpg'
 
     function draw_card(record) {
         let card = base_card
@@ -132,9 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
+            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=60&w=480&l=5&il'))
         } else {
-            card = card.replace('{img}', card_image.replace('{img}', './logo/placeholder.jpg'))
+            card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
         if (logos[record.where]) {
@@ -143,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        document.querySelector('#records_container').insertAdjacentHTML('beforeend', card)
+        records_container.insertAdjacentHTML('beforeend', card)
     }
 
     function* iterate(_records) {
@@ -155,30 +157,34 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(_records) {
         let mode = window.localStorage.getItem("draw_mode");
         switch(mode) {
-            case "deffered":
-                draw_generator(_records);
-                break;
-            case 'instant':
-            case null:
+            case "foreach":
                 draw_foreach(_records);
+                break;
+            case null:
+            case "generator":
+            default:
+                draw_generator(_records);
                 break;
         }
     }
 
     function draw_foreach(_records) {
-        console.log("drawing instant");
+        console.log("drawing with foreach");
         _records.forEach(record => {
             draw_card(record)
         })
     }
 
     function draw_generator(_records) {
-        console.log("drawing deffered");
-        let iterator = iterate(records);
-        let interval = setInterval(function () {
+        console.log("drawing with generator");
+        let iterator = iterate(_records);
+        if(running_interval) {
+            clearInterval(running_interval);
+        }
+        running_interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
-                clearInterval(interval);
+                clearInterval(running_interval);
             } else {
                 draw_card(iteritem.value);
             }
