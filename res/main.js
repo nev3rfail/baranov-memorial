@@ -147,7 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
+
         draw(records);
+        document.getElementById('placeholder').remove();
 
         var years = {};
         var sources = {};
@@ -166,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ++sources[record.where]
         }
 
-        Object.keys(years).forEach(year  => {
+        Object.keys(years).forEach(year => {
             let linkNode = document.createElement('a');
 
             linkNode.classList.add('dropdown-item');
@@ -234,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(filter({'where': e.target.dataset.where}))
             }
 
-            document.querySelector('#records_container').scrollIntoView({ behavior: 'smooth', block: 'start' })
+            document.querySelector('#records_container').scrollIntoView({behavior: 'smooth', block: 'start'})
         }
     });
 
