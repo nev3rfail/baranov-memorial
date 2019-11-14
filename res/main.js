@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=30&w=480&l=5&il'))
+            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=60&w=480&l=5&il'))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
