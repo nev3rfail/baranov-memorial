@@ -74,13 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace('{teaser_text}', record.teaser_text)
             .replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
             .replace('{year}', record.date.year)
-			.replace('{where}', record.where);
+            .replace('{where}', record.where);
 
-		if (record.date.day > 0) {
-			card = card.replace('{date}', record.date.year + '.' + record.date.month + '.' + record.date.day)
-		} else {
-			card = card.replace('{date}', record.date.year + '.' + record.date.month)
-		}
+        if (record.date.day > 0) {
+            card = card.replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
+        } else {
+            card = card.replace('{date}', record.date.month + '.' + record.date.year)
+        }
 
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url))
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!years[record.date.year]) {
                 years[record.date.year] = 0
             }
-            ++years[record.date.year]
+            ++years[record.date.year];
 
             if (!sources[record.where]) {
                 sources[record.where] = 0
@@ -167,23 +167,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         Object.keys(years).forEach(year  => {
-            let linkNode = document.createElement('a')
+            let linkNode = document.createElement('a');
 
-            linkNode.classList.add('dropdown-item')
-            linkNode.dataset.year = year
-            linkNode.textContent = year + ' (' + years[year] + ')'
-            linkNode.href = 'javascript:void(0)'
+            linkNode.classList.add('dropdown-item');
+            linkNode.dataset.year = year;
+            linkNode.textContent = year + ' (' + years[year] + ')';
+            linkNode.href = 'javascript:void(0)';
 
             document.querySelector('#filters_year').insertAdjacentElement('afterbegin', linkNode)
         });
 
         Object.keys(sources).forEach(source => {
-            let linkNode = document.createElement('a')
+            let linkNode = document.createElement('a');
 
-            linkNode.classList.add('dropdown-item')
-            linkNode.dataset.where = source
-            linkNode.textContent = fancy_names[source] + ' (' + sources[source] + ')'
-            linkNode.href = 'javascript:void(0)'
+            linkNode.classList.add('dropdown-item');
+            linkNode.dataset.where = source;
+            linkNode.textContent = fancy_names[source] + ' (' + sources[source] + ')';
+            linkNode.href = 'javascript:void(0)';
 
             document.querySelector('#filters_where').insertAdjacentElement('afterbegin', linkNode)
         });
@@ -236,17 +236,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelector('#records_container').scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
-    })
+    });
 
     Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
         document.querySelector(id).onclick = () => {
-            remove_cards()
+            remove_cards();
             draw(records)
         }
-    })
+    });
 
     document.querySelector('#draw_nourl').onclick = () => {
-        remove_cards()
+        remove_cards();
         draw(records.filter(function (record) {
             return !record.url
         }))
