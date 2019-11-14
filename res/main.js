@@ -305,11 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return true
             }
         })
-	}
+    }
 
-	function scroll_to_rc() {
-		return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
-	}
+    function scroll_to_rc() {
+        return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
+    }
 
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
@@ -323,21 +323,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if ('where' in e.target.dataset) {
                 draw(filter({'where': e.target.dataset.where}))
-			}
+            }
 
-			let mode = localStorage.getItem('draw_mode')
+            let mode = localStorage.getItem('draw_mode')
 
-			switch (mode) {
-				case "deffered":
-					setTimeout(() => {
-						scroll_to_rc()
-					}, 10);
-					break;
-				case 'instant':
-				case null:
-					scroll_to_rc()
-					break;
-			}
+            switch (mode) {
+                case "deffered":
+                    setTimeout(() => {
+                        scroll_to_rc()
+                    }, 10);
+                    break;
+                case 'instant':
+                case null:
+                    scroll_to_rc()
+                    break;
+            }
 
 
         }
