@@ -9,6 +9,7 @@
     },
     "img": "https://stopga.me/images/video/2019/11/06/-vximwE.jpg",
     "where": "stopgame",
+    "type": "video",
     "url": "https://stopgame.ru/show/106582/"
   },
   {
@@ -21,6 +22,7 @@
     },
     "img": "https://i.ytimg.com/vi/pxQJFChe_V8/maxresdefault.jpg",
     "where": "stopgame",
+    "type": "vreview",
     "url": "https://stopgame.ru/show/106542/"
   },
   {
@@ -33,6 +35,7 @@
     },
     "img": "https://stopga.me/images/articles/2019/10/23/IJZH34D.jpg",
     "where": "stopgame",
+    "type": "preview",
     "url": "https://stopgame.ru/show/106406/"
   },
   {
@@ -45,6 +48,7 @@
     },
     "img": "https://stopga.me/images/articles/2019/10/17/oc8PjkY.jpg",
     "where": "stopgame",
+    "type": "preview",
     "url": "https://stopgame.ru/show/106316/"
   },
   {
@@ -57,6 +61,7 @@
     },
     "img": "https://stopga.me/images/articles/2019/10/17/zd8_hgm.jpg",
     "where": "stopgame",
+    "type": "preview",
     "url": "https://stopgame.ru/show/106311/"
   },
   {
@@ -69,6 +74,7 @@
     },
     "img": "https://i.ytimg.com/vi/NuUR0WQzIjs/maxresdefault.jpg",
     "where": "stopgame",
+    "type": "review",
     "url": "https://stopgame.ru/show/106096/"
   },
   {
@@ -81,6 +87,7 @@
     },
     "img": "https://i.ytimg.com/vi/q65KeLnPjLw/maxresdefault.jpg",
     "where": "stopgame",
+    "type": "vreview",
     "url": "https://stopgame.ru/show/105975/"
   },
   {
@@ -93,6 +100,7 @@
     },
     "img": "https://i.ytimg.com/vi/GlAYMRT0Lww/maxresdefault.jpg",
     "where": "stopgame",
+    "type": "vreview",
     "url": "https://stopgame.ru/show/105771/"
   },
   {

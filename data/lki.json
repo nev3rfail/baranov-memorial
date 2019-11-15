@@ -9,6 +9,7 @@
     },
     "img": "https://i.postimg.cc/662Vj3sB/digest.jpg",
     "where": "lki",
+    "type": "review",
     "url": "http://lki.ru/text.php?id=6223"
   },
   {
@@ -21,6 +22,7 @@
     },
     "img": "https://wiki.teamfortress.com/w/images/thumb/9/93/MedicVidSplash.png/300px-MedicVidSplash.png",
     "where": "lki",
+    "type": "guide",
     "url": "http://lki.ru/text.php?id=6197"
   },
   {
@@ -33,6 +35,7 @@
     },
     "img": "https://wiki.teamfortress.com/w/images/thumb/2/21/EngineerVidSplash.png/300px-EngineerVidSplash.png",
     "where": "lki",
+    "type": "guide",
     "url": "http://lki.ru/text.php?id=6239"
   },
   {
