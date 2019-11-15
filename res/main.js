@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                     <div class="card-footer text-muted">
-                        {url} <span class="float-right">{date}</span>
+                        {url} <span class="float-right date-span">{date}</span>
                     </div>
             </div>
         </div>`;
