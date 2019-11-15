@@ -1,7 +1,7 @@
-if (self.document && !("insertAdjacentHTML" in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
-    HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
-        "use strict";
+'use strict';
 
+if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
+    HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
         let ref = this,
             container = ref.ownerDocument.createElementNS('http://www.w3.org/1999/xhtml', '_'),
             ref_parent = ref.parentNode,
@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg'
+    const draw_time = 10
 
     function format_date(date) {
         let date_str = date.day + ''
@@ -123,13 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             date_str = date_str + '.'       // 2-digit day
         }
-        
+
         if ((date.month + '').length === 1) {
             date_str = date_str + '0' + date.month + '.'
         } else {
             date_str = date_str + date.month + '.'
         }
-        
+
         date_str = date_str + date.year
         return date_str
     }
@@ -170,14 +171,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function draw(_records) {
-        let mode = localStorage.getItem("draw_mode");
+        let mode = localStorage.getItem('draw_mode');
 
         switch(mode) {
-            case "foreach":
+            case 'foreach':
                 draw_foreach(_records);
                 break;
             case null:
-            case "generator":
+            case 'generator':
             default:
                 draw_generator(_records);
                 break;
@@ -185,14 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function draw_foreach(_records) {
-        console.log("drawing with foreach");
+        console.log('drawing with foreach');
         _records.forEach(record => {
             draw_card(record)
         })
     }
 
     function draw_generator(_records) {
-        console.log("drawing with generator");
+        console.log('drawing with generator');
         let iterator = iterate(_records);
         if(running_interval) {
             clearInterval(running_interval);
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 draw_card(iteritem.value);
             }
-        }, 10);
+        }, draw_time);
     }
 
     document.addEventListener('records.loaded', function () {
@@ -243,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return 0
         });
-
 
         draw(records);
         document.getElementById('placeholder').remove();
@@ -339,13 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let mode = localStorage.getItem('draw_mode')
 
             switch (mode) {
-                case "deffered":
+                case 'foreach':
                     setTimeout(() => {
                         scroll_to_rc()
-                    }, 10);
+                    }, draw_time);
                     break;
-                case 'instant':
                 case null:
+                case 'generator':
+                default:
                     scroll_to_rc()
                     break;
             }
