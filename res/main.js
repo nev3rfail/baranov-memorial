@@ -1,33 +1,32 @@
-if (self.document && !("insertAdjacentHTML" in document.createElementNS("http://www.w3.org/1999/xhtml", "_"))) {
+'use strict';
 
+if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
     HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
-        "use strict";
-
         let ref = this,
-            container = ref.ownerDocument.createElementNS("http://www.w3.org/1999/xhtml", "_"),
+            container = ref.ownerDocument.createElementNS('http://www.w3.org/1999/xhtml', '_'),
             ref_parent = ref.parentNode,
             node, first_child, next_sibling;
 
         container.innerHTML = html;
 
         switch (position.toLowerCase()) {
-            case "beforebegin":
+            case 'beforebegin':
                 while ((node = container.firstChild)) {
                     ref_parent.insertBefore(node, ref);
                 }
                 break;
-            case "afterbegin":
+            case 'afterbegin':
                 first_child = ref.firstChild;
                 while ((node = container.lastChild)) {
                     first_child = ref.insertBefore(node, first_child);
                 }
                 break;
-            case "beforeend":
+            case 'beforeend':
                 while ((node = container.firstChild)) {
                     ref.appendChild(node);
                 }
                 break;
-            case "afterend":
+            case 'afterend':
                 next_sibling = ref.nextSibling;
                 while ((node = container.lastChild)) {
                     next_sibling = ref_parent.insertBefore(node, next_sibling);
@@ -45,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'kanobu': 'kanobu.png',
         'lki': 'lki.png',
         'bestgamer': 'bestgamerICON.png',
-        'zog': 'zog.png'
+        'zog': 'zog.png',
+        'vch': 'vch.png'
     };
 
     const fancy_names = {
@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'kanobu': 'Канобу',
         'lki': 'ЛКИ',
         'bestgamer': 'BestGamer.ru',
-        'zog': 'Zone of Games'
+        'zog': 'Zone of Games',
+        'vch': 'Вечерние Челны'
     };
 
     let full_recordset = [];
@@ -69,13 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const data_files = [
             'dtf_main',
             'igromania_main',
+            'igromania_forum',
             'stopgame_main',
             'stopgame_stream',
             'stopgame_infact',
             'kanobu',
             'lki',
             'bestgamer',
-            'zog'
+            'zog',
+            'vch'
         ];
         const needed = data_files.length;
         let finished = 0;
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                     <div class="card-footer text-muted">
-                        {url} <span class="float-right">{date}</span>
+                        {url} <span class="float-right date-span">{date}</span>
                     </div>
             </div>
         </div>`;
@@ -129,21 +132,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg';
     const placeholder_element = document.getElementById('placeholder');
+    const draw_time = 10;
 
+    function format_date(date) {
+        let date_str = date.day + '';
+
+        if (date_str === '0') {             // no day
+            date_str = ''
+        } else if (date_str.length === 1) { // 1-digit day
+            date_str = '0' + date_str + '.'
+        } else {
+            date_str = date_str + '.'       // 2-digit day
+        }
+
+        if ((date.month + '').length === 1) {
+            date_str = date_str + '0' + date.month + '.'
+        } else {
+            date_str = date_str + date.month + '.'
+        }
+
+        date_str = date_str + date.year;
+        return date_str
+    }
 
     function draw_card(record) {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
+            .replace('{date}', format_date(record.date))
             .replace('{year}', record.date.year)
             .replace('{where}', record.where);
-
-        if (record.date.day > 0) {
-            card = card.replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
-        } else {
-            card = card.replace('{date}', record.date.month + '.' + record.date.year)
-        }
 
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
@@ -191,21 +209,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         _records = paginate(_records);
 
-        let mode = window.localStorage.getItem("draw_mode");
+        let mode = localStorage.getItem("draw_mode");
 
         switch(mode) {
             case "foreach":
                 draw_foreach(_records);
                 break;
             case null:
-            case "generator":
+            case 'generator':
             default:
                 draw_generator(_records);
                 break;
         }
         setTimeout(() => {
             placeholder_element.classList.add("hidden");
-        }, 10);
+        }, draw_time);
     }
 
     function paginate(_records) {
@@ -236,16 +254,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function draw_foreach(_records) {
-        console.log("drawing with foreach");
+        console.log('drawing with foreach');
         _records.forEach(record => {
             draw_card(record)
         })
     }
 
     function draw_generator(_records) {
-        console.log("drawing with generator");
+        console.log('drawing with generator');
         let iterator = iterate(_records);
-        if(running_interval) {
+        if (running_interval) {
             clearInterval(running_interval);
         }
         running_interval = setInterval(function () {
@@ -255,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 draw_card(iteritem.value);
             }
-        }, 10);
+        }, draw_time);
     }
 
     document.addEventListener('records.loaded', function () {
@@ -299,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return 0
         });
+
 
         draw(full_recordset);
 
@@ -373,6 +392,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    function scroll_to_rc() {
+        return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
+    }
+
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
             if ('year' in e.target.dataset || 'where' in e.target.dataset) {
@@ -388,13 +411,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(filter({'where': e.target.dataset.where}))
             }
 
-            document.querySelector('#records_container').scrollIntoView({behavior: 'smooth', block: 'start'})
+            let mode = localStorage.getItem('draw_mode');
+
+            switch (mode) {
+                case 'foreach':
+                    setTimeout(() => {
+                        scroll_to_rc()
+                    }, draw_time);
+                    break;
+                case null:
+                case 'generator':
+                default:
+                    scroll_to_rc();
+                    break;
+            }
 
         } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
             remove_cards();
             console.log("Drawing page", current_page);
             current_page = e.target.dataset.page;
             draw();
+            let mode = localStorage.getItem('draw_mode');
+
+            switch (mode) {
+                case 'foreach':
+                    setTimeout(() => {
+                        scroll_to_rc()
+                    }, draw_time);
+                    break;
+                case null:
+                case 'generator':
+                default:
+                    scroll_to_rc();
+                    break;
+            }
         }
 
     });
