@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
-    const imgPlaceholder = './logo/placeholder.jpg'
+    const imgPlaceholder = './logo/placeholder.jpg';
     const placeholder_element = document.getElementById('placeholder');
 
 
@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         _records = paginate(_records);
 
         let mode = window.localStorage.getItem("draw_mode");
+
         switch(mode) {
             case "foreach":
                 draw_foreach(_records);
