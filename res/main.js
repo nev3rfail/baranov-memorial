@@ -59,6 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
         'vch': 'Вечерние Челны'
     };
 
+    const fancy_types = {
+        'stream': 'Трансляция',
+        'infact': 'Инфакт',
+        'article': 'Статья',
+        'video': 'Видео',
+        'review': 'Рецензия',
+        'preview': 'Превью',
+        'vreview': 'Видео-обзор',
+        'guide': 'Руководство',
+        'other': 'Другое'
+    };
+
     let records = [];
     let running_interval;
     const loaded_event = new CustomEvent('records.loaded', {
@@ -254,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const years = {};
         const sources = {};
+        const types = {};
 
         for (let i in records) {
             let record = records[i];
@@ -267,6 +280,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 sources[record.where] = 0
             }
             ++sources[record.where]
+
+            if (typeof record.type === 'undefined') record.type = "other"
+            if (!types[record.type]) {
+                types[record.type] = 0
+            }
+            ++types[record.type]
         }
 
         Object.keys(years).forEach(year => {
@@ -289,6 +308,17 @@ document.addEventListener('DOMContentLoaded', () => {
             linkNode.href = 'javascript:void(0)';
 
             document.querySelector('#filters_where').insertAdjacentElement('afterbegin', linkNode)
+        });
+
+        Object.keys(types).forEach(type => {
+            let linkNode = document.createElement('a');
+
+            linkNode.classList.add('dropdown-item');
+            linkNode.dataset.type = type;
+            linkNode.textContent = fancy_types[type] + ' (' + types[type] + ')';
+            linkNode.href = 'javascript:void(0)';
+
+            document.querySelector('#filters_type').insertAdjacentElement('afterbegin', linkNode)
         });
     });
 
