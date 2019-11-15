@@ -2135,5 +2135,17 @@
     "img": "https://i.ytimg.com/vi/P5qzUoMq97w/maxresdefault.jpg",
     "url": "https://youtu.be/P5qzUoMq97w",
     "where": "stopgame"
+  },
+  {
+    "title": "HITMAN 2. Призрачный кооператив",
+    "teaser_text": "Уже дважды мы обкатывали второй сезон киллерской эпопеи в рамках внезапных стримов, но настало время уверенной поступью пройтись по новинке в пятничном формате. Подготовились, облысели и готовы вас инструктировать Максим Кулаков и Евгений Баранов.",
+    "date": {
+      "day": 16,
+      "month": 11,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/s2H_EgEsqmk/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=s2H_EgEsqmk",
+    "where": "stopgame"
   }
 ]
