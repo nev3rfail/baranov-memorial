@@ -113,19 +113,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg'
 
+    function format_date(date) {
+        let date_str = date.day + ''
+
+        if (date_str == '0') {             // no day
+            date_str = ''
+        } else if (date_str.length === 1) { // 1-digit day
+            date_str = '0' + date_str + '.'
+        } else {
+            date_str = date_str + '.'       // 2-digit day
+        }
+        
+        if ((date.month + '').length === 1) {
+            date_str = date_str + '0' + date.month + '.'
+        } else {
+            date_str = date_str + date.month + '.'
+        }
+        
+        date_str = date_str + date.year
+        return date_str
+    }
+
     function draw_card(record) {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
-            .replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
+            .replace('{date}', format_date(record.date))
             .replace('{year}', record.date.year)
             .replace('{where}', record.where);
-
-        if (record.date.day > 0) {
-            card = card.replace('{date}', record.date.day + '.' + record.date.month + '.' + record.date.year)
-        } else {
-            card = card.replace('{date}', record.date.month + '.' + record.date.year)
-        }
 
         if (record.url) {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
