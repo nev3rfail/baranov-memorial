@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data_files = [
             'dtf_main',
             'igromania_main',
+            'igromania_forum',
             'stopgame_main',
             'stopgame_stream',
             'stopgame_infact',
