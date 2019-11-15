@@ -345,17 +345,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return records.filter(function (record) {
-            if (year !== undefined && where !== undefined && type !== undefined) {
-                return record.date.year === year && record.where === where && record.type === type
-            } else if (year !== undefined) {
-                return record.date.year === year
-            } else if (where !== undefined) {
-                return record.where === where
-            } else if (type !== undefined) {
-                return (record.type === type) || (record.type === undefined && type === 'other')
-            } else {
-                return true
-            }
+                                 //no filter               filter passed
+            let year_check = !(year !== undefined) || (record.year === year)
+                                 //no filter               filter passed
+            let where_check = !(where !== undefined) || (record.where === where)
+                                 //no filter               filter passed                    'other' category filter
+            let type_check = !(type !== undefined) || (record.type === type) || (type === 'other' && record.type === undefined)
+
+            
+            return year_check && where_check && type_check
         })
     }
 
