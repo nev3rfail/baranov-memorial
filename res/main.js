@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * pagination stuff
      */
     const pagination_item_base = `
-    <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{num}">{num}</a></li>
+    <li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>
 `;
     const pagination_container_top = document.querySelector("#pagination_container_top");
     const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
