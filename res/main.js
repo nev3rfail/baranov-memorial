@@ -338,14 +338,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filters['where'] !== undefined) {
             where = filters['where']
         }
+        
+        let type;
+        if (filters['type'] !== undefined) {
+            type = filters['type']
+        }
 
         return records.filter(function (record) {
-            if (year !== undefined && where !== undefined) {
-                return record.date.year === year && record.where === where
+            if (year !== undefined && where !== undefined && type !== undefined) {
+                return record.date.year === year && record.where === where && record.type === type
             } else if (year !== undefined) {
                 return record.date.year === year
             } else if (where !== undefined) {
                 return record.where === where
+            } else if (type !== undefined) {
+                return (record.type === type) || (record.type === undefined && type === 'other')
             } else {
                 return true
             }
@@ -358,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
-            if ('year' in e.target.dataset || 'where' in e.target.dataset) {
+            if ('year' in e.target.dataset || 'where' in e.target.dataset || 'type' in e.target.dataset) {
                 remove_cards()
             }
 
@@ -368,6 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if ('where' in e.target.dataset) {
                 draw(filter({'where': e.target.dataset.where}))
+            }
+
+            if ('type' in e.target.dataset) {
+                draw(filter({'type': e.target.dataset.type}))
             }
 
             let mode = localStorage.getItem('draw_mode');
