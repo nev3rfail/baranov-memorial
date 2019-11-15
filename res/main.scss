@@ -45,3 +45,11 @@ div#records_container {
 .container-fluid {
     width: 95%;
 }
+
+.hidden {
+    display:none !important;
+}
+
+.active > a.bg-primary, .active > button.bg-primary, button.bg-primary.active, a.bg-primary.active  {
+    background-color: #28415b !important;
+}

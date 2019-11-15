@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'vch': 'Вечерние Челны'
     };
 
-    let records = [];
+    let full_recordset = [];
+    let current_recordset = [];
     let running_interval;
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch('./data/' + data_files[i] + '.json')
                 .then(res => res.json())
                 .then(data => {
-                    records = records.concat(data);
+                    full_recordset = full_recordset.concat(data);
                     ++finished;
                     if (finished === needed) {
                         document.dispatchEvent(loaded_event)
@@ -94,6 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * pagination stuff
+     */
+    const pagination_item_base = `
+    <li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>
+`;
+    const pagination_container_top = document.querySelector("#pagination_container_top");
+    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
+    const per_page = 24;
+    let current_page = 1;
+
+    /**
+     * cards stuff
+     */
     const base_card = `
         <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
@@ -116,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg';
+    const placeholder_element = document.getElementById('placeholder');
     const draw_time = 10;
 
     function format_date(date) {
@@ -174,11 +190,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * draw центральная функция, вызывая её с записями в аргументе
+     * мы присваиваем глобальному current_recordset значение этих записей.
+     * если draw вызывается без аргумента то мы просто рендерит current_recordset
+     * с учётом текущего current_page.
+     * Это всё нужно для того, чтоб при применении фильтров нам не приходилось
+     * шерстить полный рекордсет и фильтровать при каждом переходе по страницам
+     * в пагинации.
+     *
+     */
     function draw(_records) {
-        let mode = localStorage.getItem('draw_mode');
+        if(_records === undefined) {
+            _records = current_recordset;
+        } else {
+            current_recordset = _records;
+        }
 
-        switch (mode) {
-            case 'foreach':
+        _records = paginate(_records);
+
+        let mode = localStorage.getItem("draw_mode");
+
+        switch(mode) {
+            case "foreach":
                 draw_foreach(_records);
                 break;
             case null:
@@ -187,6 +221,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw_generator(_records);
                 break;
         }
+        setTimeout(() => {
+            placeholder_element.classList.add("hidden");
+        }, draw_time);
+    }
+
+    function paginate(_records) {
+        let page = current_page;
+
+        let total_pages = Math.ceil(_records.length / per_page);
+        console.log("Total pages", total_pages);
+        if (pagination_container_top.childElementCount === total_pages) {
+            [pagination_container_top, pagination_container_bottom].forEach(container => {
+                container.querySelector("[class*=active]").classList.remove("active");
+                container.querySelector('[data-page="'+page+'"]').parentNode.classList.add("active");
+            })
+        } else {
+            pagination_container_top.innerHTML = '';
+            pagination_container_bottom.innerHTML = '';
+            for (let i = 0; i < total_pages; ++i) {
+                let pagination_item = pagination_item_base.replace(/{num}/g, i + 1);
+                if(i+1 == page) {
+                    pagination_item = pagination_item.replace("page-item", "page-item active");
+                }
+                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+            }
+        }
+
+        let offset = (page - 1) * per_page;
+        return _records.slice(offset, offset + per_page);
     }
 
     function draw_foreach(_records) {
@@ -213,7 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('records.loaded', function () {
-        records = records.sort(function (a, b) {
+        /**
+         * Необходимо отсортировать полный recordset
+         * для дальнейшего использования
+         *
+         */
+        full_recordset = full_recordset.sort(function (a, b) {
             let amonth;
             let bmonth;
             let aday;
@@ -249,14 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0
         });
 
-        draw(records);
-        document.getElementById('placeholder').remove();
+
+        draw(full_recordset);
 
         const years = {};
         const sources = {};
 
-        for (let i in records) {
-            let record = records[i];
+        for (let i in full_recordset) {
+            let record = full_recordset[i];
 
             if (!years[record.date.year]) {
                 years[record.date.year] = 0
@@ -295,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     compile_all();
 
     function remove_cards() {
+        placeholder_element.classList.remove("hidden");
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
@@ -309,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
             where = filters['where']
         }
 
-        return records.filter(function (record) {
+        return full_recordset.filter(function (record) {
             if (year !== undefined && where !== undefined) {
                 return record.date.year === year && record.where === where
             } else if (year !== undefined) {
@@ -329,6 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
             if ('year' in e.target.dataset || 'where' in e.target.dataset) {
+                current_page = 1;
                 remove_cards()
             }
 
@@ -354,20 +425,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     scroll_to_rc();
                     break;
             }
+
+        } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
+            remove_cards();
+            console.log("Drawing page", current_page);
+            current_page = e.target.dataset.page;
+            draw();
+            let mode = localStorage.getItem('draw_mode');
+
+            switch (mode) {
+                case 'foreach':
+                    setTimeout(() => {
+                        scroll_to_rc()
+                    }, draw_time);
+                    break;
+                case null:
+                case 'generator':
+                default:
+                    scroll_to_rc();
+                    break;
+            }
         }
+
     });
 
     Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
         document.querySelector(id).onclick = () => {
+            current_page = 1;
             remove_cards();
-            draw(records)
+            draw(full_recordset)
         }
     });
 
     document.querySelector('#draw_nourl').onclick = () => {
+        current_page = 1;
         remove_cards();
-        draw(records.filter(function (record) {
+        draw(full_recordset.filter(function (record) {
             return !record.url
         }))
     }
+
 });
