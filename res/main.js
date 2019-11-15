@@ -92,6 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * pagination stuff
+     */
+    const pagination_item_base = `
+    <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{num}">{num}</a></li>
+`;
+    const pagination_container_top = document.querySelector("#pagination_container_top");
+    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
+    const per_page = 24;
+    let current_page = 1;
+
+    /**
+     * cards stuff
+     */
     const base_card = `
         <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
@@ -114,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg'
+    const placeholder_element = document.getElementById('placeholder');
 
 
     function draw_card(record) {
@@ -174,6 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
             current_recordset = _records;
         }
 
+        _records = paginate(_records);
+
         let mode = window.localStorage.getItem("draw_mode");
         switch(mode) {
             case "foreach":
@@ -185,6 +202,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw_generator(_records);
                 break;
         }
+        placeholder_element.classList.add("hidden");
+    }
+
+    function paginate(_records) {
+        let page = current_page;
+
+        let total_pages = Math.ceil(_records.length / per_page);
+        console.log("??", total_pages);
+        if (pagination_container_top.childElementCount === total_pages) {
+            console.log("stub, activate new button");
+        } else {
+            pagination_container_top.innerHTML = '';
+            pagination_container_bottom.innerHTML = '';
+            for (let i = 0; i < total_pages; ++i) {
+                let pagination_item = pagination_item_base.replace(/{num}/g, i + 1);
+                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+            }
+        }
+
+        let offset = (page - 1) * per_page;
+        return _records.slice(offset, offset + per_page);
     }
 
     function draw_foreach(_records) {
@@ -253,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         draw(full_recordset);
-        document.getElementById('placeholder').remove();
 
         const years = {};
         const sources = {};
@@ -298,6 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     compile_all();
 
     function remove_cards() {
+        placeholder_element.classList.remove("hidden");
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
@@ -328,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
             if ('year' in e.target.dataset || 'where' in e.target.dataset) {
+                current_page = 1;
                 remove_cards()
             }
 
@@ -340,20 +380,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             document.querySelector('#records_container').scrollIntoView({behavior: 'smooth', block: 'start'})
+
+        } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
+            remove_cards();
+            console.log("pagination clicked", e.target, this);
+            current_page = e.target.dataset.page;
+            console.log(current_page, "calling draw");
+            draw();
         }
+
     });
 
     Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
         document.querySelector(id).onclick = () => {
+            current_page = 1;
             remove_cards();
             draw(full_recordset)
         }
     });
 
     document.querySelector('#draw_nourl').onclick = () => {
+        current_page = 1;
         remove_cards();
         draw(full_recordset.filter(function (record) {
             return !record.url
         }))
     }
+
 });
