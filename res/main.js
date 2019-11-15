@@ -227,27 +227,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function paginate(_records) {
-        let page = current_page;
-
+        const page = current_page;
         let total_pages = Math.ceil(_records.length / per_page);
-        console.log("Total pages", total_pages);
-        if (pagination_container_top.childElementCount === total_pages) {
+        console.log("Total pages", total_pages, "current page", current_page);
+        /*if (pagination_container_top.childElementCount === total_pages) {
             [pagination_container_top, pagination_container_bottom].forEach(container => {
                 container.querySelector("[class*=active]").classList.remove("active");
                 container.querySelector('[data-page="'+page+'"]').parentNode.classList.add("active");
             })
-        } else {
+        } else {*/
             pagination_container_top.innerHTML = '';
             pagination_container_bottom.innerHTML = '';
-            for (let i = 0; i < total_pages; ++i) {
-                let pagination_item = pagination_item_base.replace(/{num}/g, i + 1);
-                if(i+1 == page) {
+            let num_start;
+            let num_end;
+
+            if(page <= 3) {
+                num_start = 1;
+                num_end = 5;
+            } else {
+                num_start = page-2;
+            }
+
+            if(!num_end) {
+                if (page > total_pages - 3) {
+                    num_end = total_pages;
+                    num_start = total_pages-5;
+                } else {
+                    num_end = page + 2;
+                }
+            }
+
+            if(total_pages >= 5 && page-2 > 1) {
+                let pagination_item = pagination_item_base.replace(/{num}/, 1);
+                pagination_item = pagination_item.replace(/{num}/, "<<");
+                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+            }
+
+            for (let i = num_start; i <= num_end; ++i) {
+                console.log("drawing item", i);
+                let pagination_item = pagination_item_base.replace(/{num}/g, i);
+                if(i == page) {
                     pagination_item = pagination_item.replace("page-item", "page-item active");
                 }
                 pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
                 pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
             }
-        }
+
+            if(total_pages >= 5 && page+2 < total_pages) {
+                let pagination_item = pagination_item_base.replace(/{num}/, total_pages);
+                pagination_item = pagination_item.replace(/{num}/, ">>");
+                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+            }
+        //}
 
         let offset = (page - 1) * per_page;
         return _records.slice(offset, offset + per_page);
@@ -396,6 +429,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
     }
 
+    function route_scroll_to_rc() {
+        let mode = localStorage.getItem('draw_mode');
+        switch (mode) {
+            case 'foreach':
+                setTimeout(() => {
+                    scroll_to_rc()
+                }, draw_time);
+                break;
+            case null:
+            case 'generator':
+            default:
+                scroll_to_rc();
+                break;
+        }
+    }
+
     document.body.addEventListener('click', e => {
         if (e.target.classList.contains('dropdown-item')) {
             if ('year' in e.target.dataset || 'where' in e.target.dataset) {
@@ -411,40 +460,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(filter({'where': e.target.dataset.where}))
             }
 
-            let mode = localStorage.getItem('draw_mode');
-
-            switch (mode) {
-                case 'foreach':
-                    setTimeout(() => {
-                        scroll_to_rc()
-                    }, draw_time);
-                    break;
-                case null:
-                case 'generator':
-                default:
-                    scroll_to_rc();
-                    break;
-            }
+            route_scroll_to_rc();
 
         } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
             remove_cards();
+            current_page = Number(e.target.dataset.page);
             console.log("Drawing page", current_page);
-            current_page = e.target.dataset.page;
             draw();
-            let mode = localStorage.getItem('draw_mode');
 
-            switch (mode) {
-                case 'foreach':
-                    setTimeout(() => {
-                        scroll_to_rc()
-                    }, draw_time);
-                    break;
-                case null:
-                case 'generator':
-                default:
-                    scroll_to_rc();
-                    break;
-            }
+            route_scroll_to_rc();
         }
 
     });
