@@ -3,12 +3,12 @@
     "short_name": "\u041c\u0435\u043c\u043e\u0440\u0438\u0430\u043b \u0415.\u0411\u0430\u0440\u0430\u043d\u043e\u0432\u0430",
     "icons": [
         {
-            "src": "/icons/android-chrome-192x192.png?v=polina",
+            "src": "/android-chrome-192x192.png?v=canonical",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/icons/android-chrome-384x384.png?v=polina",
+            "src": "/android-chrome-384x384.png?v=canonical",
             "sizes": "384x384",
             "type": "image/png"
         }

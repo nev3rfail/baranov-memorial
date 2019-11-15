@@ -115,13 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
-    const imgPlaceholder = './logo/placeholder.jpg'
-    const draw_time = 10
+    const imgPlaceholder = './logo/placeholder.jpg';
+    const draw_time = 10;
 
     function format_date(date) {
-        let date_str = date.day + ''
+        let date_str = date.day + '';
 
-        if (date_str == '0') {             // no day
+        if (date_str === '0') {             // no day
             date_str = ''
         } else if (date_str.length === 1) { // 1-digit day
             date_str = '0' + date_str + '.'
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             date_str = date_str + date.month + '.'
         }
 
-        date_str = date_str + date.year
+        date_str = date_str + date.year;
         return date_str
     }
 
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(_records) {
         let mode = localStorage.getItem('draw_mode');
 
-        switch(mode) {
+        switch (mode) {
             case 'foreach':
                 draw_foreach(_records);
                 break;
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw_generator(_records) {
         console.log('drawing with generator');
         let iterator = iterate(_records);
-        if(running_interval) {
+        if (running_interval) {
             clearInterval(running_interval);
         }
         running_interval = setInterval(function () {
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(filter({'where': e.target.dataset.where}))
             }
 
-            let mode = localStorage.getItem('draw_mode')
+            let mode = localStorage.getItem('draw_mode');
 
             switch (mode) {
                 case 'foreach':
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 case null:
                 case 'generator':
                 default:
-                    scroll_to_rc()
+                    scroll_to_rc();
                     break;
             }
         }
