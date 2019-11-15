@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'kanobu': 'kanobu.png',
         'lki': 'lki.png',
         'bestgamer': 'bestgamerICON.png',
-        'zog': 'zog.png'
+        'zog': 'zog.png',
+        'vch': 'vch.png'
     };
 
     const fancy_names = {
@@ -54,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'kanobu': 'Канобу',
         'lki': 'ЛКИ',
         'bestgamer': 'BestGamer.ru',
-        'zog': 'Zone of Games'
+        'zog': 'Zone of Games',
+        'vch': 'Вечерние Челны'
     };
 
     let records = [];
@@ -73,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'kanobu',
             'lki',
             'bestgamer',
-            'zog'
+            'zog',
+            'vch'
         ];
         const needed = data_files.length;
         let finished = 0;
