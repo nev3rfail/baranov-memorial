@@ -660,18 +660,6 @@
     "where": "stopgame"
   },
   {
-    "title": "The Sinking City. Ненастоящий детектив",
-    "teaser_text": "Евгений Баранов с Иваном Лоевым зовут Ктулху. Или он их.",
-    "date": {
-      "day": 27,
-      "month": 6,
-      "year": 2019
-    },
-    "img": "https://i.ytimg.com/vi/RjmytRvgU3I/maxresdefault.jpg",
-    "url": "https://www.youtube.com/watch?v=RjmytRvgU3I",
-    "where": "stopgame"
-  },
-  {
     "title": "Conqueror's Blade. Враг сношает наши ворота!",
     "teaser_text": "Евгений Баранов с Иваном Лоевым отправились на перепаханные поля очередных сражений.",
     "date": {
@@ -708,18 +696,6 @@
     "where": "stopgame"
   },
   {
-    "title": "МАРАФОН WOLFENSTEIN. Когда фрицы были зеленее",
-    "teaser_text": "Глеб Мещеряков и Евгений Баранов продолжают затяжной ветеранский марафон на полях Wolfenstein: The Old Blood.",
-    "date": {
-      "day": 10,
-      "month": 9,
-      "year": 2019
-    },
-    "img": "https://stopga.me/images/uploads/images/52402/form/2019/09/11/normal_1568151379.jpg",
-    "url": "https://www.youtube.com/watch?v=aDGBGH6KQrQ",
-    "where": "stopgame"
-  },
-  {
     "title": "GREEDFALL. Жадность фраеров сгубила!",
     "teaser_text": "Евгений Баранов и Эльман Гусейнов посвящаются в скупые рыцари.",
     "date": {
@@ -741,18 +717,6 @@
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2019/09/14/normal_1568460757.jpg",
     "url": "https://www.youtube.com/watch?v=J4SmDA0YBEw",
-    "where": "stopgame"
-  },
-  {
-    "title": "МАРАФОН WOLFENSTEIN. На глиняных ногах?",
-    "teaser_text": "Глеб Мещеряков и Евгений Баранов продолжают затяжной ветеранский марафон на полях Wolfenstein II: The New Colossus.",
-    "date": {
-      "day": 18,
-      "month": 9,
-      "year": 2019
-    },
-    "img": "https://i.ytimg.com/vi/V-lEyGyka-k/maxresdefault.jpg",
-    "url": "https://www.youtube.com/watch?v=V-lEyGyka-k",
     "where": "stopgame"
   },
   {
@@ -813,18 +777,6 @@
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2019/10/13/normal_1570967264.jpg",
     "url": "https://www.youtube.com/watch?v=H9_HYtxYS9w",
-    "where": "stopgame"
-  },
-  {
-    "title": "WOLFENSTEIN RPG. DLC к марафону",
-    "teaser_text": "Если есть кому слушать (и смотреть), то Глебу Мещерякову и Евгению Баранову ещё есть что сказать (и показать) в рамках марафона «Вульфа», но уже в формате своеобразного постскриптума.",
-    "date": {
-      "day": 17,
-      "month": 10,
-      "year": 2019
-    },
-    "img": "https://i.ytimg.com/vi/yuYrELuCqYQ/maxresdefault.jpg",
-    "url": "https://www.youtube.com/watch?v=yuYrELuCqYQ",
     "where": "stopgame"
   },
   {
@@ -1680,18 +1632,6 @@
     "where": "stopgame"
   },
   {
-    "title": "Марафон Wolfenstein Судьба точёная",
-    "teaser_text": "Продолжение залихватского путешествия в далёкое шутерное прошлое под предводительством Глеба Мещерякова и Евгения Баранова.",
-    "date": {
-      "day": 28,
-      "month": 6,
-      "year": 2019
-    },
-    "img": "https://i.ytimg.com/vi/9Pvqg0029hU/maxresdefault.jpg",
-    "url": "https://www.youtube.com/watch?v=9Pvqg0029hU&feature=emb_title",
-    "where": "stopgame"
-  },
-  {
     "title": "Kingdom Under Fire II. Ролевые стратеги",
     "teaser_text": "Если вам надоели стандартные, шаблонные ММО-игры, то у нас для вас есть хорошая новость: скоро начнется тестирование Kingdom under Fire 2 — интересного сплава ролевого экшена и стратегии в реальном времени. Василий Гальперов и Евгений Баранов показали вам, как эти два жанра уживаются вместе.",
     "date": {
@@ -2098,6 +2038,186 @@
     },
     "img": "https://i.ytimg.com/vi/H6z-27ijqug/maxresdefault.jpg",
     "url": "https://www.youtube.com/watch?v=H6z-27ijqug",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Castle Wolfenstein, Beyond Castle Wolfenstein и Wolfenstein 3D",
+    "teaser_text": "На StopGame.ru начинается новая история серии в формате «лайв»: Глеб Мещеряков и Евгений Баранов решили основательно подготовиться к релизу Youngblood и Cyberpilot, так что на вас надвигается марафон по Wolfenstein во всём её многоликом великолепии. Премьерная трансляция затронула далеко не каждому известные проекты Castle Wolfenstein и Beyond Castle Wolfenstein, по сути зародивших на заре 80-х жанр стелс-экшен (да-да, «стелс», а не просто «экшен»). Однако без трёхмерности тоже не обошлось на протяжении более чем шести часов прямого эфира. Продолжение следует!",
+    "date": {
+      "day": 26,
+      "month": 5,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/bi_ZX9tkJS0/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=bi_ZX9tkJS0",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Часть 2",
+    "teaser_text": "Восстановив силы после нашумевшего «Ле-Мана», Глеб Мещеряков и Евгений Баранов возвращаются к прохождению серии Wolfenstein. На повестке — завершение классической трёхмерной игры. Интересные исторические факты из жизни нацисткой Германии прилагаются.",
+    "date": {
+      "day": 6,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/YxuT-da0vVA/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=YxuT-da0vVA",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Финишная ломаная — Wolfenstein 3D",
+    "teaser_text": "Да, мы немного погорячились, заявив в прошлый раз завершение Wolfenstein 3D. Старушка оказалась крепкой, поэтому необходим ещё один стрим! Впереди два последних игровых эпизода. В эфире по-прежнему Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 11,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/gF66qgeZN34/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=gF66qgeZN34",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein Судьба точёная",
+    "teaser_text": "Продолжение залихватского путешествия в далёкое шутерное прошлое под предводительством Глеба Мещерякова и Евгения Баранова.",
+    "date": {
+      "day": 27,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/9Pvqg0029hU/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=9Pvqg0029hU",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Возвращение к возвращению",
+    "teaser_text": "Продолжение залихватского путешествия в далёкое шутерное прошлое под предводительством Глеба Мещерякова и Евгения Баранова.",
+    "date": {
+      "day": 28,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/1GclWUYwrTE/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=1GclWUYwrTE",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Пневмопих 2",
+    "teaser_text": "Слышите ужасающий звук методично рассекаемого сталью воздуха? Это всё продолжение прохождения Return to Castle Wolfenstein от Глеба Мещерякова и Евгения Баранова.",
+    "date": {
+      "day": 30,
+      "month": 6,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/l5E2iJWZ7_o/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=l5E2iJWZ7_o",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. 10 years challenge — Wolfenstein (2009)",
+    "teaser_text": "10 лет — в глобальной истории период незначительный, однако сколько всего произошло за это время в игровой индустрии. Оглядываться на прошлое серии Wolfenstein, не забывая снабжать эфир интересными фактами, продолжают Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 13,
+      "month": 7,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/i-AyCwrK73M/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=i-AyCwrK73M",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Звезда по имени Шварцзонне",
+    "teaser_text": "Сопротивление передохнуло недельку, позволило вражеским негодяям немного зализать свои раны, но теперь оно с новой силой готово на них обрушиться, чтобы окончательно разбить. Обеспечивали наступление Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 22,
+      "month": 7,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/MaBLUjQvMvg/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=MaBLUjQvMvg",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein Не мы такие, порядок такой",
+    "teaser_text": "В преддверии выхода Wolfenstein: Youngblood наш марафон наконец-то добрался до актуальной версии Бласковица. Интересные факты и мастерство команды MachineGames обсуждают Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 25,
+      "month": 7,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/t3CRxC6l5Zg/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=t3CRxC6l5Zg",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Ни детей, ни плетей — Wolfenstein: The New Order",
+    "teaser_text": "Пробравшись через тернии недавно вышедшей Youngblood, мы возвращаемся к звёздам беззаботного прошлого. Хотя почему беззаботного — у Бласковица ещё много невыполненных задач. Помогать ему справляться с ними будут Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 10,
+      "month": 8,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/R7fzKgrdKAY/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=R7fzKgrdKAY",
+    "where": "stopgame"
+  },
+  {
+    "title": "Марафон Wolfenstein. Старая кровь лучше новых двух — Wolfenstein: The Old Blood",
+    "teaser_text": "Авторы серии Wolfenstein почему-то любят называть свои игры, как гематоген... Но стрим не об этом. Мы вновь сравниваем старые «Вульфы» и новые, а также удивляемся интересным историческим фактам. Мы — это Глеб Мещеряков и Евгений Баранов.",
+    "date": {
+      "day": 27,
+      "month": 8,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/hfC93ITK0hQ/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=hfC93ITK0hQ",
+    "where": "stopgame"
+  },
+  {
+    "title": "МАРАФОН WOLFENSTEIN. Когда фрицы были зеленее",
+    "teaser_text": "Глеб Мещеряков и Евгений Баранов продолжают затяжной ветеранский марафон на полях Wolfenstein: The Old Blood.",
+    "date": {
+      "day": 10,
+      "month": 9,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/aDGBGH6KQrQ/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=aDGBGH6KQrQ",
+    "where": "stopgame"
+  },
+  {
+    "title": "МАРАФОН WOLFENSTEIN. На глиняных ногах?",
+    "teaser_text": "Марафон выходит на финишную прямую! Остались ли у Евгения Баранова интересные факты, а у Глеба Мещерякова — желание их слушать? Конечно же да!",
+    "date": {
+      "day": 18,
+      "month": 9,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/V-lEyGyka-k/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=V-lEyGyka-k",
+    "where": "stopgame"
+  },
+  {
+    "title": "МАРАФОН WOLFENSTEIN. Будь здоров, Билли!",
+    "teaser_text": "Глеб Мещеряков и Евгений Баранов почти успели к выходу Wolfenstein: Youngblood! Финальная точка марафона поставлена — под аккомпанемент особо эпичных гитарных запилов Мика Гордона.",
+    "date": {
+      "day": 9,
+      "month": 10,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/zVXSJFt1ps4/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=zVXSJFt1ps4",
+    "where": "stopgame"
+  },
+  {
+    "title": "WOLFENSTEIN RPG. DLC к марафону",
+    "teaser_text": "Если есть кому слушать (и смотреть), то Глебу Мещерякову и Евгению Баранову ещё есть что сказать (и показать) в рамках марафона «Вульфа», но уже в формате своеобразного пост-скриптума.",
+    "date": {
+      "day": 17,
+      "month": 10,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/yuYrELuCqYQ/maxresdefault.jpg",
+    "url": "https://youtube.com/watch?v=yuYrELuCqYQ",
     "where": "stopgame"
   },
   {
