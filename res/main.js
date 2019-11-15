@@ -345,13 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return records.filter(function (record) {
-                                 //no filter               filter passed
-            let year_check = !(year !== undefined) || (record.year === year)
-                                 //no filter               filter passed
+                                 
+            let year_check = !(year !== undefined) || (record.year === year)    // (no filter) || (filter passed)
             let where_check = !(where !== undefined) || (record.where === where)
-                                 //no filter               filter passed                    'other' category filter
-            let type_check = !(type !== undefined) || (record.type === type) || (type === 'other' && record.type === undefined)
 
+            // (no filter) || (filter passed) || ('other' category filter)
+            let type_check = !(type !== undefined) || (record.type === type) || (type === 'other' && record.type === undefined)
             
             return year_check && where_check && type_check
         })
