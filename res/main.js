@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
+    Array.from(['#unfilter_year', '#unfilter_where', '#unfilter_type']).forEach(id => {
         document.querySelector(id).onclick = () => {
             remove_cards();
             draw(records)
