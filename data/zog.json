@@ -8,7 +8,7 @@
       "year": 2011
     },
     "img": "https://steam-zona.ru/uploads/1549953.png",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/23923-recenziya-pirates-of-black-cove-pc/"
   },
   {
@@ -20,7 +20,7 @@
       "year": 2011
     },
     "img": "https://upload.wikimedia.org/wikipedia/ru/4/4f/Worms-_Ultimate_Mayhem_Art1.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/24034-recenziya-worms-ultimate-mayhem--worms-uboynye-razborki--pc/"
   },
   {
@@ -32,7 +32,7 @@
       "year": 2011
     },
     "img": "https://s3.gaming-cdn.com/images/products/170/271x377/stronghold-3-gold-cover.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/24250-recenziya-stronghold-3-pc/"
   },
   {
@@ -44,7 +44,7 @@
       "year": 2012
     },
     "img": "https://u.kanobu.ru/images/2012/02/04/5e796b10-1141-4ba4-8378-d67b6959b870.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/24806-recenziya-jagged-alliance-back-in-action--jagged-alliance-back-in-action-snova-v-dele--pc/"
   },
   {
@@ -56,7 +56,7 @@
       "year": 2012
     },
     "img": "https://www.mobygames.com/images/covers/l/377971-men-of-war-condemned-heroes-windows-manual.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/25114-recenziya--shtrafbat--men-of-war-condemned-heroes-pc/"
   },
   {
@@ -68,7 +68,7 @@
       "year": 2012
     },
     "img": "https://f4.bcbits.com/img/a3206999613_10.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/25557-recenziya-confrontation--confrontation-poslednyaya-bitva--pc/"
   },
   {
@@ -80,7 +80,7 @@
       "year": 2012
     },
     "img": "https://upload.wikimedia.org/wikipedia/ru/a/ad/Botanicula.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/25818-recenziya-botanicula-pc/"
   },
   {
@@ -92,7 +92,7 @@
       "year": 2011
     },
     "img": "https://www.arthipo.com/image/cache/catalog/genel-tasarim/all-posters/oyun/0163-the-elder-scrollsV-skyrim-1000x1000.jpg",
-    "where": "zog", "tags": ["тэг"],
+    "where": "zog", "tags": ["текст","обзор"],
     "url": "https://forum.zoneofgames.ru/topic/24345-recenziya-the-elder-scrolls-5-skyrim-pc/"
   }
 ]
