@@ -18,7 +18,10 @@
     <meta name="theme-color" content="#303030">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css" integrity="sha256-6W1mxPaAt4a6pkJVW5x5Xmq/LvxuQpR9dlzgy77SeZs=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css"/>
     <link rel="stylesheet" href="dist/main.css?v=1">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default,fetch,Array.prototype.forEach%2CNodeList.prototype.forEach" defer></script>
 </head>
 
 <body>
@@ -58,6 +61,8 @@
                 <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">Github</a>
             </li>
         </ul>
+
+        <button class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#settingsModal">Настройки</button>
     </div>
 </nav>
 
@@ -129,10 +134,60 @@
     </div>
 </footer>
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default,fetch,Array.prototype.forEach%2CNodeList.prototype.forEach" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/popper.min.js" integrity="sha256-1XfFQxRfNvDJW3FdZ+xlo2SbodG2+rFArw6XsVzu3bc=" crossorigin="anonymous" type="module" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous" defer></script>
+<div class="modal fade" id="settingsModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="settingsModalLabel">Настройки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="settings_form">
+                    <div class="form-group">
+                        <label for="image_quality_setting">Качество превью</label>
+                        <input type="range" class="form-control custom-range" min="10" max="100" step="10" id="image_quality_setting">
+                        <small class="form-text text-muted">Чем больше значение, тем выше качество превью (ценой трафика).</small>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <label for="per_page_setting">Материалов на страницу</label>
+                        <input type="range" class="form-control custom-range" min="24" max="1008" step="12" id="per_page_setting">
+                        <small class="form-text text-muted">Чем больше значение, тем больше карточек на одну страницу. Выбор очень высокого значения может повлечь за собой ухудшение производительности!</small>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <label for="draw_mode_standard">Вариант отрисовки карточек</label>
+                        <br/>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="draw_mode_standard" name="draw_mode_setting" class="custom-control-input" value="standard">
+                            <label class="custom-control-label" for="draw_mode_standard">Обычный</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="draw_mode_generator" name="draw_mode_setting" class="custom-control-input" value="generator">
+                            <label class="custom-control-label" for="draw_mode_generator">Старый</label>
+                        </div>
+                        <small class="form-text text-muted">ТОЛЬКО ДЛЯ ТЕСТИРОВАНИЯ! Не меняйте, если не знаете, что делаете.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="text-muted">Настройки сохраняются сразу после изменения.</span>
+                <button type="button" class="btn btn-secondary" id="default_settings">Сбросить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- https://thednp.github.io/bootstrap.native/v4.html -->
+<script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.15/dist/bootstrap-native-v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
 
 <script src="dist/main.js?v=1" defer></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->

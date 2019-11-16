@@ -37,7 +37,18 @@ if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://
     };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+const default_settings = {
+    'per_page': 24,
+    'image_quality': 80,
+    'draw_mode': 'standard'
+};
+let settings = {
+    'per_page': Number(localStorage.getItem('per_page') || default_settings.per_page),
+    'image_quality': Number(localStorage.getItem('image_quality') || default_settings.image_quality),
+    'draw_mode': localStorage.getItem('draw_mode') in ['standard', 'generator'] ? localStorage.getItem('draw_mode') : default_settings.draw_mode
+};
+
+document.addEventListener('DOMContentLoaded', (key, value) => {
     const logos = {
         'igromania': 'igromania.svg',
         'dtf': 'dtf.png',
@@ -182,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=60&w=480&l=5&il'))
+            card = card.replace('{img}', card_image.replace('{img}', `https://images.weserv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&output=jpg`))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
@@ -193,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        console.log(records_container.insertAdjacentHTML('beforeend', card));
+        records_container.insertAdjacentHTML('beforeend', card);
     }
 
     /**
@@ -227,9 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         _records = paginate(_records);
 
-        let mode = localStorage.getItem('draw_mode');
-
-        if (mode === 'generator') {
+        if (settings.draw_mode === 'generator') {
             draw_generator(_records);
         } else {
             draw_foreach(_records);
@@ -250,19 +259,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
 
     let current_page = 1;
-    const per_page = localStorage.getItem('per_page') || 24;
-    const visible_pages = localStorage.getItem('visible_pages') || 6; // Choose only even numbers for greater UI
+    const visible_pages = 6; // Choose only even numbers for greater UI
     const pages_before_after = Math.floor(visible_pages / 2) - 1;
 
     /**
      * Paginator
-     * @param {Object} [_records]
+     * @param {Object} _records
+     * @param {Number} per_page
      * @returns {*}
      */
-    function paginate(_records) {
+    function paginate(_records, per_page = Number(settings.per_page)) {
         const page = current_page;
         let total_pages = Math.ceil(_records.length / per_page);
+
+        if (per_page >= _records.length) {
+            per_page = _records.length;
+        }
+
         console.group('Pagination details');
+        console.log('Per page:', per_page);
         console.log('Total pages:', total_pages);
         console.log('Current page:', current_page);
         console.log('Visible pages:', visible_pages);
@@ -528,8 +543,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, draw_time);
     }
 
-    Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
-        document.querySelector(id).onclick = () => {
+    Array.from(['unfilter_year', 'unfilter_where']).forEach(id => {
+        document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
             document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
@@ -539,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.querySelector('#draw_nourl').onclick = () => {
+    document.getElementById('draw_nourl').onclick = () => {
         current_page = 1;
         remove_cards();
         let nourl_recordset = full_recordset.filter(function (record) {
@@ -549,5 +564,37 @@ document.addEventListener('DOMContentLoaded', () => {
         draw(nourl_recordset);
 
         route_scroll_to_rc();
+    };
+
+    document.getElementById('default_settings').onclick = () => {
+        if (confirm('Данное действие сбросит все настройки. Продолжить?')) {
+            updateSettings(default_settings);
+        }
+    };
+
+    document.getElementById('settings_form').oninput = (event) => {
+        let new_settings = {
+            'per_page': document.getElementById('per_page_setting').value,
+            'image_quality': document.getElementById('image_quality_setting').value,
+            'draw_mode': document.querySelector('[name=draw_mode_setting]:checked').value
+        };
+
+        console.log(new_settings);
+        updateSettings(new_settings);
+    };
+
+    function updateSettings(new_settings) {
+        settings = new_settings;
+        Object.keys(new_settings).forEach(setting => {
+            localStorage.setItem(setting, new_settings[setting]);
+
+            if (setting === 'draw_mode') {
+                document.getElementById(`draw_mode_${new_settings[setting]}`).checked = 'on';
+            } else {
+                document.getElementById(setting + '_setting').value = new_settings[setting];
+            }
+        });
     }
+
+    updateSettings(settings);
 });
