@@ -8,7 +8,7 @@
       "year": 2011
     },
     "img": "https://i.postimg.cc/662Vj3sB/digest.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","обзор"],
     "url": "http://lki.ru/text.php?id=6223"
   },
   {
@@ -20,7 +20,7 @@
       "year": 2011
     },
     "img": "https://wiki.teamfortress.com/w/images/thumb/9/93/MedicVidSplash.png/300px-MedicVidSplash.png",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","руководство"],
     "url": "http://lki.ru/text.php?id=6197"
   },
   {
@@ -32,7 +32,7 @@
       "year": 2011
     },
     "img": "https://wiki.teamfortress.com/w/images/thumb/2/21/EngineerVidSplash.png/300px-EngineerVidSplash.png",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","руководство"],
     "url": "http://lki.ru/text.php?id=6239"
   },
   {
@@ -44,7 +44,7 @@
       "year": 2011
     },
     "img": "https://cs11.pikabu.ru/post_img/big/2019/04/08/11/1554751734151928391.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","подборка"],
     "url": "http://lki.ru/text.php?id=6313"
   },
   {
@@ -56,7 +56,7 @@
       "year": 2011
     },
     "img": "https://i.ytimg.com/vi/04m9HACCUPU/maxresdefault.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","подборка"],
     "url": "http://lki.ru/text.php?id=6364"
   },
   {
@@ -68,7 +68,7 @@
       "year": 2011
     },
     "img": "https://i.postimg.cc/Jhfhx27R/tf2evo.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","статья"],
     "url": "http://lki.ru/text.php?id=6264"
   },
   {
@@ -80,7 +80,7 @@
       "year": 2011
     },
     "img": "https://i.postimg.cc/Xqf4nz7j/badland.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","статья"],
     "url": "http://lki.ru/text.php?id=6430"
   },
   {
@@ -92,7 +92,7 @@
       "year": 2011
     },
     "img": "http://www.psychologyofgames.com/wp-content/uploads/2015/02/tf2_rvb.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","статья"],
     "url": "http://lki.ru/text.php?id=6467"
   },
   {
@@ -104,7 +104,7 @@
       "year": 2011
     },
     "img": "https://i.postimg.cc/FzGkx47q/mouse.jpg",
-    "where": "lki", "tags": ["тэг"],
+    "where": "lki", "tags": ["текст","статья"],
     "url": "http://lki.ru/text.php?id=6471"
   }
 ]
