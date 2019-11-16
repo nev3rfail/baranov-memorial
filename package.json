@@ -29,5 +29,9 @@
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "browserslist": [
+    "defaults",
+    "not dead"
+  ]
 }
