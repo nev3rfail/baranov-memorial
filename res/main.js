@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
         let year_filter = '';
-        Object.keys(years).forEach(year => {
+        Object.keys(years).reverse().forEach(year => {
             year_filter += filter_item
                 .replace(/{filter}/, 'year')
                 .replace(/data-where="{where}"/, '')
@@ -447,7 +447,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', year_filter);
 
         let source_filter = '';
-        Object.keys(sources).forEach(source => {
+        Object.keys(sources).sort(function (a, b) {
+            if (sources[a] > sources[b]) {
+                return -1;
+            }
+            if (sources[a] < sources[b]) {
+                return 1;
+            }
+
+            return 0;
+        }).forEach(source => {
             source_filter += filter_item
                 .replace(/{filter}/, 'source')
                 .replace(/data-year="{year}"/, '')
