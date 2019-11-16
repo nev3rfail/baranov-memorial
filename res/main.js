@@ -98,9 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * pagination stuff
      */
-    const pagination_item_base = `
-    <li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>
-`;
+    const pagination_item_base = `<li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>`;
     const pagination_container_top = document.querySelector("#pagination_container_top");
     const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
     const per_page = 24;
@@ -248,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 num_start = page-2;
             }
 
-            if(!num_end) {
+            if (!num_end) {
                 if (page > total_pages - 3) {
                     num_end = total_pages;
                     num_start = total_pages-5;
@@ -257,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if(total_pages >= 5 && page-2 > 1) {
+            if (total_pages >= 5 && page-2 > 1) {
                 let pagination_item = pagination_item_base.replace(/{num}/, 1);
                 pagination_item = pagination_item.replace(/{num}/, "<<");
                 pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
@@ -274,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
             }
 
-            if(total_pages >= 5 && page+2 < total_pages) {
+            if (total_pages >= 5 && page+2 < total_pages) {
                 let pagination_item = pagination_item_base.replace(/{num}/, total_pages);
                 pagination_item = pagination_item.replace(/{num}/, ">>");
                 pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
@@ -426,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function scroll_to_rc() {
-        return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
+        pagination_container_top.scrollIntoView({behavior: 'smooth', block: 'start'})
     }
 
     function route_scroll_to_rc() {
@@ -488,5 +486,4 @@ document.addEventListener('DOMContentLoaded', () => {
             return !record.url
         }))
     }
-
 });
