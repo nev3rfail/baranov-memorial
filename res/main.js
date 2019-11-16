@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let full_recordset = [];
     let current_recordset = [];
     let running_interval;
-    let pagination_container_height = '1080';
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
     });
@@ -480,8 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     compile_all();
 
     function remove_cards() {
-        console.warn(pagination_container_height);
-        document.getElementById('records_container').style.height = `${pagination_container_height}px`;
+        document.getElementById('records_container').style.height = `1080px`;
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
@@ -502,9 +500,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return full_recordset.filter(function (record) {
             if (year !== undefined && where !== undefined) {
-                return record.date.year === year && record.where === where
+                return record.date.year === Number(year) && record.where === where
             } else if (year !== undefined) {
-                return record.date.year === year
+                return record.date.year === Number(year)
             } else if (where !== undefined) {
                 return record.where === where
             } else {
