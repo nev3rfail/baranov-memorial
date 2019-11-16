@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        records_container.insertAdjacentHTML('beforeend', card)
+        console.log(records_container.insertAdjacentHTML('beforeend', card));
     }
 
     /**
