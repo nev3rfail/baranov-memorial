@@ -126,12 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const card_logo = '<img class="logo" src="{logo}" alt="logo">';
     const card_image = '<img src="{img}" class="card-img-top" alt="card image" loading="lazy">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
+
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg';
     const placeholder_element = document.getElementById('placeholder');
     const draw_time = 10;
 
+    /**
+     * Format date
+     * @param {Object} date
+     * @param {Number} date.day
+     * @param {Number} date.month
+     * @param {Number} date.year
+     * @returns {string}
+     */
     function format_date(date) {
         let date_str = date.day + '';
 
@@ -153,12 +162,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return date_str
     }
 
+    /**
+     * Draw a card
+     * @param {Object} record
+     * @param {String} record.title
+     * @param {String} record.teaser_text
+     * @param {Object} record.date
+     * @param {Number} record.date.day
+     * @param {Number} record.date.month
+     * @param {Number} record.date.year
+     * @param {String} record.img
+     * @param {String} record.where
+     * @param {String} record.url
+     */
     function draw_card(record) {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
             .replace('{date}', format_date(record.date))
-            .replace('{year}', record.date.year)
+            .replace('{year}', record.date.year.toString())
             .replace('{where}', record.where);
 
         if (record.url) {
@@ -182,14 +204,19 @@ document.addEventListener('DOMContentLoaded', () => {
         records_container.insertAdjacentHTML('beforeend', card)
     }
 
+    /**
+     * Iterate generator
+     * @param {Object} _records
+     * @returns {Generator<*, void, ?>}
+     */
     function* iterate(_records) {
-        for (let i in _records) {
+        for (let i in _records) if (_records.hasOwnProperty(i)) {
             yield _records[i];
         }
     }
 
     /**
-     * draw центральная функция, вызывая её с записями в аргументе
+     * draw - центральная функция, вызывая её с записями в аргументе
      * мы присваиваем глобальному current_recordset значение этих записей.
      * если draw вызывается без аргумента то мы просто рендерит current_recordset
      * с учётом текущего current_page.
@@ -197,9 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * шерстить полный рекордсет и фильтровать при каждом переходе по страницам
      * в пагинации.
      *
+     * @param {Object} [_records]
      */
     function draw(_records) {
-        if(_records === undefined) {
+        if (_records === undefined) {
             _records = current_recordset;
         } else {
             current_recordset = _records;
@@ -209,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let mode = localStorage.getItem("draw_mode");
 
-        switch(mode) {
+        switch (mode) {
             case "foreach":
                 draw_foreach(_records);
                 break;
@@ -224,6 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, draw_time);
     }
 
+    /**
+     * Paginator
+     * @param {Object} [_records]
+     * @returns {*}
+     */
     function paginate(_records) {
         const page = current_page;
         let total_pages = Math.ceil(_records.length / per_page);
@@ -234,56 +267,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 container.querySelector('[data-page="'+page+'"]').parentNode.classList.add("active");
             })
         } else {*/
-            pagination_container_top.innerHTML = '';
-            pagination_container_bottom.innerHTML = '';
-            let num_start;
-            let num_end;
+        pagination_container_top.innerHTML = '';
+        pagination_container_bottom.innerHTML = '';
+        let num_start;
+        let num_end;
 
-            if(page <= 3) {
-                num_start = 1;
-                num_end = 5;
+        if (page <= 3) {
+            num_start = 1;
+            num_end = 5;
+        } else {
+            num_start = page - 2;
+        }
+
+        if (!num_end) {
+            if (page > total_pages - 3) {
+                num_end = total_pages;
+                num_start = total_pages - 5;
             } else {
-                num_start = page-2;
+                num_end = page + 2;
             }
+        }
 
-            if (!num_end) {
-                if (page > total_pages - 3) {
-                    num_end = total_pages;
-                    num_start = total_pages-5;
-                } else {
-                    num_end = page + 2;
-                }
-            }
+        if (total_pages >= 5 && page - 2 > 1) {
+            let pagination_item = pagination_item_base.replace(/{num}/, total_pages.toString());
+            pagination_item = pagination_item.replace(/{num}/, "<<");
+            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        }
 
-            if (total_pages >= 5 && page-2 > 1) {
-                let pagination_item = pagination_item_base.replace(/{num}/, 1);
-                pagination_item = pagination_item.replace(/{num}/, "<<");
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        for (let i = num_start; i <= num_end; ++i) {
+            console.log("drawing item", i);
+            let pagination_item = pagination_item_base.replace(/{num}/g, i);
+            if (i === page) {
+                pagination_item = pagination_item.replace("page-item", "page-item active");
             }
+            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        }
 
-            for (let i = num_start; i <= num_end; ++i) {
-                console.log("drawing item", i);
-                let pagination_item = pagination_item_base.replace(/{num}/g, i);
-                if(i == page) {
-                    pagination_item = pagination_item.replace("page-item", "page-item active");
-                }
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
-            }
-
-            if (total_pages >= 5 && page+2 < total_pages) {
-                let pagination_item = pagination_item_base.replace(/{num}/, total_pages);
-                pagination_item = pagination_item.replace(/{num}/, ">>");
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
-            }
+        if (total_pages >= 5 && page + 2 < total_pages) {
+            let pagination_item = pagination_item_base.replace(/{num}/, total_pages.toString());
+            pagination_item = pagination_item.replace(/{num}/, ">>");
+            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
+            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        }
         //}
 
         let offset = (page - 1) * per_page;
         return _records.slice(offset, offset + per_page);
     }
 
+    /**
+     * @param {Object} _records
+     */
     function draw_foreach(_records) {
         console.log('drawing with foreach');
         _records.forEach(record => {
@@ -291,6 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    /**
+     * @param {Object} _records
+     */
     function draw_generator(_records) {
         console.log('drawing with generator');
         let iterator = iterate(_records);
@@ -311,7 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Необходимо отсортировать полный recordset
          * для дальнейшего использования
-         *
          */
         full_recordset = full_recordset.sort(function (a, b) {
             let amonth;
@@ -349,13 +387,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0
         });
 
-
         draw(full_recordset);
 
         const years = {};
         const sources = {};
 
-        for (let i in full_recordset) {
+        for (let i in full_recordset) if (full_recordset.hasOwnProperty(i)) {
             let record = full_recordset[i];
 
             if (!years[record.date.year]) {
@@ -399,6 +436,10 @@ document.addEventListener('DOMContentLoaded', () => {
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
+    /**
+     * @param filters
+     * @returns {*[]}
+     */
     function filter(filters) {
         let year;
         if (filters['year'] !== undefined) {
@@ -460,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             route_scroll_to_rc();
 
-        } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
+        } else if (e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
             remove_cards();
             current_page = Number(e.target.dataset.page);
             console.log("Drawing page", current_page);
