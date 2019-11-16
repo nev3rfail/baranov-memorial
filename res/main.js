@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>`;
     const card_logo = '<img class="logo" src="{logo}" alt="logo">';
-    const card_image = '<img src="{img}" class="card-img-top" alt="card image" loading="lazy">';
+    const card_image = '<img src="{img}" class="card-img-top" alt="card image">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
@@ -227,12 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         _records = paginate(_records);
 
-        let mode = localStorage.getItem("draw_mode");
+        let mode = localStorage.getItem('draw_mode');
 
-        if (mode === "foreach") {
-            draw_foreach(_records);
-        } else {
+        if (mode === 'generator') {
             draw_generator(_records);
+        } else {
+            draw_foreach(_records);
         }
 
         setTimeout(() => {
@@ -328,14 +328,16 @@ document.addEventListener('DOMContentLoaded', () => {
         pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_dom);
 
         document.querySelectorAll('.paginator-button').forEach(item => {
-            item.addEventListener('click', () => {
-                remove_cards();
-                current_page = Number(item.dataset.page);
-                console.log("Drawing page", current_page);
-                draw();
+            if (Number(item.dataset.page) !== current_page) {
+                item.addEventListener('click', () => {
+                    remove_cards();
+                    current_page = Number(item.dataset.page);
+                    console.log("Drawing page", current_page);
+                    draw();
 
-                route_scroll_to_rc();
-            });
+                    route_scroll_to_rc();
+                });
+            }
         });
 
         let offset = (page - 1) * per_page;
