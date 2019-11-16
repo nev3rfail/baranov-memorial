@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let full_recordset = [];
     let current_recordset = [];
     let running_interval;
+    let pagination_container_height = '1080';
     const loaded_event = new CustomEvent('records.loaded', {
         bubbles: true
     });
@@ -236,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setTimeout(() => {
+            document.getElementById('records_container').style.height = '';
             placeholder_element.classList.remove('d-block');
             placeholder_element.classList.add('d-none');
         }, draw_time);
@@ -478,7 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
     compile_all();
 
     function remove_cards() {
-        placeholder_element.classList.remove("hidden");
+        console.warn(pagination_container_height);
+        document.getElementById('records_container').style.height = `${pagination_container_height}px`;
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
