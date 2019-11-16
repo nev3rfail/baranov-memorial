@@ -1,5 +1,6 @@
 'use strict';
 
+// insertAdjacentHTML polyfill for IE
 if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
     HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
         let ref = this,
@@ -94,15 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
         }
     }
-
-    /**
-     * pagination stuff
-     */
-    const pagination_item_base = `<li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>`;
-    const pagination_container_top = document.querySelector("#pagination_container_top");
-    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
-    const per_page = 24;
-    let current_page = 1;
 
     /**
      * cards stuff
@@ -237,20 +229,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let mode = localStorage.getItem("draw_mode");
 
-        switch (mode) {
-            case "foreach":
-                draw_foreach(_records);
-                break;
-            case null:
-            case 'generator':
-            default:
-                draw_generator(_records);
-                break;
+        if (mode === "foreach") {
+            draw_foreach(_records);
+        } else {
+            draw_generator(_records);
         }
+
         setTimeout(() => {
-            placeholder_element.classList.add("hidden");
+            placeholder_element.classList.remove('d-block');
+            placeholder_element.classList.add('d-none');
         }, draw_time);
     }
+
+    /**
+     * pagination stuff
+     */
+    const pagination_item_base = `<li class="page-item {state}"><button class="page-link paginator-button" data-page="{num}">{num}</button></li>`;
+    const pagination_container_top = document.querySelector("#pagination_container_top");
+    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
+
+    let current_page = 1;
+    const per_page = localStorage.getItem('per_page') || 24;
+    const visible_pages = localStorage.getItem('visible_pages') || 6; // Choose only even numbers for greater UI
+    const pages_before_after = Math.floor(visible_pages / 2) - 1;
 
     /**
      * Paginator
@@ -260,58 +261,81 @@ document.addEventListener('DOMContentLoaded', () => {
     function paginate(_records) {
         const page = current_page;
         let total_pages = Math.ceil(_records.length / per_page);
-        console.log("Total pages", total_pages, "current page", current_page);
-        /*if (pagination_container_top.childElementCount === total_pages) {
-            [pagination_container_top, pagination_container_bottom].forEach(container => {
-                container.querySelector("[class*=active]").classList.remove("active");
-                container.querySelector('[data-page="'+page+'"]').parentNode.classList.add("active");
-            })
-        } else {*/
+        console.group('Pagination details');
+        console.log('Total pages:', total_pages);
+        console.log('Current page:', current_page);
+        console.log('Visible pages:', visible_pages);
+        console.log('Pages before and after:', pages_before_after);
+        console.groupEnd();
+
         pagination_container_top.innerHTML = '';
         pagination_container_bottom.innerHTML = '';
-        let num_start;
-        let num_end;
+        let num_start = 1;
+        let num_end = total_pages;
 
-        if (page <= 3) {
-            num_start = 1;
-            num_end = 5;
-        } else {
-            num_start = page - 2;
-        }
+        if (total_pages >= visible_pages) {
+            num_end = visible_pages;
 
-        if (!num_end) {
-            if (page > total_pages - 3) {
+            if (page > pages_before_after + 1) {
+                num_start = page - pages_before_after;
+                num_end = page + pages_before_after;
+            }
+
+            if (page >= total_pages - pages_before_after) {
+                num_start = total_pages - visible_pages + 1;
                 num_end = total_pages;
-                num_start = total_pages - 5;
-            } else {
-                num_end = page + 2;
             }
         }
 
-        if (total_pages >= 5 && page - 2 > 1) {
-            let pagination_item = pagination_item_base.replace(/{num}/, total_pages.toString());
-            pagination_item = pagination_item.replace(/{num}/, "<<");
-            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        console.groupCollapsed('Pagination drawing');
+        let pagination_dom = '';
+
+        // Start button
+        if (total_pages > 2) {
+            pagination_dom += pagination_item_base
+                .replace(/{num}/, '1') // data-num
+                .replace(/{num}/, '&laquo; <em>1</em>') // button text
+                .replace(/{state}/, page === 1 ? 'active' : '');
+            console.log('<<');
         }
 
+        // Pages
         for (let i = num_start; i <= num_end; ++i) {
-            console.log("drawing item", i);
-            let pagination_item = pagination_item_base.replace(/{num}/g, i);
-            if (i === page) {
-                pagination_item = pagination_item.replace("page-item", "page-item active");
+            if (total_pages > 2) {
+                if (page <= visible_pages && i === 1) continue;
+                if (page >= total_pages - visible_pages + 1 && i === total_pages) continue;
             }
-            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+
+            pagination_dom += pagination_item_base
+                .replace(/{num}/g, i)
+                .replace(/{state}/, i === page ? 'active' : '');
+            console.log('Page', i)
         }
 
-        if (total_pages >= 5 && page + 2 < total_pages) {
-            let pagination_item = pagination_item_base.replace(/{num}/, total_pages.toString());
-            pagination_item = pagination_item.replace(/{num}/, ">>");
-            pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-            pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        // End button
+        if (total_pages > 2) {
+            pagination_dom += pagination_item_base
+                .replace(/{num}/, total_pages.toString()) // data-num
+                .replace(/{num}/, `<em>${total_pages}</em> &raquo;`) //button text
+                .replace(/{state}/, page === total_pages ? 'active' : '');
         }
-        //}
+
+        console.log('>>');
+        console.groupEnd();
+
+        pagination_container_top.insertAdjacentHTML('beforeend', pagination_dom);
+        pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_dom);
+
+        document.querySelectorAll('.paginator-button').forEach(item => {
+            item.addEventListener('click', () => {
+                remove_cards();
+                current_page = Number(item.dataset.page);
+                console.log("Drawing page", current_page);
+                draw();
+
+                route_scroll_to_rc();
+            });
+        });
 
         let offset = (page - 1) * per_page;
         return _records.slice(offset, offset + per_page);
@@ -336,6 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (running_interval) {
             clearInterval(running_interval);
         }
+
         running_interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
@@ -387,6 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0
         });
 
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+        document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`;
+
         draw(full_recordset);
 
         const years = {};
@@ -406,26 +434,44 @@ document.addEventListener('DOMContentLoaded', () => {
             ++sources[record.where]
         }
 
+        let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
+        let year_filter = '';
         Object.keys(years).forEach(year => {
-            let linkNode = document.createElement('a');
-
-            linkNode.classList.add('dropdown-item');
-            linkNode.dataset.year = year;
-            linkNode.textContent = year + ' (' + years[year] + ')';
-            linkNode.href = 'javascript:void(0)';
-
-            document.querySelector('#filters_year').insertAdjacentElement('afterbegin', linkNode)
+            year_filter += filter_item
+                .replace(/{filter}/, 'year')
+                .replace(/data-where="{where}"/, '')
+                .replace(/{year}/, year)
+                .replace(/{text}/, `${year} (${years[year]})`);
         });
+        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', year_filter);
 
+        let source_filter = '';
         Object.keys(sources).forEach(source => {
-            let linkNode = document.createElement('a');
+            source_filter += filter_item
+                .replace(/{filter}/, 'source')
+                .replace(/data-year="{year}"/, '')
+                .replace(/{where}/, source)
+                .replace(/{text}/, `${fancy_names[source]} (${sources[source]})`);
+        });
+        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
 
-            linkNode.classList.add('dropdown-item');
-            linkNode.dataset.where = source;
-            linkNode.textContent = fancy_names[source] + ' (' + sources[source] + ')';
-            linkNode.href = 'javascript:void(0)';
+        document.querySelectorAll('.filter-link').forEach(item => {
+            item.addEventListener('click', () => {
+                current_page = 1;
+                remove_cards();
 
-            document.querySelector('#filters_where').insertAdjacentElement('afterbegin', linkNode)
+                if ('where' in item.dataset) {
+                    draw(filter({'where': item.dataset.where}));
+                }
+
+                if ('year' in item.dataset) {
+                    draw(filter({'year': item.dataset.year}));
+                }
+
+                document.getElementById('filter_name').innerText = item.textContent;
+
+                route_scroll_to_rc();
+            })
         });
     });
 
@@ -464,67 +510,32 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function scroll_to_rc() {
-        pagination_container_top.scrollIntoView({behavior: 'smooth', block: 'start'})
-    }
-
     function route_scroll_to_rc() {
-        let mode = localStorage.getItem('draw_mode');
-        switch (mode) {
-            case 'foreach':
-                setTimeout(() => {
-                    scroll_to_rc()
-                }, draw_time);
-                break;
-            case null:
-            case 'generator':
-            default:
-                scroll_to_rc();
-                break;
-        }
+        setTimeout(() => {
+            document.getElementById('start').scrollIntoView({behavior: 'smooth', block: 'start'})
+        }, draw_time);
     }
-
-    document.body.addEventListener('click', e => {
-        if (e.target.classList.contains('dropdown-item')) {
-            if ('year' in e.target.dataset || 'where' in e.target.dataset) {
-                current_page = 1;
-                remove_cards()
-            }
-
-            if ('year' in e.target.dataset) {
-                draw(filter({'year': Number(e.target.dataset.year)}))
-            }
-
-            if ('where' in e.target.dataset) {
-                draw(filter({'where': e.target.dataset.where}))
-            }
-
-            route_scroll_to_rc();
-
-        } else if (e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
-            remove_cards();
-            current_page = Number(e.target.dataset.page);
-            console.log("Drawing page", current_page);
-            draw();
-
-            route_scroll_to_rc();
-        }
-
-    });
 
     Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
         document.querySelector(id).onclick = () => {
             current_page = 1;
             remove_cards();
-            draw(full_recordset)
+            document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
+            draw(full_recordset);
+
+            route_scroll_to_rc();
         }
     });
 
     document.querySelector('#draw_nourl').onclick = () => {
         current_page = 1;
         remove_cards();
-        draw(full_recordset.filter(function (record) {
+        let nourl_recordset = full_recordset.filter(function (record) {
             return !record.url
-        }))
+        });
+        document.getElementById('filter_name').innerText = `Материалы без ссылок (${nourl_recordset.length})`;
+        draw(nourl_recordset);
+
+        route_scroll_to_rc();
     }
 });
