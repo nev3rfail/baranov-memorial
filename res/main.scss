@@ -120,5 +120,12 @@ $pagination-disabled-border-color: transparent !default;
     margin-top: 70px;
 }
 
-.top-menu-navbar {
+.icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+    transition: opacity 0.15s ease-in;
+    &:hover {
+        opacity: 1;
+    }
 }
