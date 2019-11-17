@@ -464,19 +464,21 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             })
         }
 
-        let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
-        let year_filter = '';
-        Object.keys(years).reverse().forEach(year => {
-            year_filter += filter_item
-                .replace(/{filter}/, 'year')
-                .replace(/data-where="{where}"/, '')
-                .replace(/{year}/, year)
-                .replace(/{text}/, `${year} (${years[year]})`);
-        });
-        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', year_filter);
+        function build_filter_item({ text, ...filterParams }) {
+            let filter_item = '<a class="dropdown-item filter-link" ';
+            Object.entries(filterParams).forEach(([key, val]) => {
+                filter_item += `data-${key}="${val}" `;
+            })
+            filter_item += `href="javascript:void(0)">${text}</a>`;
+            return filter_item;
+        }
 
-        let source_filter = '';
-        Object.keys(sources).sort(function (a, b) {
+        const filter_years = Object.keys(years).reverse().map(year =>
+            build_filter_item({ year, text: `${year} (${years[year]})` })
+        );
+        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''));
+
+        const sorted_sources = Object.keys(sources).sort(function (a, b) {
             if (sources[a] > sources[b]) {
                 return -1;
             }
@@ -485,37 +487,29 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
 
             return 0;
-        }).forEach(source => {
-            source_filter += filter_item
-                .replace(/{filter}/, 'source')
-                .replace(/data-year="{year}"/, '')
-                .replace(/{where}/, source)
-                .replace(/{text}/, `${fancy_names[source]} (${sources[source]})`);
         });
-        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
 
-        filter_item = `<a class="dropdown-item filter-link" data-tag="{tag}" href="javascript:void(0)">{text}</a>`;
-        let tag_filter = '';
-        Object.keys(tags).sort(function (a, b) {
+        const filter_sources = sorted_sources.map(source =>
+            build_filter_item({ where: source, text: `${fancy_names[source]} (${sources[source]})`})
+        );
+        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''));
+
+        const sorted_tags = Object.keys(tags).sort(function (a, b) {
             if (tags[a] > tags[b]) {
                 return -1;
             }
             if (tags[a] < tags[b]) {
                 return 1;
             }
-
             return 0;
-        }).forEach(function (tag, i) {
-            tag_filter += filter_item
-                .replace(/{tag}/, tag)
-                .replace(/{text}/, `${tag} (${tags[tag]})`);
-
-                // Need to change to something not that stupid
-            if (i === 1) {
-                tag_filter += '<div class="dropdown-divider"></div>';
-            }
         });
-        document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', tag_filter);
+
+        const filter_tags = sorted_tags.map(tag =>
+            build_filter_item({ tag, text: `${tag} (${tags[tag]})`})
+        );
+
+        filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
+        document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
         document.querySelectorAll('.filter-link').forEach(item => {
             item.addEventListener('click', () => {
