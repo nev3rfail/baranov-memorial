@@ -5,26 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <meta property="og:description" content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура.">
+    <meta name="description" content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура.">
+    <meta property="og:title" content="Мемориал Евгения Баранова">
+    <meta property="og:url" content="https://baranov.maxsic.ru/">
+    <meta property="og:image" content="https://baranov.maxsic.ru/logo/ogp.jpg">
+
     <link rel="dns-prefetch" href="//images.weserv.nl">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=canonical">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=canonical">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=canonical">
-    <link rel="manifest" href="site.webmanifest?v=canonical">
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=canonical" color="#303030">
-    <link rel="shortcut icon" href="favicon.ico?v=canonical">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=1.1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=1.1">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=1.1">
+    <link rel="manifest" href="site.webmanifest?v=1.1">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=1.1" color="#303030">
+    <link rel="shortcut icon" href="favicon.ico?v=1.1">
     <meta name="msapplication-TileColor" content="#303030">
-    <meta name="msapplication-config" content="/icons/browserconfig.xml?v=canonical">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml?v=1.1">
     <meta name="theme-color" content="#303030">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css" integrity="sha256-6W1mxPaAt4a6pkJVW5x5Xmq/LvxuQpR9dlzgy77SeZs=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.3.1/dist/darkly/bootstrap.min.css" integrity="sha256-6W1mxPaAt4a6pkJVW5x5Xmq/LvxuQpR9dlzgy77SeZs=" crossorigin="anonymous">
+    <link rel="stylesheet" href="dist/main.css?v=1.1">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default,fetch,Array.prototype.forEach%2CNodeList.prototype.forEach" defer></script>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <a class="navbar-brand" href="/">
-        <img src="icons/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="icons/favicon-32x32.png?v=1.1" width="30" height="30" class="d-inline-block align-top" alt="">
         Мемориал Евгения Баранова
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,19 +66,21 @@
                 <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">Github</a>
             </li>
         </ul>
+
+        <button class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#settingsModal">Настройки</button>
     </div>
 </nav>
 
 <div class="container description">
     <div class="jumbotron">
-        <img src="res/image/RAULduke.jpg" alt="" class="rounded float-right">
-        <h1 class="display-4">Мемориал Евгения Баранова</h1>
-        <p class="lead">
-            <i>В ночь с 11 на 12 ноября 2019 года не стало игрового журналиста Евгения Баранова.<br/>Ему было 27 лет.<br/>Данная страница - дань уважения за все, что Женя сделал для российского игрожура.</i><br/>
+        <img src="res/image/RAULduke.jpg?v=1.1" alt="Фото Евгения Баранова" class="rounded float-xl-right align-center mx-auto d-block">
+        <h1 class="display-4 text-center text-xl-left">Мемориал Евгения Баранова</h1>
+        <p class="lead text-center text-xl-left">
+            <i>В ночь с 11 на 12 ноября 2019 года не стало игрового журналиста Евгения Баранова.<br class="d-none d-xl-block"/> Ему было 27 лет.<br class="d-none d-xl-block"/> Данная страница - дань уважения за все, что Женя сделал для российского игрожура.</i><br/>
         </p>
-        <p class="lead">Здесь можно найти созданные Женей статьи, видео и записи стримов, а также прочие материалы о нем и за его авторством.</p>
+        <p class="lead text-center text-xl-left">Здесь можно найти созданные Женей статьи, видео, стримы и прочие материалы за его авторством. <span id="records_count"></span></p>
         <hr class="my-4">
-        <div>
+        <div class="text-justify">
             Для наполнения этой страницы требуется помощь сообщества. Необходимо добавить ссылки к имеющимся элементам, для которых нет ссылок: <a id="draw_nourl" href="javascript:void(0)">Показать элементы без ссылок</a>. Инструкция по формату данных находится в Дискорде: <a target="_blank" href="https://discord.gg/zDxKb44">Discord</a>. Также нужно достать ссылки на твиты от людей из изданий, а также на новости с игровых и неигровых порталов.<br/>
             <br/>
             <div class="alert alert-primary">
@@ -86,17 +96,25 @@
         <div class="text-center">
             <div class="btn-group" role="group">
                 <a class="btn btn-primary btn-sm" href="https://stopgame.ru/newsdata/40750" role="button" target="_blank">Новость на StopGame.ru с реквизитами для пожертвований</a>
-                <a class="btn btn-primary btn-sm" href="https://dtf.ru/life/81082-zhenya-spasibo" role="button" target="_blank">Запись "Женя, спасибо" на DTF</a>
+                <a class="btn btn-primary btn-sm" href="https://dtf.ru/life/81082" role="button" target="_blank">Запись "Женя, спасибо" на DTF</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid cards">
-    <ul id="pagination_container_top" class="pagination pagination-lg justify-content-center"></ul>
+<div class="container pb-2" id="start">
+    <blockquote class="blockquote text-center">
+        <p class="mb-0">Не переключайтесь!</p>
+        <footer class="blockquote-footer">Евгений Баранов, <cite>1991-2019</cite></footer>
+    </blockquote>
+</div>
+
+<div class="container-fluid">
+    <h4 class="display-4 text-center" id="filter_name">Все материалы</h4>
+    <ul id="pagination_container_top" class="pagination justify-content-center pt-2"></ul>
     <div class="row mx-auto" id="records_container">
         <div class="card mx-auto d-block mb-4" id="placeholder">
-            <img src="./logo/placeholder.jpg" class="card-img-top">
+            <img src="./logo/placeholder.jpg?v=1.1" class="card-img-top" alt="Заглушка">
             <div class="card-body d-flex flex-column justify-content-between">
                 <div>
                     <h5 class="card-title">Загрузка данных</h5>
@@ -109,7 +127,7 @@
 </div>
 
 <div>
-    <img src="res/image/poster.jpg" alt="Poster" class="img-fluid rounded mx-auto d-block">
+    <img src="res/image/poster.jpg?v=1.1" alt="Постер" class="img-fluid rounded mx-auto d-block">
 </div>
 
 <footer class="footer">
@@ -121,12 +139,61 @@
     </div>
 </footer>
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default,fetch" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/popper.min.js" integrity="sha256-1XfFQxRfNvDJW3FdZ+xlo2SbodG2+rFArw6XsVzu3bc=" crossorigin="anonymous" type="module" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous" defer></script>
+<div class="modal fade" id="settingsModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="settingsModalLabel">Настройки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="settings_form">
+                    <div class="form-group">
+                        <label for="image_quality_setting">Качество превью</label>
+                        <input type="range" class="form-control custom-range" min="10" max="100" step="10" id="image_quality_setting">
+                        <small class="form-text text-muted">Чем больше значение, тем выше качество превью (ценой трафика).</small>
+                    </div>
 
-<script src="dist/main.js" defer></script>
+                    <hr/>
+
+                    <div class="form-group">
+                        <label for="per_page_setting">Материалов на страницу</label>
+                        <input type="range" class="form-control custom-range" min="24" max="1008" step="12" id="per_page_setting">
+                        <small class="form-text text-muted">Чем больше значение, тем больше карточек на одну страницу. Выбор очень высокого значения может повлечь за собой ухудшение производительности!</small>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <label for="draw_mode_standard">Вариант отрисовки карточек</label>
+                        <br/>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="draw_mode_standard" name="draw_mode_setting" class="custom-control-input" value="standard">
+                            <label class="custom-control-label" for="draw_mode_standard">Обычный</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="draw_mode_generator" name="draw_mode_setting" class="custom-control-input" value="generator">
+                            <label class="custom-control-label" for="draw_mode_generator">Старый</label>
+                        </div>
+                        <small class="form-text text-muted">ТОЛЬКО ДЛЯ ТЕСТИРОВАНИЯ! Не меняйте, если не знаете, что делаете.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="text-muted">Настройки сохраняются сразу после изменения.</span>
+                <button type="button" class="btn btn-secondary" id="default_settings">Сбросить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- https://thednp.github.io/bootstrap.native/v4.html -->
+<script src="https://cdn.jsdelivr.net/npm/ie10-viewport-bug-workaround.js@1.0.0/ie10-viewport-bug-workaround.js" integrity="sha256-TEepY4CGW/8yywhOWW+7pS87pE/3wuuSxv8ohc64eFo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.27/dist/bootstrap-native-v4.min.js" integrity="sha256-k5gE8gnbCCVtz/4z2LzbAIpMdH8K1Bjl4cTCjm6SZS8=" crossorigin="anonymous"></script>
+
+<script src="dist/main.js?v=1.1" defer></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
 <script>

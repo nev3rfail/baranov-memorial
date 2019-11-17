@@ -1,5 +1,6 @@
 'use strict';
 
+// insertAdjacentHTML polyfill for IE
 if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://www.w3.org/1999/xhtml', '_'))) {
     HTMLElement.prototype.insertAdjacentHTML = function (position, html) {
         let ref = this,
@@ -36,7 +37,18 @@ if (self.document && !('insertAdjacentHTML' in document.createElementNS('http://
     };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+const default_settings = {
+    'per_page': 24,
+    'image_quality': 80,
+    'draw_mode': 'standard'
+};
+let settings = {
+    'per_page': Number(localStorage.getItem('per_page') || default_settings.per_page),
+    'image_quality': Number(localStorage.getItem('image_quality') || default_settings.image_quality),
+    'draw_mode': localStorage.getItem('draw_mode') in ['standard', 'generator'] ? localStorage.getItem('draw_mode') : default_settings.draw_mode
+};
+
+document.addEventListener('DOMContentLoaded', (key, value) => {
     const logos = {
         'igromania': 'igromania.svg',
         'dtf': 'dtf.png',
@@ -96,17 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * pagination stuff
-     */
-    const pagination_item_base = `
-    <li class="page-item"><a class="page-link bg-primary" href="javascript:void(0)" data-page="{num}">{num}</a></li>
-`;
-    const pagination_container_top = document.querySelector("#pagination_container_top");
-    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
-    const per_page = 24;
-    let current_page = 1;
-
-    /**
      * cards stuff
      */
     const base_card = `
@@ -126,14 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>`;
     const card_logo = '<img class="logo" src="{logo}" alt="logo">';
-    const card_image = '<img src="{img}" class="card-img-top" alt="card image" loading="lazy">';
+    const card_image = '<img src="{img}" class="card-img-top" alt="card image">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
+
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
     const imgPlaceholder = './logo/placeholder.jpg';
     const placeholder_element = document.getElementById('placeholder');
     const draw_time = 10;
 
+    /**
+     * Format date
+     * @param {Object} date
+     * @param {Number} date.day
+     * @param {Number} date.month
+     * @param {Number} date.year
+     * @returns {string}
+     */
     function format_date(date) {
         let date_str = date.day + '';
 
@@ -155,12 +165,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return date_str
     }
 
+    /**
+     * Draw a card
+     * @param {Object} record
+     * @param {String} record.title
+     * @param {String} record.teaser_text
+     * @param {Object} record.date
+     * @param {Number} record.date.day
+     * @param {Number} record.date.month
+     * @param {Number} record.date.year
+     * @param {String} record.img
+     * @param {String} record.where
+     * @param {String} record.url
+     */
     function draw_card(record) {
         let card = base_card
             .replace('{title}', record.title)
             .replace('{teaser_text}', record.teaser_text)
             .replace('{date}', format_date(record.date))
-            .replace('{year}', record.date.year)
+            .replace('{year}', record.date.year.toString())
             .replace('{where}', record.where);
 
         if (record.url) {
@@ -170,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (record.img) {
-            card = card.replace('{img}', card_image.replace('{img}', '//images.weserv.nl/?url=' + record.img + '&q=60&w=480&l=5&il'))
+            card = card.replace('{img}', card_image.replace('{img}', `https://images.weserv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&output=jpg`))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
@@ -181,17 +204,22 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{logo}', '')
         }
 
-        records_container.insertAdjacentHTML('beforeend', card)
+        records_container.insertAdjacentHTML('beforeend', card);
     }
 
+    /**
+     * Iterate generator
+     * @param {Object} _records
+     * @returns {Generator<*, void, ?>}
+     */
     function* iterate(_records) {
-        for (let i in _records) {
+        for (let i in _records) if (_records.hasOwnProperty(i)) {
             yield _records[i];
         }
     }
 
     /**
-     * draw центральная функция, вызывая её с записями в аргументе
+     * draw - центральная функция, вызывая её с записями в аргументе
      * мы присваиваем глобальному current_recordset значение этих записей.
      * если draw вызывается без аргумента то мы просто рендерит current_recordset
      * с учётом текущего current_page.
@@ -199,9 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * шерстить полный рекордсет и фильтровать при каждом переходе по страницам
      * в пагинации.
      *
+     * @param {Object} [_records]
      */
     function draw(_records) {
-        if(_records === undefined) {
+        if (_records === undefined) {
             _records = current_recordset;
         } else {
             current_recordset = _records;
@@ -209,83 +238,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
         _records = paginate(_records);
 
-        let mode = localStorage.getItem("draw_mode");
-
-        switch(mode) {
-            case "foreach":
-                draw_foreach(_records);
-                break;
-            case null:
-            case 'generator':
-            default:
-                draw_generator(_records);
-                break;
+        if (settings.draw_mode === 'generator') {
+            draw_generator(_records);
+        } else {
+            draw_foreach(_records);
         }
+
         setTimeout(() => {
-            placeholder_element.classList.add("hidden");
+            document.getElementById('records_container').style.height = '';
+            placeholder_element.classList.remove('d-block');
+            placeholder_element.classList.add('d-none');
         }, draw_time);
     }
 
-    function paginate(_records) {
+    /**
+     * pagination stuff
+     */
+    const pagination_item_base = `<li class="page-item {state}"><button class="page-link paginator-button" data-page="{num}">{num}</button></li>`;
+    const pagination_container_top = document.querySelector("#pagination_container_top");
+    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
+
+    let current_page = 1;
+    const visible_pages = 6; // Choose only even numbers for greater UI
+    const pages_before_after = Math.floor(visible_pages / 2) - 1;
+
+    /**
+     * Paginator
+     * @param {Object} _records
+     * @param {Number} per_page
+     * @returns {*}
+     */
+    function paginate(_records, per_page = Number(settings.per_page)) {
         const page = current_page;
         let total_pages = Math.ceil(_records.length / per_page);
-        console.log("Total pages", total_pages, "current page", current_page);
-        /*if (pagination_container_top.childElementCount === total_pages) {
-            [pagination_container_top, pagination_container_bottom].forEach(container => {
-                container.querySelector("[class*=active]").classList.remove("active");
-                container.querySelector('[data-page="'+page+'"]').parentNode.classList.add("active");
-            })
-        } else {*/
-            pagination_container_top.innerHTML = '';
-            pagination_container_bottom.innerHTML = '';
-            let num_start;
-            let num_end;
 
-            if(page <= 3) {
-                num_start = 1;
-                num_end = 5;
-            } else {
-                num_start = page-2;
+        if (per_page >= _records.length) {
+            per_page = _records.length;
+        }
+
+        console.group('Pagination details');
+        console.log('Per page:', per_page);
+        console.log('Total pages:', total_pages);
+        console.log('Current page:', current_page);
+        console.log('Visible pages:', visible_pages);
+        console.log('Pages before and after:', pages_before_after);
+        console.groupEnd();
+
+        pagination_container_top.innerHTML = '';
+        pagination_container_bottom.innerHTML = '';
+        let num_start = 1;
+        let num_end = total_pages;
+
+        if (total_pages >= visible_pages) {
+            num_end = visible_pages;
+
+            if (page > pages_before_after + 1) {
+                num_start = page - pages_before_after;
+                num_end = page + pages_before_after;
             }
 
-            if(!num_end) {
-                if (page > total_pages - 3) {
-                    num_end = total_pages;
-                    num_start = total_pages-5;
-                } else {
-                    num_end = page + 2;
-                }
+            if (page >= total_pages - pages_before_after) {
+                num_start = total_pages - visible_pages + 1;
+                num_end = total_pages;
+            }
+        }
+
+        console.groupCollapsed('Pagination drawing');
+        let pagination_dom = '';
+
+        // Start button
+        if (total_pages > 2) {
+            pagination_dom += pagination_item_base
+                .replace(/{num}/, '1') // data-num
+                .replace(/{num}/, '&laquo; <em>1</em>') // button text
+                .replace(/{state}/, page === 1 ? 'active' : '');
+            console.log('<<');
+        }
+
+        // Pages
+        for (let i = num_start; i <= num_end; ++i) {
+            if (total_pages > 2) {
+                if (page <= visible_pages && i === 1) continue;
+                if (page >= total_pages - visible_pages + 1 && i === total_pages) continue;
             }
 
-            if(total_pages >= 5 && page-2 > 1) {
-                let pagination_item = pagination_item_base.replace(/{num}/, 1);
-                pagination_item = pagination_item.replace(/{num}/, "<<");
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
-            }
+            pagination_dom += pagination_item_base
+                .replace(/{num}/g, i)
+                .replace(/{state}/, i === page ? 'active' : '');
+            console.log('Page', i)
+        }
 
-            for (let i = num_start; i <= num_end; ++i) {
-                console.log("drawing item", i);
-                let pagination_item = pagination_item_base.replace(/{num}/g, i);
-                if(i == page) {
-                    pagination_item = pagination_item.replace("page-item", "page-item active");
-                }
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
-            }
+        // End button
+        if (total_pages > 2) {
+            pagination_dom += pagination_item_base
+                .replace(/{num}/, total_pages.toString()) // data-num
+                .replace(/{num}/, `<em>${total_pages}</em> &raquo;`) //button text
+                .replace(/{state}/, page === total_pages ? 'active' : '');
+        }
 
-            if(total_pages >= 5 && page+2 < total_pages) {
-                let pagination_item = pagination_item_base.replace(/{num}/, total_pages);
-                pagination_item = pagination_item.replace(/{num}/, ">>");
-                pagination_container_top.insertAdjacentHTML('beforeend', pagination_item);
-                pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_item);
+        console.log('>>');
+        console.groupEnd();
+
+        pagination_container_top.insertAdjacentHTML('beforeend', pagination_dom);
+        pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_dom);
+
+        document.querySelectorAll('.paginator-button').forEach(item => {
+            if (Number(item.dataset.page) !== current_page) {
+                item.addEventListener('click', () => {
+                    remove_cards();
+                    current_page = Number(item.dataset.page);
+                    console.log("Drawing page", current_page);
+                    draw();
+
+                    route_scroll_to_rc();
+                });
             }
-        //}
+        });
 
         let offset = (page - 1) * per_page;
         return _records.slice(offset, offset + per_page);
     }
 
+    /**
+     * @param {Object} _records
+     */
     function draw_foreach(_records) {
         console.log('drawing with foreach');
         _records.forEach(record => {
@@ -293,12 +369,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    /**
+     * @param {Object} _records
+     */
     function draw_generator(_records) {
         console.log('drawing with generator');
         let iterator = iterate(_records);
         if (running_interval) {
             clearInterval(running_interval);
         }
+
         running_interval = setInterval(function () {
             let iteritem = iterator.next();
             if (iteritem.done) {
@@ -313,7 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Необходимо отсортировать полный recordset
          * для дальнейшего использования
-         *
          */
         full_recordset = full_recordset.sort(function (a, b) {
             let amonth;
@@ -351,13 +430,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0
         });
 
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+        document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`;
 
         draw(full_recordset);
 
         const years = {};
         const sources = {};
 
-        for (let i in full_recordset) {
+        for (let i in full_recordset) if (full_recordset.hasOwnProperty(i)) {
             let record = full_recordset[i];
 
             if (!years[record.date.year]) {
@@ -371,36 +452,67 @@ document.addEventListener('DOMContentLoaded', () => {
             ++sources[record.where]
         }
 
-        Object.keys(years).forEach(year => {
-            let linkNode = document.createElement('a');
-
-            linkNode.classList.add('dropdown-item');
-            linkNode.dataset.year = year;
-            linkNode.textContent = year + ' (' + years[year] + ')';
-            linkNode.href = 'javascript:void(0)';
-
-            document.querySelector('#filters_year').insertAdjacentElement('afterbegin', linkNode)
+        let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
+        let year_filter = '';
+        Object.keys(years).reverse().forEach(year => {
+            year_filter += filter_item
+                .replace(/{filter}/, 'year')
+                .replace(/data-where="{where}"/, '')
+                .replace(/{year}/, year)
+                .replace(/{text}/, `${year} (${years[year]})`);
         });
+        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', year_filter);
 
-        Object.keys(sources).forEach(source => {
-            let linkNode = document.createElement('a');
+        let source_filter = '';
+        Object.keys(sources).sort(function (a, b) {
+            if (sources[a] > sources[b]) {
+                return -1;
+            }
+            if (sources[a] < sources[b]) {
+                return 1;
+            }
 
-            linkNode.classList.add('dropdown-item');
-            linkNode.dataset.where = source;
-            linkNode.textContent = fancy_names[source] + ' (' + sources[source] + ')';
-            linkNode.href = 'javascript:void(0)';
+            return 0;
+        }).forEach(source => {
+            source_filter += filter_item
+                .replace(/{filter}/, 'source')
+                .replace(/data-year="{year}"/, '')
+                .replace(/{where}/, source)
+                .replace(/{text}/, `${fancy_names[source]} (${sources[source]})`);
+        });
+        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
 
-            document.querySelector('#filters_where').insertAdjacentElement('afterbegin', linkNode)
+        document.querySelectorAll('.filter-link').forEach(item => {
+            item.addEventListener('click', () => {
+                current_page = 1;
+                remove_cards();
+
+                if ('where' in item.dataset) {
+                    draw(filter({'where': item.dataset.where}));
+                }
+
+                if ('year' in item.dataset) {
+                    draw(filter({'year': item.dataset.year}));
+                }
+
+                document.getElementById('filter_name').innerText = item.textContent;
+
+                route_scroll_to_rc();
+            })
         });
     });
 
     compile_all();
 
     function remove_cards() {
-        placeholder_element.classList.remove("hidden");
+        document.getElementById('records_container').style.height = `1080px`;
         Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
     }
 
+    /**
+     * @param filters
+     * @returns {*[]}
+     */
     function filter(filters) {
         let year;
         if (filters['year'] !== undefined) {
@@ -414,9 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return full_recordset.filter(function (record) {
             if (year !== undefined && where !== undefined) {
-                return record.date.year === year && record.where === where
+                return record.date.year === Number(year) && record.where === where
             } else if (year !== undefined) {
-                return record.date.year === year
+                return record.date.year === Number(year)
             } else if (where !== undefined) {
                 return record.where === where
             } else {
@@ -425,68 +537,64 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function scroll_to_rc() {
-        return records_container.scrollIntoView({behavior: 'smooth', block: 'start'})
-    }
-
     function route_scroll_to_rc() {
-        let mode = localStorage.getItem('draw_mode');
-        switch (mode) {
-            case 'foreach':
-                setTimeout(() => {
-                    scroll_to_rc()
-                }, draw_time);
-                break;
-            case null:
-            case 'generator':
-            default:
-                scroll_to_rc();
-                break;
-        }
+        setTimeout(() => {
+            document.getElementById('start').scrollIntoView({behavior: 'smooth', block: 'start'})
+        }, draw_time);
     }
 
-    document.body.addEventListener('click', e => {
-        if (e.target.classList.contains('dropdown-item')) {
-            if ('year' in e.target.dataset || 'where' in e.target.dataset) {
-                current_page = 1;
-                remove_cards()
-            }
-
-            if ('year' in e.target.dataset) {
-                draw(filter({'year': Number(e.target.dataset.year)}))
-            }
-
-            if ('where' in e.target.dataset) {
-                draw(filter({'where': e.target.dataset.where}))
-            }
-
-            route_scroll_to_rc();
-
-        } else if(e.target.classList.contains('page-link') && Number(e.target.dataset.page) !== current_page) {
-            remove_cards();
-            current_page = Number(e.target.dataset.page);
-            console.log("Drawing page", current_page);
-            draw();
-
-            route_scroll_to_rc();
-        }
-
-    });
-
-    Array.from(['#unfilter_year', '#unfilter_where']).forEach(id => {
-        document.querySelector(id).onclick = () => {
+    Array.from(['unfilter_year', 'unfilter_where']).forEach(id => {
+        document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
-            draw(full_recordset)
+            document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
+            draw(full_recordset);
+
+            route_scroll_to_rc();
         }
     });
 
-    document.querySelector('#draw_nourl').onclick = () => {
+    document.getElementById('draw_nourl').onclick = () => {
         current_page = 1;
         remove_cards();
-        draw(full_recordset.filter(function (record) {
+        let nourl_recordset = full_recordset.filter(function (record) {
             return !record.url
-        }))
+        });
+        document.getElementById('filter_name').innerText = `Материалы без ссылок (${nourl_recordset.length})`;
+        draw(nourl_recordset);
+
+        route_scroll_to_rc();
+    };
+
+    document.getElementById('default_settings').onclick = () => {
+        if (confirm('Данное действие сбросит все настройки. Продолжить?')) {
+            updateSettings(default_settings);
+        }
+    };
+
+    document.getElementById('settings_form').oninput = (event) => {
+        let new_settings = {
+            'per_page': document.getElementById('per_page_setting').value,
+            'image_quality': document.getElementById('image_quality_setting').value,
+            'draw_mode': document.querySelector('[name=draw_mode_setting]:checked').value
+        };
+
+        console.log(new_settings);
+        updateSettings(new_settings);
+    };
+
+    function updateSettings(new_settings) {
+        settings = new_settings;
+        Object.keys(new_settings).forEach(setting => {
+            localStorage.setItem(setting, new_settings[setting]);
+
+            if (setting === 'draw_mode') {
+                document.getElementById(`draw_mode_${new_settings[setting]}`).checked = 'on';
+            } else {
+                document.getElementById(setting + '_setting').value = new_settings[setting];
+            }
+        });
     }
 
+    updateSettings(settings);
 });

@@ -8,7 +8,7 @@
         right: 0;
     }
 
-    img.card-img-top {
+    .card-img-top {
         width: 100% !important;
         height: auto !important;
         min-height: 1px;
@@ -16,6 +16,21 @@
 
     .date-span {
         padding: 0.25rem 0.25rem;
+    }
+
+    animation: .3s fadeIn;
+    animation-fill-mode: forwards;
+
+    visibility: hidden;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
     }
 }
 
@@ -34,22 +49,69 @@
     }
 }
 
-div.description, div#records_container {
-    padding-top: 80px !important;
+.description {
+    padding-top: 100px !important;
 }
 
-div#records_container {
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #303030;
+    border-radius: 0.3rem;
+}
+
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 2rem 2rem;
+    }
+}
+
+#records_container {
     max-width: 100%;
 }
+
 
 .container-fluid {
     width: 95%;
 }
 
-.hidden {
-    display:none !important;
+$pagination-color: #ffffff !default;
+$pagination-bg: #375a7f !default;
+$pagination-border-width: 0 !default;
+$pagination-border-color: transparent !default;
+
+$pagination-hover-color: #ffffff !default;
+$pagination-hover-bg: lighten($pagination-bg, 10%) !default;
+$pagination-hover-border-color: transparent !default;
+
+$pagination-active-bg: $pagination-hover-bg !default;
+$pagination-active-border-color: transparent !default;
+
+$pagination-disabled-color: #ffffff !default;
+$pagination-disabled-bg: darken($pagination-bg, 15%) !default;
+$pagination-disabled-border-color: transparent !default;
+
+.page-link {
+    color: $pagination-color;
+    background-color: $pagination-bg;
+    border: $pagination-border-width solid $pagination-border-color;
+
+    &:hover {
+        color: $pagination-hover-color;
+        background-color: $pagination-hover-bg;
+        border-color: $pagination-hover-border-color;
+    }
 }
 
-.active > a.bg-primary, .active > button.bg-primary, button.bg-primary.active, a.bg-primary.active  {
-    background-color: #28415b !important;
+.page-item {
+    &.active .page-link {
+        background-color: $pagination-active-bg;
+        border-color: $pagination-active-border-color;
+    }
+
+    &.disabled .page-link {
+        color: $pagination-disabled-color;
+        background-color: $pagination-disabled-bg;
+        border-color: $pagination-disabled-border-color;
+    }
 }
