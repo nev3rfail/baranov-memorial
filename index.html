@@ -32,57 +32,44 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-dark bottom-filter-navbar bottom-filter-navbar">
-    <a class="navbar-brand collapse mr-auto d-none" href="/">
-        <img src="icons/favicon-32x32.png?v=1.1" width="30" height="30" class="d-inline-block align-top" alt="">
-        Мемориал <span class="d-md-inline d-none">Евгения</span><span class="d-inline d-md-none">Е.</span> Баранова
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedFilter">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Издания
-                </a>
-                <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)">Показать все</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Годы
-                </a>
-                <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)">Показать все</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Теги
-                </a>
-                <div class="dropdown-menu" id="filters_tag" aria-labelledby="navbarDropdown3">
-                </div>
-            </li>
-        </ul>
-
-        <button class="btn btn-outline-light my-2 my-sm-0" id="unfilter_tag">Сбросить</button>
-    </div>
-</nav>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light top-menu-navbar">
     <a class="navbar-brand mr-auto mr-md-3" href="/">
         <img src="icons/favicon-32x32.png?v=1.1" width="30" height="30" class="d-inline-block align-top" alt="">
         Мемориал <span class="d-md-inline d-none">Евгения</span><span class="d-inline d-md-none">Е.</span> Баранова
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedFilter" aria-controls="navbarSupportedFilter" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fa fa-filter fa-x2" aria-hidden="true"></span>
-    </button>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a id="filter-label-sources" data-label-key="sources" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Издания
+                </a>
+                <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)" data-label-key="sources">Показать все</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a id="filter-label-years" data-label-key="years" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Годы
+                </a>
+                <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)" data-label-key="years">Показать все</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a id="filter-label-tags" data-label-key="tags" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Теги
+                </a>
+                <div class="dropdown-menu" id="filters_tag" aria-labelledby="navbarDropdown3">
+                </div>
+            </li>
+        </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="https://discord.gg/zDxKb44">

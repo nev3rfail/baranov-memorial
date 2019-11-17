@@ -393,6 +393,33 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
+    function build_filter_item({ text, ...filterParams }) {
+        let filter_item = '<a class="dropdown-item filter-link" ';
+        Object.entries(filterParams).forEach(([key, val]) => {
+            filter_item += `data-${key}="${val}" `;
+        })
+        filter_item += `href="javascript:void(0)">${text}</a>`;
+        return filter_item;
+    }
+
+    /**
+     * Возвращает текст по умолчанию для фильтра
+     * @param {string} label_key
+     */
+    function get_default_text(label_key) {
+        switch(label_key) {
+            case 'sources': {
+                return 'Источники'
+            }
+            case 'years': {
+                return 'Годы'
+            }
+            case 'tags': {
+                return 'Теги'
+            }
+        }
+    }
+
     document.addEventListener('records.loaded', function () {
         /**
          * Необходимо отсортировать полный recordset
@@ -464,14 +491,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             })
         }
 
-        function build_filter_item({ text, ...filterParams }) {
-            let filter_item = '<a class="dropdown-item filter-link" ';
-            Object.entries(filterParams).forEach(([key, val]) => {
-                filter_item += `data-${key}="${val}" `;
-            })
-            filter_item += `href="javascript:void(0)">${text}</a>`;
-            return filter_item;
-        }
+
 
         const filter_years = Object.keys(years).reverse().map(year =>
             build_filter_item({ year, text: `${year} (${years[year]})` })
@@ -515,21 +535,36 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             item.addEventListener('click', () => {
                 current_page = 1;
                 remove_cards();
-
+                let label_key;
                 if ('where' in item.dataset) {
                     draw(filter({'where': item.dataset.where}));
+                    label_key = 'sources'
                 }
 
                 if ('year' in item.dataset) {
-
                     console.log({'year': item.dataset.year});
                     draw(filter({'year': item.dataset.year}));
+                    label_key = 'years'
                 }
 
                 if ('tag' in item.dataset) {
                     console.log({'tag': item.dataset.tag});
                     draw(filter({'tag': item.dataset.tag}));
+                    label_key = 'tags'
                 }
+                const filter_labels = document.querySelectorAll('.filter-label');
+                filter_labels.forEach(filter_label => {
+                    const {  dataset: { activated, labelKey: orig_label_key }} = filter_label;
+                    const is_activated = activated === 'true';
+                    if (orig_label_key === label_key) {
+                        filter_label.innerText = is_activated ? get_default_text(label_key) : item.textContent;
+                        console.log(filter_label, is_activated)
+                        filter_label.dataset.activated = !is_activated;
+                    } else {
+                        filter_label.innerText = get_default_text(orig_label_key);
+                        filter_label.dataset.activated = false;
+                    }
+                })
 
                 document.getElementById('filter_name').innerText = item.textContent;
 
@@ -584,6 +619,12 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
+            const filter_labels = document.querySelectorAll('.filter-label');
+            filter_labels.forEach(filter_label => {
+                const {  dataset: { labelKey: orig_label_key }} = filter_label;
+                filter_label.innerText = get_default_text(orig_label_key);
+                filter_label.dataset.activated = false;
+            })
             document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
             draw(full_recordset);
 
