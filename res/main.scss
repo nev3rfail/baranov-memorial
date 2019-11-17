@@ -115,3 +115,23 @@ $pagination-disabled-border-color: transparent !default;
         border-color: $pagination-disabled-border-color;
     }
 }
+
+.bottom-filter-navbar {
+    margin-top: 70px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+    transition: opacity 0.15s ease-in;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.top-menu-navbar {
+    &__settings-btn {
+        padding: 0;
+    }
+}

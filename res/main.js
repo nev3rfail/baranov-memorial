@@ -393,6 +393,33 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
+    function build_filter_item({ text, ...filterParams }) {
+        let filter_item = '<a class="dropdown-item filter-link" ';
+        Object.entries(filterParams).forEach(([key, val]) => {
+            filter_item += `data-${key}="${val}" `;
+        })
+        filter_item += `href="javascript:void(0)">${text}</a>`;
+        return filter_item;
+    }
+
+    /**
+     * Возвращает текст по умолчанию для фильтра
+     * @param {string} label_key
+     */
+    function get_default_text(label_key) {
+        switch(label_key) {
+            case 'sources': {
+                return 'Издания'
+            }
+            case 'years': {
+                return 'Годы'
+            }
+            case 'tags': {
+                return 'Теги'
+            }
+        }
+    }
+
     document.addEventListener('records.loaded', function () {
         /**
          * Необходимо отсортировать полный recordset
@@ -441,6 +468,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
         const years = {};
         const sources = {};
+        const tags = {};
 
         for (let i in full_recordset) if (full_recordset.hasOwnProperty(i)) {
             let record = full_recordset[i];
@@ -454,21 +482,23 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 sources[record.where] = 0
             }
             ++sources[record.where]
+
+            record.tags && record.tags.forEach(function (tag) {
+                if (!tags[tag]) {
+                    tags[tag] = 0
+                }
+                ++tags[tag]
+            })
         }
 
-        let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
-        let year_filter = '';
-        Object.keys(years).reverse().forEach(year => {
-            year_filter += filter_item
-                .replace(/{filter}/, 'year')
-                .replace(/data-where="{where}"/, '')
-                .replace(/{year}/, year)
-                .replace(/{text}/, `${year} (${years[year]})`);
-        });
-        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', year_filter);
 
-        let source_filter = '';
-        Object.keys(sources).sort(function (a, b) {
+
+        const filter_years = Object.keys(years).reverse().map(year =>
+            build_filter_item({ year, text: `${year} (${years[year]})` })
+        );
+        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''));
+
+        const sorted_sources = Object.keys(sources).sort(function (a, b) {
             if (sources[a] > sources[b]) {
                 return -1;
             }
@@ -477,27 +507,64 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
 
             return 0;
-        }).forEach(source => {
-            source_filter += filter_item
-                .replace(/{filter}/, 'source')
-                .replace(/data-year="{year}"/, '')
-                .replace(/{where}/, source)
-                .replace(/{text}/, `${fancy_names[source]} (${sources[source]})`);
         });
-        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
+
+        const filter_sources = sorted_sources.map(source =>
+            build_filter_item({ where: source, text: `${fancy_names[source]} (${sources[source]})`})
+        );
+        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''));
+
+        const sorted_tags = Object.keys(tags).sort(function (a, b) {
+            if (tags[a] > tags[b]) {
+                return -1;
+            }
+            if (tags[a] < tags[b]) {
+                return 1;
+            }
+            return 0;
+        });
+
+        const filter_tags = sorted_tags.map(tag =>
+            build_filter_item({ tag, text: `${tag} (${tags[tag]})`})
+        );
+
+        filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
+        document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
         document.querySelectorAll('.filter-link').forEach(item => {
             item.addEventListener('click', () => {
                 current_page = 1;
                 remove_cards();
-
+                let label_key;
                 if ('where' in item.dataset) {
                     draw(filter({'where': item.dataset.where}));
+                    label_key = 'sources'
                 }
 
                 if ('year' in item.dataset) {
+                    console.log({'year': item.dataset.year});
                     draw(filter({'year': item.dataset.year}));
+                    label_key = 'years'
                 }
+
+                if ('tag' in item.dataset) {
+                    console.log({'tag': item.dataset.tag});
+                    draw(filter({'tag': item.dataset.tag}));
+                    label_key = 'tags'
+                }
+                const filter_labels = document.querySelectorAll('.filter-label');
+                filter_labels.forEach(filter_label => {
+                    const {  dataset: { activated, labelKey: orig_label_key }} = filter_label;
+                    const is_activated = activated === 'true';
+                    if (orig_label_key === label_key) {
+                        filter_label.innerText = is_activated ? get_default_text(label_key) : item.textContent;
+                        console.log(filter_label, is_activated)
+                        filter_label.dataset.activated = !is_activated;
+                    } else {
+                        filter_label.innerText = get_default_text(orig_label_key);
+                        filter_label.dataset.activated = false;
+                    }
+                })
 
                 document.getElementById('filter_name').innerText = item.textContent;
 
@@ -528,16 +595,17 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             where = filters['where']
         }
 
+        let tag;
+        if (filters['tag'] !== undefined) {
+            tag = filters['tag']
+        }
+        console.log(tag);
         return full_recordset.filter(function (record) {
-            if (year !== undefined && where !== undefined) {
-                return record.date.year === Number(year) && record.where === where
-            } else if (year !== undefined) {
-                return record.date.year === Number(year)
-            } else if (where !== undefined) {
-                return record.where === where
-            } else {
-                return true
-            }
+            let year_check = !(year !== undefined) || (record.date.year === Number(year));    // (no filter) || (filter passed)
+            let where_check = !(where !== undefined) || (record.where === where);
+            let tag_check = !(tag !== undefined) || (record.tags && record.tags.includes(tag)); // handle undefined tags on record
+
+            return year_check && where_check && tag_check
         })
     }
 
@@ -547,10 +615,16 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
-    Array.from(['unfilter_year', 'unfilter_where']).forEach(id => {
+    Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
         document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
+            const filter_labels = document.querySelectorAll('.filter-label');
+            filter_labels.forEach(filter_label => {
+                const {  dataset: { labelKey: orig_label_key }} = filter_label;
+                filter_label.innerText = get_default_text(orig_label_key);
+                filter_label.dataset.activated = false;
+            })
             document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
             draw(full_recordset);
 

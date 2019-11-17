@@ -24,17 +24,19 @@
     <meta name="theme-color" content="#303030">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.3.1/dist/darkly/bootstrap.min.css" integrity="sha256-6W1mxPaAt4a6pkJVW5x5Xmq/LvxuQpR9dlzgy77SeZs=" crossorigin="anonymous">
+
     <link rel="stylesheet" href="dist/main.css?v=1.1">
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default,fetch,Array.prototype.forEach%2CNodeList.prototype.forEach" defer></script>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="/">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light top-menu-navbar">
+    <a class="navbar-brand mr-auto mr-md-3" href="/">
         <img src="icons/favicon-32x32.png?v=1.1" width="30" height="30" class="d-inline-block align-top" alt="">
         Мемориал <span class="d-md-inline d-none">Евгения</span><span class="d-inline d-md-none">Е.</span> Баранова
     </a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,34 +44,52 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a id="filter-label-sources" data-label-key="sources" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Издания
                 </a>
                 <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)">Показать все</a>
+                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)" data-label-key="sources">Показать все</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a id="filter-label-years" data-label-key="years" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Годы
                 </a>
                 <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)">Показать все</a>
+                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)" data-label-key="years">Показать все</a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a id="filter-label-tags" data-label-key="tags" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Теги
+                </a>
+                <div class="dropdown-menu" id="filters_tag" aria-labelledby="navbarDropdown3">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="unfilter_tag" href="javascript:void(0)" data-label-key="tags">Показать все</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="https://discord.gg/zDxKb44">Помоги проекту в Discord</a>
+                <a class="nav-link" href="https://discord.gg/zDxKb44">
+                    <img src="./res/image/icons8-discord.svg" class="icon"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">Github</a>
+                <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">
+                    <img src="./res/image/icons8-github.svg" class="icon"/>
+                </a>
             </li>
         </ul>
 
-        <button class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#settingsModal">Настройки</button>
+        <button class="btn my-2 my-sm-0 top-menu-navbar__settings-btn" data-toggle="modal" data-target="#settingsModal">
+            <img src="./res/image/icons8-settings.svg" class="icon"/>
+        </button>
     </div>
 </nav>
+
 
 <div class="container description">
     <div class="jumbotron">
@@ -123,7 +143,7 @@
             </div>
         </div>
     </div>
-    <ul id="pagination_container_bottom" class="pagination pagination-lg justify-content-center"></ul>
+    <ul id="pagination_container_bottom" class="pagination justify-content-center"></ul>
 </div>
 
 <div>
