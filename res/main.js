@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
         return full_recordset.filter(function (record) {
             console.log('new')
-            let year_check = !(year !== undefined) || (record.date.year === year)    // (no filter) || (filter passed)
+            let year_check = !(year !== undefined) || (record.date.year === Number(year))    // (no filter) || (filter passed)
             let where_check = !(where !== undefined) || (record.where === where)
 
             return year_check && where_check
