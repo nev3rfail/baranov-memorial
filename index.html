@@ -44,30 +44,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a id="filter-label-sources" data-label-key="sources" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="filter-label-sources" data-label-key="sources" class="nav-link dropdown-toggle filter-label" id="navbarDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Издания
-                </a>
+                </button>
                 <div class="dropdown-menu" id="filters_where" aria-labelledby="navbarDropdown1">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_where" href="javascript:void(0)" data-label-key="sources">Показать все</a>
+                    <button class="dropdown-item" id="unfilter_where" data-label-key="sources">Показать все</button>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a id="filter-label-years" data-label-key="years" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="filter-label-years" data-label-key="years" class="nav-link dropdown-toggle filter-label" id="navbarDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Годы
-                </a>
+                </button>
                 <div class="dropdown-menu" id="filters_year" aria-labelledby="navbarDropdown2">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_year" href="javascript:void(0)" data-label-key="years">Показать все</a>
+                    <button class="dropdown-item" id="unfilter_year" data-label-key="years">Показать все</button>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a id="filter-label-tags" data-label-key="tags" class="nav-link dropdown-toggle filter-label" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="filter-label-tags" data-label-key="tags" class="nav-link dropdown-toggle filter-label" id="navbarDropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Теги
-                </a>
+                </button>
                 <div class="dropdown-menu" id="filters_tag" aria-labelledby="navbarDropdown3">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="unfilter_tag" href="javascript:void(0)" data-label-key="tags">Показать все</a>
+                    <button class="dropdown-item" id="unfilter_tag" data-label-key="tags">Показать все</button>
                 </div>
             </li>
         </ul>
@@ -114,10 +114,14 @@
         </div>
         <hr class="my-4">
         <div class="text-center">
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-sm" href="https://stopgame.ru/newsdata/40750" role="button" target="_blank">Новость на StopGame.ru с реквизитами для пожертвований</a>
-                <a class="btn btn-primary btn-sm" href="https://dtf.ru/life/81082" role="button" target="_blank">Запись "Женя, спасибо" на DTF</a>
-            </div>
+            <ul class="extra-links list-inline">
+                <li class="list-inline-item">
+                    <a class="btn btn-primary btn-sm" href="https://stopgame.ru/newsdata/40750" role="button" target="_blank">Новость на StopGame.ru с реквизитами для пожертвований</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn btn-primary btn-sm" href="https://dtf.ru/life/81082" role="button" target="_blank">Запись "Женя, спасибо" на DTF</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
