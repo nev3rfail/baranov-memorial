@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
     const base_card = `
         <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
-                {logo}
                 {img}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{title}</h5>
@@ -189,25 +188,19 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             .replace('{year}', record.date.year.toString())
             .replace('{where}', record.where);
 
-        if ('url' in record) {
+        if ('url' in record && record.url !== '') {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
         }
 
-        if ('img' in record) {
+        if ('img' in record && record.img !== '') {
             card = card.replace('{img}', card_image.replace('{img}', `https://images.weserv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&output=jpg`))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
-        if (record.where in logos) {
-            card = card.replace('{logo}', card_logo.replace('{logo}', './res/image/' + logos[record.where]))
-        } else {
-            card = card.replace('{logo}', '')
-        }
-
-        if ('tags' in record) {
+        if ('tags' in record && record.tags.length !== 0) {
             let tagsList = document.createElement('ul')
 
             record.tags.forEach(tag => {
@@ -412,9 +405,9 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
     }
 
     function build_filter_item({ text, ...filterParams }) {
-		let filter_item = document.createElement('button')
-		filter_item.classList = 'dropdown-item filter-link'
-		filter_item.innerText = text
+        let filter_item = document.createElement('button')
+        filter_item.classList = 'dropdown-item filter-link'
+        filter_item.innerText = text
         Object.entries(filterParams).forEach(([key, val]) => {
             filter_item.dataset[key] = val
         })
