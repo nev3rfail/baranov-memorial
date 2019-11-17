@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
             ++sources[record.where]
 
-            record.tags.forEach(function (tag) {
+            record.tags && record.tags.forEach(function (tag) {
                 if (!tags[tag]) {
                     tags[tag] = 0
                 }
@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         return full_recordset.filter(function (record) {
             let year_check = !(year !== undefined) || (record.date.year === Number(year));    // (no filter) || (filter passed)
             let where_check = !(where !== undefined) || (record.where === where);
-            let tag_check = !(tag !== undefined) || record.tags.includes(tag);
+            let tag_check = !(tag !== undefined) || (record.tags && record.tags.includes(tag)); // handle undefined tags on record
 
             return year_check && where_check && tag_check
         })
