@@ -164,6 +164,11 @@ $pagination-disabled-border-color: transparent !default;
 }
 
 .top-menu-navbar {
+	.nav-link {
+		background-color: transparent;
+		border: 0;
+	}
+
     &__settings-btn {
         padding: 0;
     }
