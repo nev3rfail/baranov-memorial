@@ -129,3 +129,9 @@ $pagination-disabled-border-color: transparent !default;
         opacity: 1;
     }
 }
+
+.top-menu-navbar {
+    &__settings-btn {
+        padding: 0;
+    }
+}
