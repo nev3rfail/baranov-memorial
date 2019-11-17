@@ -742,5 +742,53 @@
     "img": "https://i.ytimg.com/vi/Wse_U6omeoU/maxresdefault.jpg",
     "where": "stopgame",
     "url": "https://stopgame.ru/show/87736/"
+  },
+  {
+    "title": "Мнения о Death Stranding, скандалы вокруг Modern Warfare, обзор Disco Elysium, Blizzard и Китай...",
+    "teaser_text": "Игрозор",
+    "date": {
+      "day": 4,
+      "month": 11,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/XpT6lqQPNJs/maxresdefault.jpg",
+    "where": "stopgame",
+    "url": "https://www.youtube.com/watch?v=XpT6lqQPNJs"
+  },
+  {
+    "title": "EGS — за и против, Ninja и Mixer, блиц главреда, а также почему все стали ненавидеть Heavy Rain?",
+    "teaser_text": "Игрозор",
+    "date": {
+      "day": 17,
+      "month": 8,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/xrzdmuuxqTo/maxresdefault.jpg",
+    "where": "stopgame",
+    "url": "https://www.youtube.com/watch?v=xrzdmuuxqTo"
+  },
+  {
+    "title": "Итоги 2018-го игрового года",
+    "teaser_text": "Да, не в марте! Зато традиционно сумбурные, балаганные, с местечковыми «срачами», субъективщиной от нас и объективщиной от вас. Итоги года.",
+    "date": {
+      "day": 24,
+      "month": 1,
+      "year": 2019
+    },
+    "img": "https://i.ytimg.com/vi/YgQx02G2hBs/maxresdefault.jpg",
+    "where": "stopgame",
+    "url": "https://www.youtube.com/watch?v=YgQx02G2hBs"
+  },
+  {
+    "title": "Лучшие игры 2017-го игрового года",
+    "teaser_text": "Мы обещали сделать итоги года 31-го декабря — мы их сделали! УРА!Правда, мы не обещали 31-го декабря их выкладывать, и решили, что с этим как раз можно чуть-чуть припоздниться. (На самом деле у нас возникла масса технических проблем. Это нас не оправдывает, конечно. Нас оправдывает непревзойдённое чувство юмора).В любом случае, итоги видеоигрового 2017-го ещё застанут остатки оливье в ваших сердцах и шампанское в вашей печени. Засыпайте всё, что осталось, в кружки, и усаживайтесь поудобнее — время покончить с ушедшим годом!",
+    "date": {
+      "day": 6,
+      "month": 1,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/96OMpCqJW08/maxresdefault.jpg",
+    "where": "stopgame",
+    "url": "https://www.youtube.com/watch?v=96OMpCqJW08"
   }
 ]

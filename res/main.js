@@ -51,6 +51,7 @@ let settings = {
 document.addEventListener('DOMContentLoaded', (key, value) => {
     const logos = {
         'igromania': 'igromania.svg',
+        'igromania_other': 'igromania.svg',
         'dtf': 'dtf.png',
         'stopgame': 'stopgame.png',
         'kanobu': 'kanobu.png',
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
     const fancy_names = {
         'igromania': 'Игромания',
+        'igromania_other': 'Игромания Другое',
         'dtf': 'DTF',
         'stopgame': 'StopGame.ru',
         'kanobu': 'Канобу',
@@ -83,6 +85,8 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             'dtf_main',
             'igromania_main',
             'igromania_forum',
+            'igromania_stream',
+            'igromania_other',
             'stopgame_main',
             'stopgame_stream',
             'stopgame_infact',

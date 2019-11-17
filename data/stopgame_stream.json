@@ -56,7 +56,7 @@
       "year": 2017
     },
     "img": "https://stopga.me/images/uploads/images/152745/form/2017/04/14/normal_1492177874.jpg",
-    "url": "",
+    "url": "https://vk.com/video-17833376_456243075",
     "where": "stopgame"
   },
   {
@@ -2277,6 +2277,18 @@
     },
     "img": "https://i.ytimg.com/vi/O_uwQg7bY7k/maxresdefault.jpg",
     "url": "https://www.youtube.com/watch?v=O_uwQg7bY7k",
+    "where": "stopgame"
+  },
+  {
+    "title": "Frost Punk. Ледяное унижение.",
+    "teaser_text": "Ведущий: Евгений Баранов.",
+    "date": {
+      "day": 1,
+      "month": 8,
+      "year": 2018
+    },
+    "img": "https://i.ytimg.com/vi/xBjw5AEnTjs/maxresdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=xBjw5AEnTjs",
     "where": "stopgame"
   }
 ]
