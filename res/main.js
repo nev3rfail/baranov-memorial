@@ -189,25 +189,25 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             .replace('{year}', record.date.year.toString())
             .replace('{where}', record.where);
 
-        if (record.url) {
+        if ('url' in record) {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
         }
 
-        if (record.img) {
+        if ('img' in record) {
             card = card.replace('{img}', card_image.replace('{img}', `https://images.weserv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&output=jpg`))
         } else {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
-        if (logos[record.where]) {
+        if (record.where in logos) {
             card = card.replace('{logo}', card_logo.replace('{logo}', './res/image/' + logos[record.where]))
         } else {
             card = card.replace('{logo}', '')
         }
 
-        if (record.tags) {
+        if ('tags' in record) {
             let tagsList = document.createElement('ul')
 
             record.tags.forEach(tag => {
@@ -412,12 +412,13 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
     }
 
     function build_filter_item({ text, ...filterParams }) {
-        let filter_item = '<a class="dropdown-item filter-link" ';
+		let filter_item = document.createElement('button')
+		filter_item.classList = 'dropdown-item filter-link'
+		filter_item.innerText = text
         Object.entries(filterParams).forEach(([key, val]) => {
-            filter_item += `data-${key}="${val}" `;
+            filter_item.dataset[key] = val
         })
-        filter_item += `href="javascript:void(0)">${text}</a>`;
-        return filter_item;
+        return filter_item.outerHTML;
     }
 
     /**
