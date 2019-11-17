@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
     function get_default_text(label_key) {
         switch(label_key) {
             case 'sources': {
-                return 'Источники'
+                return 'Издания'
             }
             case 'years': {
                 return 'Годы'
