@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         });
         document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
 
-
+        filter_item = `<a class="dropdown-item filter-link" data-tag="{tag}" href="javascript:void(0)">{text}</a>`;
         let tag_filter = '';
         Object.keys(tags).sort(function (a, b) {
             if (tags[a] > tags[b]) {
@@ -507,11 +507,10 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             return 0;
         }).forEach(function (tag, i) {
             tag_filter += filter_item
-                .replace(/{filter}/, 'tag')
-                .replace(/data-year="{year}"/, '')
-                .replace(/{where}/, tag)
+                .replace(/{tag}/, tag)
                 .replace(/{text}/, `${tag} (${tags[tag]})`);
-            
+
+                // Need to change to something not that stupid
             if (i === 1) {
                 tag_filter += '<div class="dropdown-divider"></div>';
             }
@@ -528,7 +527,14 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 }
 
                 if ('year' in item.dataset) {
+
+                    console.log({'year': item.dataset.year});
                     draw(filter({'year': item.dataset.year}));
+                }
+
+                if ('tag' in item.dataset) {
+                    console.log({'tag': item.dataset.tag});
+                    draw(filter({'tag': item.dataset.tag}));
                 }
 
                 document.getElementById('filter_name').innerText = item.textContent;
@@ -560,12 +566,17 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             where = filters['where']
         }
 
+        let tag;
+        if (filters['tag'] !== undefined) {
+            tag = filters['tag']
+        }
+        console.log(tag);
         return full_recordset.filter(function (record) {
-            console.log('new')
-            let year_check = !(year !== undefined) || (record.date.year === Number(year))    // (no filter) || (filter passed)
-            let where_check = !(where !== undefined) || (record.where === where)
+            let year_check = !(year !== undefined) || (record.date.year === Number(year));    // (no filter) || (filter passed)
+            let where_check = !(where !== undefined) || (record.where === where);
+            let tag_check = !(tag !== undefined) || record.tags.includes(tag);
 
-            return year_check && where_check
+            return year_check && where_check && tag_check
         })
     }
 
@@ -575,7 +586,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
-    Array.from(['unfilter_year', 'unfilter_where']).forEach(id => {
+    Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
         document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
