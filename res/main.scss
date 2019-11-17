@@ -90,7 +90,13 @@ $logos: (
     padding: 2rem 1rem;
     margin-bottom: 2rem;
     background-color: #303030;
-    border-radius: 0.3rem;
+	border-radius: 0.3rem;
+
+	.extra-links {
+		.btn {
+			margin-top: 5px;
+		}
+	}
 }
 
 @media (min-width: 576px) {
