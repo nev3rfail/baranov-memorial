@@ -441,6 +441,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
         const years = {};
         const sources = {};
+        const tags = {};
 
         for (let i in full_recordset) if (full_recordset.hasOwnProperty(i)) {
             let record = full_recordset[i];
@@ -454,6 +455,13 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 sources[record.where] = 0
             }
             ++sources[record.where]
+
+            record.tags.forEach(function (tag) {
+                if (!tags[tag]) {
+                    tags[tag] = 0
+                }
+                ++tags[tag]
+            })
         }
 
         let filter_item = `<a class="dropdown-item filter-link" data-where="{where}" data-year="{year}" href="javascript:void(0)">{text}</a>`;
@@ -485,6 +493,25 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 .replace(/{text}/, `${fancy_names[source]} (${sources[source]})`);
         });
         document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
+
+        let tag_filter = '';
+        Object.keys(tags).sort(function (a, b) {
+            if (tags[a] > tags[b]) {
+                return -1;
+            }
+            if (tags[a] < tags[b]) {
+                return 1;
+            }
+
+            return 0;
+        }).forEach(tag => {
+            tag_filter += filter_item
+                .replace(/{filter}/, 'tag')
+                .replace(/data-year="{year}"/, '')
+                .replace(/{where}/, tag)
+                .replace(/{text}/, `${tag} (${tags[tag]})`);
+        });
+        document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', tag_filter);
 
         document.querySelectorAll('.filter-link').forEach(item => {
             item.addEventListener('click', () => {
