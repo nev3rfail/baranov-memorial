@@ -529,15 +529,11 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
 
         return full_recordset.filter(function (record) {
-            if (year !== undefined && where !== undefined) {
-                return record.date.year === Number(year) && record.where === where
-            } else if (year !== undefined) {
-                return record.date.year === Number(year)
-            } else if (where !== undefined) {
-                return record.where === where
-            } else {
-                return true
-            }
+            console.log('new')
+            let year_check = !(year !== undefined) || (record.date.year === year)    // (no filter) || (filter passed)
+            let where_check = !(where !== undefined) || (record.where === where)
+
+            return year_check && where_check
         })
     }
 
