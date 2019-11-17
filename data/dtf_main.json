@@ -68,7 +68,7 @@
       "year": 2019
     },
     "img": "https://leonardo.osnova.io/04163b39-df29-db67-f191-029e6b46eb0e/-/scale_crop/700x394/center/-/format/webp/",
-    "where": "dtf", "tags": ["текст","статья"],
+    "where": "dtf", "tags": ["текст","статья","кино"],
     "url": "https://dtf.ru/life/52073-valeriy-legasov-chelovek-kotoryy-spas-evropu"
   },
   {
@@ -80,7 +80,7 @@
       "year": 2019
     },
     "img": "https://leonardo.osnova.io/94df9ea9-7cb5-d910-d322-25ee75852286/-/scale_crop/700x394/center/-/format/webp/",
-    "where": "dtf", "tags": ["текст","статья"],
+    "where": "dtf", "tags": ["текст","статья","кино"],
     "url": "https://dtf.ru/cinema/50698-smert-pod-luchom-naskolko-pravdopodoben-mini-serial-chernobyl"
   },
   {
@@ -788,7 +788,7 @@
       "year": 2016
     },
     "img": "",
-    "where": "dtf", "tags": ["текст","статья","подборка"],
+    "where": "dtf", "tags": ["текст","статья","подборка","кино"],
     "url": "https://dtf.ru/flood/2907-stertaya-galaktika-pyat-istoriy-vselennoy-zvezdnyh-voyn-kotorye-my-poteryali"
   },
   {
