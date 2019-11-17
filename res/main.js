@@ -119,11 +119,10 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
                 {logo}
                 {img}
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div>
-                        <h5 class="card-title">{title}</h5>
-                        <p class="card-text">{teaser_text}</p>
-                    </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{title}</h5>
+                    <p class="card-text">{teaser_text}</p>
+                    <ul class="card-tags list-inline">{tags}</ul>
                 </div>
                     <div class="card-footer text-muted">
                         {url} <span class="float-right date-span">{date}</span>
@@ -206,6 +205,25 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             card = card.replace('{logo}', card_logo.replace('{logo}', './res/image/' + logos[record.where]))
         } else {
             card = card.replace('{logo}', '')
+        }
+
+        if (record.tags) {
+            let tagsList = document.createElement('ul')
+
+            record.tags.forEach(tag => {
+                let tagBtn = document.createElement('button')
+                tagBtn.classList = 'btn btn-primary btn-sm'
+                tagBtn.innerText = tag
+                tagBtn.setAttribute('onclick', `filter_by_tag('${tag}')`)
+
+                let tagListItem = document.createElement('li')
+                tagListItem.classList = 'list-inline-item'
+                tagListItem.appendChild(tagBtn)
+
+                tagsList.appendChild(tagListItem)
+            })
+
+            card = card.replace('{tags}', tagsList.innerHTML)
         }
 
         records_container.insertAdjacentHTML('beforeend', card);
@@ -491,8 +509,6 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             })
         }
 
-
-
         const filter_years = Object.keys(years).reverse().map(year =>
             build_filter_item({ year, text: `${year} (${years[year]})` })
         );
@@ -531,42 +547,59 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
         document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
+        const filter_labels = document.querySelectorAll('.filter-label');
+        filter_labels.forEach(filter_label => {
+            filter_label.dataset.originalKey = filter_label.innerText.trim()
+        })
+
+        let label_key;
+
+        function draw_with_filter(_filter, _value, _key) {
+            current_page = 1;
+            remove_cards();
+            draw(filter({[_filter]: _value}));
+            label_key = _key
+        }
+
+        function update_filter_label(_label) {
+            filter_labels.forEach(filter_label => {
+                const { dataset: { activated, labelKey: orig_label_key }} = filter_label;
+                const is_activated = activated === 'true';
+                if (orig_label_key === label_key) {
+                    filter_label.innerText = is_activated ? get_default_text(label_key) : _label;
+                    //console.log(filter_label, is_activated)
+                    filter_label.dataset.activated = !is_activated;
+                } else {
+                    filter_label.innerText = get_default_text(orig_label_key);
+                    filter_label.dataset.activated = false;
+                }
+            })
+
+            document.getElementById('filter_name').innerText = _label;
+        }
+
+        // глобальная функция для кнопок тегов в карточках
+        window['filter_by_tag'] = function(tag) {
+            draw_with_filter('tag', tag, 'tags')
+            update_filter_label(tag)
+            route_scroll_to_rc()
+        }
+
         document.querySelectorAll('.filter-link').forEach(item => {
             item.addEventListener('click', () => {
-                current_page = 1;
-                remove_cards();
-                let label_key;
                 if ('where' in item.dataset) {
-                    draw(filter({'where': item.dataset.where}));
-                    label_key = 'sources'
+                    draw_with_filter('where', item.dataset.where, 'sources')
                 }
 
                 if ('year' in item.dataset) {
-                    console.log({'year': item.dataset.year});
-                    draw(filter({'year': item.dataset.year}));
-                    label_key = 'years'
+                    draw_with_filter('year', item.dataset.year, 'years')
                 }
 
                 if ('tag' in item.dataset) {
-                    console.log({'tag': item.dataset.tag});
-                    draw(filter({'tag': item.dataset.tag}));
-                    label_key = 'tags'
+                    draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
-                const filter_labels = document.querySelectorAll('.filter-label');
-                filter_labels.forEach(filter_label => {
-                    const {  dataset: { activated, labelKey: orig_label_key }} = filter_label;
-                    const is_activated = activated === 'true';
-                    if (orig_label_key === label_key) {
-                        filter_label.innerText = is_activated ? get_default_text(label_key) : item.textContent;
-                        console.log(filter_label, is_activated)
-                        filter_label.dataset.activated = !is_activated;
-                    } else {
-                        filter_label.innerText = get_default_text(orig_label_key);
-                        filter_label.dataset.activated = false;
-                    }
-                })
 
-                document.getElementById('filter_name').innerText = item.textContent;
+                update_filter_label(item.textContent)
 
                 route_scroll_to_rc();
             })
@@ -599,7 +632,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         if (filters['tag'] !== undefined) {
             tag = filters['tag']
         }
-        console.log(tag);
+
         return full_recordset.filter(function (record) {
             let year_check = !(year !== undefined) || (record.date.year === Number(year));    // (no filter) || (filter passed)
             let where_check = !(where !== undefined) || (record.where === where);
