@@ -494,6 +494,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         });
         document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', source_filter);
 
+
         let tag_filter = '';
         Object.keys(tags).sort(function (a, b) {
             if (tags[a] > tags[b]) {
@@ -504,12 +505,16 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
 
             return 0;
-        }).forEach(tag => {
+        }).forEach(function (tag, i) {
             tag_filter += filter_item
                 .replace(/{filter}/, 'tag')
                 .replace(/data-year="{year}"/, '')
                 .replace(/{where}/, tag)
                 .replace(/{text}/, `${tag} (${tags[tag]})`);
+            
+            if (i === 1) {
+                tag_filter += '<div class="dropdown-divider"></div>';
+            }
         });
         document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', tag_filter);
 
