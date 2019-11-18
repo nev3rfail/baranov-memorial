@@ -404,6 +404,11 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
+    /**
+     * Make button for filter list item (+|no). For 'no' is_reverse should be True
+     * @param {Boolean} is_reverse
+     * @param {Object} filterParams
+     */
     function build_filter_button(is_reverse, filterParams) {
         let btn_elem = document.createElement('button')
         btn_elem.classList = 'btn btn-primary btn-sm ml-1 filter-btn'
