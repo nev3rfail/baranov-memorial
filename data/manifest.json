@@ -1,0 +1,17 @@
+{
+  "dtf": {
+    "files": [
+      "dtf_main"
+    ],
+    "name": "DTF",
+    "icon": "igromania.svg"
+  },
+  "stopgame": {
+    "files": [
+      "stopgame_main",
+      "stopgame_stream",
+      "stopgame_infact",
+    ],
+    "name": "Stop"
+  }
+}

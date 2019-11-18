@@ -12,5 +12,6 @@ mix.js('res/main.js', 'dist')
                 'safe': true,
                 'calc': false
             })
-        ]
+        ],
+        processCssUrls: false
     });

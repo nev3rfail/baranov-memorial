@@ -48,22 +48,10 @@ let settings = {
     'draw_mode': localStorage.getItem('draw_mode') in ['standard', 'generator'] ? localStorage.getItem('draw_mode') : default_settings.draw_mode
 };
 
-document.addEventListener('DOMContentLoaded', (key, value) => {
-    const logos = {
-        'igromania': 'igromania.svg',
-        'igromania_other': 'igromania.svg',
-        'dtf': 'dtf.png',
-        'stopgame': 'stopgame.png',
-        'kanobu': 'kanobu.png',
-        'lki': 'lki.png',
-        'bestgamer': 'bestgamerICON.png',
-        'zog': 'zog.png',
-        'vch': 'vch.png'
-    };
-
+document.addEventListener('DOMContentLoaded', () => {
     const fancy_names = {
         'igromania': 'Игромания',
-        'igromania_other': 'Игромания Другое',
+        'igromania_other': 'Игромания [другое]',
         'dtf': 'DTF',
         'stopgame': 'StopGame.ru',
         'kanobu': 'Канобу',
@@ -128,9 +116,10 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                     </div>
             </div>
         </div>`;
-    const card_logo = '<img class="logo" src="{logo}" alt="logo">';
+
     const card_image = '<img src="{img}" class="card-img-top" alt="card image">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
+    const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag}</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.querySelector('#records_container');
@@ -201,22 +190,12 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
 
         if ('tags' in record && record.tags.length !== 0) {
-            let tagsList = document.createElement('ul')
+            let tagsList = '';
 
             record.tags.forEach(tag => {
-                let tagBtn = document.createElement('button')
-                tagBtn.classList = 'btn btn-primary btn-sm'
-                tagBtn.innerText = tag
-                tagBtn.setAttribute('onclick', `filter_by_tag('${tag}')`)
-
-                let tagListItem = document.createElement('li')
-                tagListItem.classList = 'list-inline-item'
-                tagListItem.appendChild(tagBtn)
-
-                tagsList.appendChild(tagListItem)
-            })
-
-            card = card.replace('{tags}', tagsList.innerHTML)
+                tagsList += card_tag.replace(/{tag}/g, tag);
+            });
+            card = card.replace('{tags}', tagsList)
         }
 
         records_container.insertAdjacentHTML('beforeend', card);
@@ -338,9 +317,9 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
 
             pagination_dom += pagination_item_base
-                .replace(/{num}/g, i)
+                .replace(/{num}/g, String(i))
                 .replace(/{state}/, i === page ? 'active' : '');
-            console.log('Page', i)
+            console.log('Page', i);
         }
 
         // End button
@@ -404,14 +383,21 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
-    function build_filter_item({ text, ...filterParams }) {
-        let filter_item = document.createElement('button')
-        filter_item.classList = 'dropdown-item filter-link'
-        filter_item.innerText = text
+    let filter_item = `<button class="dropdown-item filter-link" {data-tags}>{text}</button>`;
+
+    /**
+     * Build filter item in navbar
+     * @param {String} text
+     * @param {Object} filterParams
+     * @returns {string}
+     */
+    function build_filter_item({text, ...filterParams}) {
+        let dataset = [];
         Object.entries(filterParams).forEach(([key, val]) => {
-            filter_item.dataset[key] = val
-        })
-        return filter_item.outerHTML;
+            dataset += `data-${key}="${val}"`;
+        });
+
+        return filter_item.replace(/{data-tags}/, dataset).replace(/{text}/, text);
     }
 
     /**
@@ -419,7 +405,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
      * @param {string} label_key
      */
     function get_default_text(label_key) {
-        switch(label_key) {
+        switch (label_key) {
             case 'sources': {
                 return 'Издания'
             }
@@ -493,7 +479,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             if (!sources[record.where]) {
                 sources[record.where] = 0
             }
-            ++sources[record.where]
+            ++sources[record.where];
 
             record.tags && record.tags.forEach(function (tag) {
                 if (!tags[tag]) {
@@ -504,7 +490,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
 
         const filter_years = Object.keys(years).reverse().map(year =>
-            build_filter_item({ year, text: `${year} (${years[year]})` })
+            build_filter_item({year, text: `${year} (${years[year]})`})
         );
         document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''));
 
@@ -520,7 +506,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         });
 
         const filter_sources = sorted_sources.map(source =>
-            build_filter_item({ where: source, text: `${fancy_names[source]} (${sources[source]})`})
+            build_filter_item({where: source, text: `${fancy_names[source]} (${sources[source]})`})
         );
         document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''));
 
@@ -535,16 +521,16 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         });
 
         const filter_tags = sorted_tags.map(tag =>
-            build_filter_item({ tag, text: `${tag} (${tags[tag]})`})
+            build_filter_item({tag, text: `${tag} (${tags[tag]})`})
         );
 
-        filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
+        filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
         document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
         const filter_labels = document.querySelectorAll('.filter-label');
         filter_labels.forEach(filter_label => {
             filter_label.dataset.originalKey = filter_label.innerText.trim()
-        })
+        });
 
         let label_key;
 
@@ -557,27 +543,26 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
         function update_filter_label(_label) {
             filter_labels.forEach(filter_label => {
-                const { dataset: { activated, labelKey: orig_label_key }} = filter_label;
+                const {dataset: {activated, labelKey: orig_label_key}} = filter_label;
                 const is_activated = activated === 'true';
                 if (orig_label_key === label_key) {
                     filter_label.innerText = is_activated ? get_default_text(label_key) : _label;
-                    //console.log(filter_label, is_activated)
-                    filter_label.dataset.activated = !is_activated;
+                    filter_label.dataset.activated = String(!is_activated);
                 } else {
                     filter_label.innerText = get_default_text(orig_label_key);
-                    filter_label.dataset.activated = false;
+                    filter_label.dataset.activated = 'false';
                 }
-            })
+            });
 
             document.getElementById('filter_name').innerText = _label;
         }
 
         // глобальная функция для кнопок тегов в карточках
-        window['filter_by_tag'] = function(tag) {
-            draw_with_filter('tag', tag, 'tags')
-            update_filter_label(tag)
+        window['filter_by_tag'] = function (tag) {
+            draw_with_filter('tag', tag, 'tags');
+            update_filter_label(tag);
             route_scroll_to_rc()
-        }
+        };
 
         document.querySelectorAll('.filter-link').forEach(item => {
             item.addEventListener('click', () => {
@@ -593,7 +578,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                     draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
 
-                update_filter_label(item.textContent)
+                update_filter_label(item.textContent);
 
                 route_scroll_to_rc();
             })
@@ -648,10 +633,11 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             remove_cards();
             const filter_labels = document.querySelectorAll('.filter-label');
             filter_labels.forEach(filter_label => {
-                const {  dataset: { labelKey: orig_label_key }} = filter_label;
+                const {dataset: {labelKey: orig_label_key}} = filter_label;
                 filter_label.innerText = get_default_text(orig_label_key);
-                filter_label.dataset.activated = false;
-            })
+                filter_label.dataset.activated = 'false';
+            });
+
             document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
             draw(full_recordset);
 
@@ -677,7 +663,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
     };
 
-    document.getElementById('settings_form').oninput = (event) => {
+    document.getElementById('settings_form').oninput = () => {
         let new_settings = {
             'per_page': document.getElementById('per_page_setting').value,
             'image_quality': document.getElementById('image_quality_setting').value,
