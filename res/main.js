@@ -495,12 +495,19 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             }
             ++sources[record.where]
 
+            if (!(record.tags !== undefined)) {
+                record.tags = ["тэг"];
+            }
+
             record.tags && record.tags.forEach(function (tag) {
                 if (!tags[tag]) {
                     tags[tag] = 0
                 }
                 ++tags[tag]
             })
+
+            record.tags.push(fancy_names[record.where]);
+            record.tags.push(record.date.year);
         }
 
         const filter_years = Object.keys(years).reverse().map(year =>
