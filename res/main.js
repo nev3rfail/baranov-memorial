@@ -434,8 +434,8 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
         let filter_btns = document.createElement('div')
         filter_btns.classList = 'd-inline-block float-right'
-        filter_btns.appendChild(build_filter_button(false, filterParams))
-        filter_btns.appendChild(build_filter_button(true, filterParams))
+        filter_btns.appendChild(build_filter_button(false,filterParams))
+        filter_btns.appendChild(build_filter_button(true,filterParams))
         filter_item.appendChild(filter_btns)
 
         return filter_item.outerHTML;
@@ -588,28 +588,9 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             draw(filter({[_filter]: _value}));
             label_key = _key
         }
-
-        function update_filter_label(_label) {
-            filter_labels.forEach(filter_label => {
-                const { dataset: { activated, labelKey: orig_label_key }} = filter_label;
-                const is_activated = activated === 'true';
-                if (orig_label_key === label_key) {
-                    filter_label.innerText = is_activated ? get_default_text(label_key) : _label;
-                    //console.log(filter_label, is_activated)
-                    filter_label.dataset.activated = !is_activated;
-                } else {
-                    filter_label.innerText = get_default_text(orig_label_key);
-                    filter_label.dataset.activated = false;
-                }
-            })
-
-            document.getElementById('filter_name').innerText = _label;
-        }
-
         // глобальная функция для кнопок тегов в карточках
         window['filter_by_tag'] = function(tag) {
             draw_with_filter('tag', tag, 'tags')
-            update_filter_label(tag)
             route_scroll_to_rc()
         }
 
@@ -626,8 +607,6 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 if ('tag' in item.dataset) {
                     draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
-
-                update_filter_label(item.textContent)
 
                 route_scroll_to_rc();
             })*/
