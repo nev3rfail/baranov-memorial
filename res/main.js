@@ -390,7 +390,7 @@ function init(data) {
      * @returns {string}
      */
     function build_filter_item({text, ...filterParams}) {
-        let dataset = [];
+        let dataset = '';
         Object.entries(filterParams).forEach(([key, val]) => {
             dataset += `data-${key}="${val}"`;
         });
@@ -541,11 +541,10 @@ function init(data) {
 
         function update_filter_label(_label) {
             filter_labels.forEach(filter_label => {
-                const {dataset: {activated, labelKey: orig_label_key}} = filter_label;
-                const is_activated = activated === 'true';
+                const {dataset: {labelKey: orig_label_key}} = filter_label;
                 if (orig_label_key === label_key) {
-                    filter_label.innerText = is_activated ? get_default_text(label_key) : _label;
-                    filter_label.dataset.activated = String(!is_activated);
+                    filter_label.innerText = _label;
+                    filter_label.dataset.activated = 'true';
                 } else {
                     filter_label.innerText = get_default_text(orig_label_key);
                     filter_label.dataset.activated = 'false';
@@ -627,6 +626,7 @@ function init(data) {
 
     Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
         document.getElementById(id).onclick = () => {
+            debugger;
             current_page = 1;
             remove_cards();
             Array.from(document.getElementsByClassName('filter-label')).forEach(filter_label => {
