@@ -49,17 +49,24 @@ let settings = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const fancy_names = {
-        'igromania': 'Игромания',
-        'igromania_other': 'Игромания [другое]',
-        'dtf': 'DTF',
-        'stopgame': 'StopGame.ru',
-        'kanobu': 'Канобу',
-        'lki': 'ЛКИ',
-        'bestgamer': 'BestGamer.ru',
-        'zog': 'Zone of Games',
-        'vch': 'Вечерние Челны'
-    };
+    fetch('./data/manifest.json')
+        .then(res => res.json())
+        .then(data => {
+            console.log('Manifest', data);
+            init(data);
+        })
+});
+
+function init(data) {
+    let fancy_names = {};
+    let data_icons = {};
+    let data_files = [];
+
+    Object.keys(data).forEach(entry => {
+        fancy_names[entry] = data[entry].name;
+        data_icons[entry] = data[entry].icon;
+        data_files.push(...data[entry].files);
+    });
 
     let full_recordset = [];
     let current_recordset = [];
@@ -69,42 +76,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function compile_all() {
-        const data_files = [
-            'dtf_main',
-            'igromania_main',
-            'igromania_forum',
-            'igromania_stream',
-            'igromania_other',
-            'stopgame_main',
-            'stopgame_stream',
-            'stopgame_infact',
-            'kanobu',
-            'lki',
-            'bestgamer',
-            'zog',
-            'vch'
-        ];
         const needed = data_files.length;
         let finished = 0;
         for (let i in data_files) {
-            fetch('./data/' + data_files[i] + '.json')
-                .then(res => res.json())
-                .then(data => {
-                    full_recordset = full_recordset.concat(data);
-                    ++finished;
-                    if (finished === needed) {
-                        document.dispatchEvent(loaded_event)
-                    }
-                })
+            if (data_files.hasOwnProperty(i)) {
+                fetch('./data/' + data_files[i] + '.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        full_recordset = full_recordset.concat(data);
+                        ++finished;
+                        if (finished === needed) {
+                            document.dispatchEvent(loaded_event)
+                        }
+                    })
+            }
         }
     }
 
     /**
-     * cards stuff
+     * Templates
      */
-    const base_card = `
-        <div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
+    const filter_item = `<button class="dropdown-item filter-link" {data-tags}>{text}</button>`;
+    const base_card = `<div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
+                {icon}
                 {img}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{title}</h5>
@@ -117,12 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>`;
 
-    const card_image = '<img src="{img}" class="card-img-top" alt="card image">';
+    const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">';
+    const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag}</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
-    const records_container = document.querySelector('#records_container');
+    const records_container = document.getElementById('records_container');
     const imgPlaceholder = './logo/placeholder.jpg';
     const placeholder_element = document.getElementById('placeholder');
     const draw_time = 10;
@@ -181,6 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
             card = card.replace('{url}', card_url.replace('{url}', record.url)).replace('{nourl}', '')
         } else {
             card = card.replace('{url}', card_nourl).replace('{nourl}', 'border-danger')
+        }
+
+        if ('where' in record && record.where !== '') {
+            card = card.replace('{icon}', card_icon.replace('{icon}', './res/image/' + data_icons[record.where]))
         }
 
         if ('img' in record && record.img !== '') {
@@ -249,8 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * pagination stuff
      */
     const pagination_item_base = `<li class="page-item {state}"><button class="page-link paginator-button" data-page="{num}">{num}</button></li>`;
-    const pagination_container_top = document.querySelector("#pagination_container_top");
-    const pagination_container_bottom = document.querySelector("#pagination_container_bottom");
+    const pagination_container_top = document.getElementById("pagination_container_top");
+    const pagination_container_bottom = document.getElementById("pagination_container_bottom");
 
     let current_page = 1;
     const visible_pages = 6; // Choose only even numbers for greater UI
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pagination_container_top.insertAdjacentHTML('beforeend', pagination_dom);
         pagination_container_bottom.insertAdjacentHTML('beforeend', pagination_dom);
 
-        document.querySelectorAll('.paginator-button').forEach(item => {
+        Array.from(document.getElementsByClassName('paginator-button')).forEach(item => {
             if (Number(item.dataset.page) !== current_page) {
                 item.addEventListener('click', () => {
                     remove_cards();
@@ -382,8 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, draw_time);
     }
-
-    let filter_item = `<button class="dropdown-item filter-link" {data-tags}>{text}</button>`;
 
     /**
      * Build filter item in navbar
@@ -492,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filter_years = Object.keys(years).reverse().map(year =>
             build_filter_item({year, text: `${year} (${years[year]})`})
         );
-        document.querySelector('#filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''));
+        document.getElementById('filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''));
 
         const sorted_sources = Object.keys(sources).sort(function (a, b) {
             if (sources[a] > sources[b]) {
@@ -508,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filter_sources = sorted_sources.map(source =>
             build_filter_item({where: source, text: `${fancy_names[source]} (${sources[source]})`})
         );
-        document.querySelector('#filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''));
+        document.getElementById('filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''));
 
         const sorted_tags = Object.keys(tags).sort(function (a, b) {
             if (tags[a] > tags[b]) {
@@ -525,9 +523,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
-        document.querySelector('#filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
+        document.getElementById('filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
-        const filter_labels = document.querySelectorAll('.filter-label');
+        const filter_labels = Array.from(document.getElementsByClassName('filter-label'));
         filter_labels.forEach(filter_label => {
             filter_label.dataset.originalKey = filter_label.innerText.trim()
         });
@@ -564,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
             route_scroll_to_rc()
         };
 
-        document.querySelectorAll('.filter-link').forEach(item => {
+        Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
             item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
                     draw_with_filter('where', item.dataset.where, 'sources')
@@ -589,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function remove_cards() {
         document.getElementById('records_container').style.height = `1080px`;
-        Array.from(document.querySelectorAll('.memorial-card-column')).forEach(card => card.remove())
+        Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
     }
 
     /**
@@ -631,8 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id).onclick = () => {
             current_page = 1;
             remove_cards();
-            const filter_labels = document.querySelectorAll('.filter-label');
-            filter_labels.forEach(filter_label => {
+            Array.from(document.getElementsByClassName('filter-label')).forEach(filter_label => {
                 const {dataset: {labelKey: orig_label_key}} = filter_label;
                 filter_label.innerText = get_default_text(orig_label_key);
                 filter_label.dataset.activated = 'false';
@@ -688,4 +685,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateSettings(settings);
-});
+}
