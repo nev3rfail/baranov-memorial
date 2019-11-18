@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         'vch': 'Вечерние Челны'
     };
 
+    const FILTERS_QUERY_PARAM_NAME = 'f'
+
     let full_recordset = [];
     let current_recordset = [];
     let running_interval;
@@ -469,7 +471,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
     }
 
     function util_update_query_param(param_name, param_val) {
-        let query_string = window.location.href
+        let query_string = decodeURIComponent(window.location.href)
 
         // no params in query
         if (query_string.indexOf('?') < 0) {
@@ -478,11 +480,12 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             let param_start = query_string.indexOf('?'+param_name+'=')
             let param_start_not_first = query_string.indexOf('&'+param_name+'=')
 
+            console.log ('check:', param_start, param_start_not_first)
+
             // if param is not first
             if (param_start_not_first > param_start) {
                 param_start = param_start
             }
-
             // there some params in query, but no 'param_name'
             if (param_start < 0) {
                 window.location.href += '&' + param_name + '=' + param_val
@@ -494,32 +497,80 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                     param_end = query_string.length;
                 }
 
-                window.location.href = query_string[0,param_start] + param_name + '=' + param_val + query_string.substr(param_end)
+                window.location.href = query_string.substring(0,param_start+1) + param_name + '=' + param_val + query_string.substr(param_end)
             }
         }
     }
 
     function util_get_query_param(param_name) {
-        param_val = '' // '' will be returned if there is no such param
+        let param_val = '' // '' will be returned if there is no such param
 
-        let query_string = window.location.href
-        if (query_string.indexOf('?')  > 0) {
-            let param_strings = query_string.split('&')
+        let query_string = decodeURIComponent(window.location.href)
+
+        let param_start = query_string.indexOf('?')
+        if (param_start > 0) {
+            let param_strings = query_string.substr(param_start+1).split('&')
+            console.log('has get', param_strings)
             param_strings.forEach(function (str) {
                 let cur_param_splited = str.split('=')
                 if (cur_param_splited[0] === param_name) {
                     param_val = cur_param_splited[1]
+                    console.log('in get', cur_param_splited, param_val)
                 }
             });
         }
-
+        console.log('res_get', param_val)
         return param_val
+    }
+
+    function remove_filter_from_query (tag, is_reverse) {
+
     }
 
     function add_filter_to_query(tag, is_reverse) {
         let is_changed = false
-        util_update_query_param('f', tag)
-        console.log(tag, is_reverse)
+        is_reverse = (is_reverse === 'true')
+        let final_tag = ''
+        if (!is_reverse) {
+            final_tag = tag
+        } else {
+            final_tag = '!' + tag
+        }
+
+        let cur_filter_param = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+
+        console.log('start', !is_reverse, 'add', tag, 'rev:', is_reverse, final_tag, cur_filter_param, 'end')
+
+        if (cur_filter_param === '') {
+            util_update_query_param(FILTERS_QUERY_PARAM_NAME,final_tag)
+            is_changed = true
+        } else {
+            let cur_filter_tags = cur_filter_param.split(',')
+
+            let tag_reversed_ver = '' // gonna check reversed version of tag being added to just replace it if needed
+            if (!is_reverse) {
+                tag_reversed_ver = '!' + tag
+            } else {
+                tag_reversed_ver = tag
+            }
+
+            console.log('check rev', tag, is_reverse, cur_filter_param, tag_reversed_ver, cur_filter_tags.indexOf(tag_reversed_ver))
+            if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
+                if (cur_filter_tags.indexOf(final_tag) < 0) {
+                    console.log('update', cur_filter_param, 'append')
+                    util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param + ',' + final_tag) // just add the tag
+                    is_changed = true
+                }
+            } else {
+                console.log('before', cur_filter_param)
+                cur_filter_param = cur_filter_param.replace(tag_reversed_ver, final_tag) // replace reversed tag on new one
+                console.log('after', cur_filter_param)
+                util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param)
+                is_changed = true
+            }
+        }
+
+        return is_changed
     }
 
     document.addEventListener('records.loaded', function () {
@@ -660,6 +711,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         document.querySelectorAll('.filter-btn').forEach(item => {
             item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
+                    console.log('event', item.dataset.where, item.dataset.is_reverse)
                     add_filter_to_query(item.dataset.where, item.dataset.is_reverse)
                 }
 
