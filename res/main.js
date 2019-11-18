@@ -464,6 +464,64 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
     }
 
+    function parse_filters_from_query() {
+
+    }
+
+    function util_update_query_param(param_name, param_val) {
+        let query_string = window.location.href
+
+        // no params in query
+        if (query_string.indexOf('?') < 0) {
+            window.location.href += '?' + param_name + '=' + param_val
+        } else {
+            let param_start = query_string.indexOf('?'+param_name+'=')
+            let param_start_not_first = query_string.indexOf('&'+param_name+'=')
+
+            // if param is not first
+            if (param_start_not_first > param_start) {
+                param_start = param_start
+            }
+
+            // there some params in query, but no 'param_name'
+            if (param_start < 0) {
+                window.location.href += '&' + param_name + '=' + param_val
+            } else {
+                let param_end = query_string.indexOf('&', param_start+1)
+
+                // our param to change is the last, so taking line-length as end
+                if (param_end < 0) {
+                    param_end = query_string.length;
+                }
+
+                window.location.href = query_string[0,param_start] + param_name + '=' + param_val + query_string.substr(param_end)
+            }
+        }
+    }
+
+    function util_get_query_param(param_name) {
+        param_val = '' // '' will be returned if there is no such param
+
+        let query_string = window.location.href
+        if (query_string.indexOf('?')  > 0) {
+            let param_strings = query_string.split('&')
+            param_strings.forEach(function (str) {
+                let cur_param_splited = str.split('=')
+                if (cur_param_splited[0] === param_name) {
+                    param_val = cur_param_splited[1]
+                }
+            });
+        }
+
+        return param_val
+    }
+
+    function add_filter_to_query(tag, is_reverse) {
+        let is_changed = false
+        util_update_query_param('f', tag)
+        console.log(tag, is_reverse)
+    }
+
     document.addEventListener('records.loaded', function () {
         /**
          * Необходимо отсортировать полный recordset
@@ -599,22 +657,24 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
             route_scroll_to_rc()
         }
 
-        document.querySelectorAll('.filter-link').forEach(item => {
-            /*item.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(item => {
+            item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
-                    draw_with_filter('where', item.dataset.where, 'sources')
+                    add_filter_to_query(item.dataset.where, item.dataset.is_reverse)
                 }
 
                 if ('year' in item.dataset) {
-                    draw_with_filter('year', item.dataset.year, 'years')
+                    add_filter_to_query(item.dataset.year, item.dataset.is_reverse)
                 }
 
                 if ('tag' in item.dataset) {
-                    draw_with_filter('tag', item.dataset.tag, 'tags')
+                    add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)
+                    //draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
 
                 route_scroll_to_rc();
-            })*/
+            })
+
         });
     });
 
