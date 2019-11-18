@@ -562,7 +562,13 @@ function init(data) {
         };
 
         Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
+                const { activated } = item.dataset;
+                if (activated === 'true') {
+                    e.preventDefault();
+                    return;
+                }
+
                 if ('where' in item.dataset) {
                     draw_with_filter('where', item.dataset.where, 'sources')
                 }
@@ -574,7 +580,9 @@ function init(data) {
                 if ('tag' in item.dataset) {
                     draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
-
+                remove_current_active_filter();
+                item.id = 'current-active-filter';
+                item.dataset.activated = 'true';
                 update_filter_label(item.textContent);
 
                 route_scroll_to_rc();
@@ -583,6 +591,14 @@ function init(data) {
     });
 
     compile_all();
+
+    function remove_current_active_filter() {
+        const current_active_filter = document.getElementById('current-active-filter');
+        if (current_active_filter) {
+            current_active_filter.id = '';
+            current_active_filter.dataset.activated = 'false';
+        }
+    }
 
     function remove_cards() {
         document.getElementById('records_container').style.height = `1080px`;
@@ -626,7 +642,7 @@ function init(data) {
 
     Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
         document.getElementById(id).onclick = () => {
-            debugger;
+            remove_current_active_filter();
             current_page = 1;
             remove_cards();
             Array.from(document.getElementsByClassName('filter-label')).forEach(filter_label => {
