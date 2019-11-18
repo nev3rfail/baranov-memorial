@@ -466,10 +466,6 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
     }
 
-    function parse_filters_from_query() {
-
-    }
-
     function util_update_query_param(param_name, param_val) {
         let query_string = decodeURIComponent(window.location.href)
 
@@ -525,6 +521,18 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
 
     function remove_filter_from_query (tag, is_reverse) {
 
+    }
+
+    function parse_filters_from_query() {
+        let query_string = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+
+        let tags_array = []
+
+        if (query_string.length > 0) {
+            tags_array = query_string.split(',')
+        }
+
+        return tags_array
     }
 
     function add_filter_to_query(tag, is_reverse) {
