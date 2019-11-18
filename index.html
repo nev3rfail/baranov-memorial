@@ -41,9 +41,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a id="filter-label-sources" data-label-key="sources" class="nav-link dropdown-toggle filter-label" data-toggle="dropdown" href="javascript:void(0);">
-                    Издания
-                </a>
+                <button id="filter-label-sources" data-label-key="sources" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Издания</button>
                 <div class="dropdown-menu" id="filters_where" aria-labelledby="filter-label-sources">
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="unfilter_where" data-label-key="sources">Показать все</button>
@@ -51,9 +49,7 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a id="filter-label-years" data-label-key="years" class="nav-link dropdown-toggle filter-label" data-toggle="dropdown" href="javascript:void(0);">
-                    Годы
-                </a>
+                <button id="filter-label-years" data-label-key="years" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Годы</button>
                 <div class="dropdown-menu" id="filters_year" aria-labelledby="filter-label-years">
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="unfilter_year" data-label-key="years">Показать все</button>
@@ -61,14 +57,16 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a id="filter-label-tags" data-label-key="tags" class="nav-link dropdown-toggle filter-label" data-toggle="dropdown" href="javascript:void(0);">
-                    Теги
-                </a>
+                <button id="filter-label-tags" data-label-key="tags" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Теги</button>
 
                 <div class="dropdown-menu" id="filters_tag" aria-labelledby="filter-label-tags">
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="unfilter_tag" data-label-key="tags">Показать все</button>
                 </div>
+            </li>
+
+            <li class="nav-item">
+                <button id="draw_nourl" class="btn nav-link">Показать элементы без ссылок</button>
             </li>
         </ul>
 
@@ -90,10 +88,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#settingsModal" href="javascript:void(0);">
+                <button class="btn nav-link" data-toggle="modal" data-target="#settingsModal">
                     <span class="iconify" data-icon="fa:cog"></span>
                     <span class="pl-1">Настройки</span>
-                </a>
+                </button>
             </li>
         </ul>
     </div>
@@ -107,19 +105,6 @@
             <i>В ночь с 11 на 12 ноября 2019 года не стало игрового журналиста Евгения Баранова.<br class="d-none d-xl-block"/> Ему было 27 лет.<br class="d-none d-xl-block"/> Данная страница - дань уважения за все, что Женя сделал для российского игрожура.</i><br/>
         </p>
         <p class="lead text-center text-xl-left">Здесь можно найти созданные Женей статьи, видео, стримы и прочие материалы за его авторством. <span id="records_count"></span></p>
-        <hr class="my-4">
-        <div class="text-justify">
-            Для наполнения этой страницы требуется помощь сообщества. Необходимо добавить ссылки к имеющимся элементам, для которых нет ссылок: <a id="draw_nourl" href="javascript:void(0)">Показать элементы без ссылок</a>. Инструкция по формату данных находится в Дискорде: <a target="_blank" href="https://discord.gg/zDxKb44">Discord</a>. Также нужно достать ссылки на твиты от людей из изданий, а также на новости с игровых и неигровых порталов.<br/>
-            <br/>
-            <div class="alert alert-primary">
-                <strong>Обновление от 14 ноября 2019 года.</strong><br/>Мы собрали максимальное количество ресурсов, которые смогли найти. Остались только материалы, которые не индексируются поиском, и печатные материалы, которых нет в Сети (ЛКИ, Вечерние Челны и т.д.).<br/>
-                Если у вас есть возможность предоставить данные материалы, просим зайти в наш Discord. Мы будем бесконечно благодарны!
-            </div>
-            <br/>
-            <div class="alert alert-primary">
-                <strong>Обновление от 15 ноября 2019 года.</strong><br/>По просьбе вдовы Евгения изменили шляпу в логотипе мемориала на более каноничную. <strong>Полина, мы искренне соболезнуем вашей утрате.</strong><br/>Леонид Логинов, художник StopGame, согласился нарисовать для нас максимально каноничную шляпу Жени. Такую, как у него была в реальной жизни и на афишах стримов. Леонид, спасибо тебе огромное за помощь от всей команды Мемориала.
-            </div>
-        </div>
         <hr class="my-4">
         <div class="text-center">
             <ul class="extra-links list-inline">

@@ -57,6 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 });
 
+/**
+ * Init function
+ * @param {...Object} data
+ * @param {Array} data.files
+ * @param {String} data.name
+ * @param {String} data.icon
+ */
 function init(data) {
     let fancy_names = {};
     let data_icons = {};
@@ -163,6 +170,7 @@ function init(data) {
      * @param {Number} record.date.year
      * @param {String} record.img
      * @param {String} record.where
+     * @param {Array[String]} record.tags
      * @param {String} record.url
      */
     function draw_card(record) {
@@ -387,7 +395,7 @@ function init(data) {
     /**
      * Build filter item in navbar
      * @param {String} text
-     * @param {Object} filterParams
+     * @param {...Object} filterParams
      * @returns {string}
      */
     function build_filter_item({text, ...filterParams}) {
@@ -533,6 +541,11 @@ function init(data) {
 
         let label_key;
 
+        /**
+         * @param _filter
+         * @param _value
+         * @param _key
+         */
         function draw_with_filter(_filter, _value, _key) {
             current_page = 1;
             remove_cards();
@@ -540,6 +553,9 @@ function init(data) {
             label_key = _key
         }
 
+        /**
+         * @param _label
+         */
         function update_filter_label(_label) {
             filter_labels.forEach(filter_label => {
                 const {dataset: {labelKey: orig_label_key}} = filter_label;
@@ -688,6 +704,10 @@ function init(data) {
         updateSettings(new_settings);
     };
 
+    /**
+     * Update settings
+     * @param {Object} new_settings
+     */
     function updateSettings(new_settings) {
         settings = new_settings;
         Object.keys(new_settings).forEach(setting => {
