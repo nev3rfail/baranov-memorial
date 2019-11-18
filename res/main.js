@@ -189,14 +189,13 @@ function init(data) {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
+        let tagsList = '';
         if ('tags' in record && record.tags.length !== 0) {
-            let tagsList = '';
-
             record.tags.forEach(tag => {
                 tagsList += card_tag.replace(/{tag}/g, tag);
             });
-            card = card.replace('{tags}', tagsList)
         }
+        card = card.replace('{tags}', tagsList);
 
         records_container.insertAdjacentHTML('beforeend', card);
     }
@@ -563,7 +562,7 @@ function init(data) {
 
         Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
             item.addEventListener('click', (e) => {
-                const { activated } = item.dataset;
+                const {activated} = item.dataset;
                 if (activated === 'true') {
                     e.preventDefault();
                     return;
