@@ -189,13 +189,15 @@ function init(data) {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
-        let tagsList = '';
         if ('tags' in record && record.tags.length !== 0) {
+            let tagsList = '';
             record.tags.forEach(tag => {
                 tagsList += card_tag.replace(/{tag}/g, tag);
             });
+            card = card.replace('{tags}', tagsList);
+        } else {
+            card = card.replace('{tags}', '<small>Тэгов нет</small>');
         }
-        card = card.replace('{tags}', tagsList);
 
         records_container.insertAdjacentHTML('beforeend', card);
     }
