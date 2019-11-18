@@ -404,13 +404,40 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }, draw_time);
     }
 
-    function build_filter_item({ text, ...filterParams }) {
-        let filter_item = document.createElement('button')
-        filter_item.classList = 'dropdown-item filter-link'
-        filter_item.innerText = text
+    function build_filter_button(is_reverse, filterParams) {
+        let btn_elem = document.createElement('button')
+        btn_elem.classList = 'btn btn-primary btn-sm ml-1 filter-btn'
+
+        if (!is_reverse) {
+            btn_elem.innerText = '+'
+        } else {
+            btn_elem.innerText = 'не'
+        }
+
         Object.entries(filterParams).forEach(([key, val]) => {
-            filter_item.dataset[key] = val
+            btn_elem.dataset[key] = val
         })
+
+        btn_elem.dataset['is_reverse'] = is_reverse
+
+        return btn_elem
+    }
+
+    function build_filter_item({ text, ...filterParams }) {
+        let filter_item = document.createElement('li')
+        filter_item.classList = 'dropdown-item filter-link'
+
+        let filter_text = document.createElement('div')
+        filter_text.innerText = text
+        filter_text.classList = 'px-1 pt-1 d-inline-block'
+        filter_item.appendChild(filter_text)
+
+        let filter_btns = document.createElement('div')
+        filter_btns.classList = 'd-inline-block float-right'
+        filter_btns.appendChild(build_filter_button(false, filterParams))
+        filter_btns.appendChild(build_filter_button(true, filterParams))
+        filter_item.appendChild(filter_btns)
+
         return filter_item.outerHTML;
     }
 
@@ -499,7 +526,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 record.tags = ["тэг"];
             }
 
-            record.tags && record.tags.forEach(function (tag) {
+            record.tags.forEach(function (tag) {
                 if (!tags[tag]) {
                     tags[tag] = 0
                 }
@@ -587,7 +614,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
         }
 
         document.querySelectorAll('.filter-link').forEach(item => {
-            item.addEventListener('click', () => {
+            /*item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
                     draw_with_filter('where', item.dataset.where, 'sources')
                 }
@@ -603,7 +630,7 @@ document.addEventListener('DOMContentLoaded', (key, value) => {
                 update_filter_label(item.textContent)
 
                 route_scroll_to_rc();
-            })
+            })*/
         });
     });
 
