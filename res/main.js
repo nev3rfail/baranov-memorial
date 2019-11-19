@@ -710,9 +710,9 @@ function init(data) {
         window['filter_by_tag'] = function(tag) {
             if (add_filter_to_query(tag, false)) {
                 render_selected_filters()
+                draw_with_filter('tag', tag, 'tags')
+                route_scroll_to_rc()
             }
-            draw_with_filter('tag', tag, 'tags')
-            route_scroll_to_rc()
         };
 
         Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
