@@ -125,6 +125,7 @@ function init(data) {
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag}</a>';
+    const filter_menu_tag = '<a class="badge badge-primary px-3 display-1 badge-tag selected-tags" onclick="remove_filter_tag(\'{tag}\')">{tag_text} X</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.getElementById('records_container');
@@ -432,7 +433,6 @@ function init(data) {
         }
     }
 
-
     // TODO add url param protection
     function util_update_query_param(param_name, param_val) {
         let hash_string = decodeURIComponent(parent.location.hash)
@@ -537,6 +537,34 @@ function init(data) {
         }
 
         return is_changed
+    }
+
+    function render_selected_filters() {
+        let tags_array = parse_filters_from_query()
+        let tags_badges = ''
+
+        tags_array.forEach(tag => {
+            let is_reverse = (tag.indexOf('!') == 0)
+
+            if (is_reverse) {
+                tag = tag.substring(1)
+            }
+
+            if (fancy_names[tag] !== undefined) {
+                tag = fancy_names[tag]
+            }
+
+            if (is_reverse) {
+                tag = 'НЕ ' + tag
+            }
+
+            tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag);
+        });
+
+        // possible performance issue here
+        let elem = document.getElementById('selected-filters-block')
+        elem.innerHTML = ''
+        elem.insertAdjacentHTML('afterbegin', tags_badges);
     }
 
     document.addEventListener('records.loaded', function () {
@@ -689,15 +717,21 @@ function init(data) {
         document.querySelectorAll('.filter-btn').forEach(item => {
             item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
-                    add_filter_to_query(item.dataset.where, item.dataset.is_reverse)
+                    if (add_filter_to_query(item.dataset.where, item.dataset.is_reverse)) {
+                        render_selected_filters()
+                    }
                 }
 
                 if ('year' in item.dataset) {
-                    add_filter_to_query(item.dataset.year, item.dataset.is_reverse)
+                    if (add_filter_to_query(item.dataset.year, item.dataset.is_reverse)) {
+                        render_selected_filters()
+                    }
                 }
 
                 if ('tag' in item.dataset) {
-                    add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)
+                    if (add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)) {
+                        render_selected_filters()
+                    }
                     //draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
 
