@@ -75,6 +75,8 @@ function init(data) {
         data_files.push(...data[entry].files);
     });
 
+    const FILTERS_QUERY_PARAM_NAME = 'f'
+
     let full_recordset = [];
     let current_recordset = [];
     let running_interval;
@@ -425,6 +427,121 @@ function init(data) {
         }
     }
 
+    function util_update_query_param(param_name, param_val) {
+        let query_string = decodeURIComponent(window.location.href)
+
+        // no params in query
+        if (query_string.indexOf('?') < 0) {
+            window.location.href += '?' + param_name + '=' + param_val
+        } else {
+            let param_start = query_string.indexOf('?'+param_name+'=')
+            let param_start_not_first = query_string.indexOf('&'+param_name+'=')
+
+            console.log ('check:', param_start, param_start_not_first)
+
+            // if param is not first
+            if (param_start_not_first > param_start) {
+                param_start = param_start
+            }
+            // there some params in query, but no 'param_name'
+            if (param_start < 0) {
+                window.location.href += '&' + param_name + '=' + param_val
+            } else {
+                let param_end = query_string.indexOf('&', param_start+1)
+
+                // our param to change is the last, so taking line-length as end
+                if (param_end < 0) {
+                    param_end = query_string.length;
+                }
+
+                window.location.href = query_string.substring(0,param_start+1) + param_name + '=' + param_val + query_string.substr(param_end)
+            }
+        }
+    }
+
+    function util_get_query_param(param_name) {
+        let param_val = '' // '' will be returned if there is no such param
+
+        let query_string = decodeURIComponent(window.location.href)
+
+        let param_start = query_string.indexOf('?')
+        if (param_start > 0) {
+            let param_strings = query_string.substr(param_start+1).split('&')
+            console.log('has get', param_strings)
+            param_strings.forEach(function (str) {
+                let cur_param_splited = str.split('=')
+                if (cur_param_splited[0] === param_name) {
+                    param_val = cur_param_splited[1]
+                    console.log('in get', cur_param_splited, param_val)
+                }
+            });
+        }
+        console.log('res_get', param_val)
+        return param_val
+    }
+
+    function remove_filter_from_query (tag, is_reverse) {
+
+    }
+
+    function parse_filters_from_query() {
+        let query_string = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+
+        let tags_array = []
+
+        if (query_string.length > 0) {
+            tags_array = query_string.split(',')
+        }
+
+        return tags_array
+    }
+
+    function add_filter_to_query(tag, is_reverse) {
+        let is_changed = false
+        is_reverse = (is_reverse === 'true')
+        let final_tag = ''
+        if (!is_reverse) {
+            final_tag = tag
+        } else {
+            final_tag = '!' + tag
+        }
+
+        let cur_filter_param = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+
+        console.log('start', !is_reverse, 'add', tag, 'rev:', is_reverse, final_tag, cur_filter_param, 'end')
+
+        if (cur_filter_param === '') {
+            util_update_query_param(FILTERS_QUERY_PARAM_NAME,final_tag)
+            is_changed = true
+        } else {
+            let cur_filter_tags = cur_filter_param.split(',')
+
+            let tag_reversed_ver = '' // gonna check reversed version of tag being added to just replace it if needed
+            if (!is_reverse) {
+                tag_reversed_ver = '!' + tag
+            } else {
+                tag_reversed_ver = tag
+            }
+
+            console.log('check rev', tag, is_reverse, cur_filter_param, tag_reversed_ver, cur_filter_tags.indexOf(tag_reversed_ver))
+            if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
+                if (cur_filter_tags.indexOf(final_tag) < 0) {
+                    console.log('update', cur_filter_param, 'append')
+                    util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param + ',' + final_tag) // just add the tag
+                    is_changed = true
+                }
+            } else {
+                console.log('before', cur_filter_param)
+                cur_filter_param = cur_filter_param.replace(tag_reversed_ver, final_tag) // replace reversed tag on new one
+                console.log('after', cur_filter_param)
+                util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param)
+                is_changed = true
+            }
+        }
+
+        return is_changed
+    }
+
     document.addEventListener('records.loaded', function () {
         /**
          * Необходимо отсортировать полный recordset
@@ -488,12 +605,19 @@ function init(data) {
             }
             ++sources[record.where];
 
-            record.tags && record.tags.forEach(function (tag) {
+            if (!(record.tags !== undefined)) {
+                record.tags = ["тэг"];
+            }
+
+            record.tags.forEach(function (tag) {
                 if (!tags[tag]) {
                     tags[tag] = 0
                 }
                 ++tags[tag]
             })
+
+            record.tags.push(fancy_names[record.where]);
+            record.tags.push(record.date.year);
         }
 
         const filter_years = Object.keys(years).reverse().map(year =>
@@ -552,29 +676,9 @@ function init(data) {
             draw(filter({[_filter]: _value}));
             label_key = _key
         }
-
-        /**
-         * @param _label
-         */
-        function update_filter_label(_label) {
-            filter_labels.forEach(filter_label => {
-                const {dataset: {labelKey: orig_label_key}} = filter_label;
-                if (orig_label_key === label_key) {
-                    filter_label.innerText = _label;
-                    filter_label.dataset.activated = 'true';
-                } else {
-                    filter_label.innerText = get_default_text(orig_label_key);
-                    filter_label.dataset.activated = 'false';
-                }
-            });
-
-            document.getElementById('filter_name').innerText = _label;
-        }
-
         // глобальная функция для кнопок тегов в карточках
-        window['filter_by_tag'] = function (tag) {
-            draw_with_filter('tag', tag, 'tags');
-            update_filter_label(tag);
+        window['filter_by_tag'] = function(tag) {
+            draw_with_filter('tag', tag, 'tags')
             route_scroll_to_rc()
         };
 
@@ -586,24 +690,25 @@ function init(data) {
                     return;
                 }
 
+        document.querySelectorAll('.filter-btn').forEach(item => {
+            item.addEventListener('click', () => {
                 if ('where' in item.dataset) {
-                    draw_with_filter('where', item.dataset.where, 'sources')
+                    console.log('event', item.dataset.where, item.dataset.is_reverse)
+                    add_filter_to_query(item.dataset.where, item.dataset.is_reverse)
                 }
 
                 if ('year' in item.dataset) {
-                    draw_with_filter('year', item.dataset.year, 'years')
+                    add_filter_to_query(item.dataset.year, item.dataset.is_reverse)
                 }
 
                 if ('tag' in item.dataset) {
-                    draw_with_filter('tag', item.dataset.tag, 'tags')
+                    add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)
+                    //draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
-                remove_current_active_filter();
-                item.id = 'current-active-filter';
-                item.dataset.activated = 'true';
-                update_filter_label(item.textContent);
 
                 route_scroll_to_rc();
             })
+
         });
     });
 
