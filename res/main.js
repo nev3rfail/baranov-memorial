@@ -125,7 +125,7 @@ function init(data) {
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag_text}</a>';
-    const filter_menu_tag = '<a class="badge badge-primary px-3 badge-tag selected-tags" onclick="remove_filter_tag(\'{tag}\')">{tag_text} X</a>';
+    const filter_menu_tag = '<a class="badge badge-primary px-3 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\')">{tag_text} X</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.getElementById('records_container');
@@ -483,8 +483,32 @@ function init(data) {
         return param_val
     }
 
-    function remove_filter_from_query (tag, is_reverse) {
+    function remove_filter_from_query (tag) {
+        let is_changed = false
 
+        let query_param = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+
+        if (query_param.length > 0) {
+            let new_query_string = ''
+            query_param.split(',').forEach(query_tag => {
+                if (query_tag === tag) {
+                    is_changed = true
+                } else {
+                    new_query_string += (tag + ',')
+                }
+            });
+
+            if (is_changed) {
+                if (new_query_string.length > 0) {
+                    // dont forget to remove unnesessary comma
+                    util_update_query_param(FILTERS_QUERY_PARAM_NAME, new_query_string.substr(0,new_query_string.length-1))
+                } else {
+                    util_update_query_param(FILTERS_QUERY_PARAM_NAME,'') // removed all filters
+                }
+            }
+        }
+
+        return is_changed
     }
 
     function parse_filters_from_query() {
@@ -545,20 +569,21 @@ function init(data) {
 
         tags_array.forEach(tag => {
             let is_reverse = (tag.indexOf('!') == 0)
+            let tag_text = tag
 
             if (is_reverse) {
-                tag = tag.substring(1)
+                tag_text = tag.substring(1)
             }
 
-            if (fancy_names[tag] !== undefined) {
-                tag = fancy_names[tag]
+            if (fancy_names[tag_text] !== undefined) {
+                tag_text = fancy_names[tag_text]
             }
 
             if (is_reverse) {
-                tag = 'НЕ ' + tag
+                tag_text = 'НЕ ' + tag_text
             }
 
-            tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag);
+            tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag_text);
         });
 
         // possible performance issue here
@@ -699,7 +724,8 @@ function init(data) {
          * @param _value
          * @param _key
          */
-        function draw_with_filter(_filter, _value, _key) {
+
+        function draw_with_filter() {
             current_page = 1;
             remove_cards();
             draw(filter({[_filter]: _value}));
@@ -710,7 +736,16 @@ function init(data) {
         window['filter_by_tag'] = function(tag) {
             if (add_filter_to_query(tag, false)) {
                 render_selected_filters()
-                draw_with_filter('tag', tag, 'tags')
+                draw_with_filter()
+                route_scroll_to_rc()
+            }
+        };
+
+        // глобальная функция для кнопок удаления фильтра
+        window['remove_selected_filter'] = function(tag) {
+            if (remove_filter_from_query(tag)) {
+                render_selected_filters()
+                draw_with_filter()
                 route_scroll_to_rc()
             }
         };
@@ -743,7 +778,6 @@ function init(data) {
                     if (add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)) {
                         render_selected_filters()
                     }
-                    //draw_with_filter('tag', item.dataset.tag, 'tags')
                 }
 
                 route_scroll_to_rc();
