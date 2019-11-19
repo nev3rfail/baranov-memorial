@@ -400,9 +400,10 @@ function init(data) {
      */
     function build_filter_item({text, ...filterParams}) {
         let dataset = '';
-        Object.entries(filterParams).forEach(([key, val]) => {
-            dataset += `data-${key}="${val}"`;
-        });
+
+        for (const key in filterParams) {
+            dataset += `data-${key}="${filterParams[key]}"`;
+        }
 
         return filter_item.replace(/{data-tags}/, dataset).replace(/{text}/, text);
     }
