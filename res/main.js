@@ -199,12 +199,18 @@ function init(data) {
             card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
         }
 
+        record.tags.push(fancy_names[record.where])
+        record.tags.push(record.date.year.toString())
+
         if ('tags' in record && record.tags.length !== 0) {
+            console.log(record.tags)
             let tagsList = '';
             record.tags.forEach(tag => {
                 tagsList += card_tag.replace(/{tag}/g, tag);
             });
+            console.log(tagsList)
             card = card.replace('{tags}', tagsList);
+            console.log(card)
         } else {
             card = card.replace('{tags}', '<small>Тэгов нет</small>');
         }
@@ -615,9 +621,6 @@ function init(data) {
                 }
                 ++tags[tag]
             })
-
-            record.tags.push(fancy_names[record.where]);
-            record.tags.push(record.date.year);
         }
 
         const filter_years = Object.keys(years).reverse().map(year =>
