@@ -124,7 +124,7 @@ function init(data) {
     const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">';
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
-    const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag}</a>';
+    const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag_text}</a>';
     const filter_menu_tag = '<a class="badge badge-primary px-3 badge-tag selected-tags" onclick="remove_filter_tag(\'{tag}\')">{tag_text} X</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
@@ -203,12 +203,12 @@ function init(data) {
         if ('tags' in record && record.tags.length !== 0) {
             let tagsList = '';
             record.tags.forEach(tag => {
-                tagsList += card_tag.replace(/{tag}/g, tag);
+                tagsList += card_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag);
             });
 
             // add pseudo tags from source and year
-            tagsList += card_tag.replace(/{tag}/g, fancy_names[record.where]);
-            tagsList += card_tag.replace(/{tag}/g, record.date.year);
+            tagsList += card_tag.replace(/{tag}/, record.where).replace(/{tag_text}/, fancy_names[record.where]);
+            tagsList += card_tag.replace(/{tag}/, record.date.year).replace(/{tag_text}/, record.date.year);
 
             card = card.replace('{tags}', tagsList);
         } else {
@@ -705,8 +705,12 @@ function init(data) {
             draw(filter({[_filter]: _value}));
             label_key = _key
         }
+
         // глобальная функция для кнопок тегов в карточках
         window['filter_by_tag'] = function(tag) {
+            if (add_filter_to_query(tag, false)) {
+                render_selected_filters()
+            }
             draw_with_filter('tag', tag, 'tags')
             route_scroll_to_rc()
         };
