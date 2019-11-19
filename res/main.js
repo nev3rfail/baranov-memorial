@@ -125,7 +125,7 @@ function init(data) {
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag}</a>';
-    const filter_menu_tag = '<a class="badge badge-primary px-3 display-1 badge-tag selected-tags" onclick="remove_filter_tag(\'{tag}\')">{tag_text} X</a>';
+    const filter_menu_tag = '<a class="badge badge-primary px-3 badge-tag selected-tags" onclick="remove_filter_tag(\'{tag}\')">{tag_text} X</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.getElementById('records_container');
@@ -611,7 +611,14 @@ function init(data) {
         document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
         document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`;
 
-        draw(full_recordset);
+
+        let after_load_tags = parse_filters_from_query()
+        if (after_load_tags.length == 0) {
+            draw(full_recordset);
+        } else {
+            render_selected_filters();
+            draw(full_recordset);
+        }
 
         const years = {};
         const sources = {};
