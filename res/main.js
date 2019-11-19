@@ -728,8 +728,10 @@ function init(data) {
         function draw_with_filter() {
             current_page = 1;
             remove_cards();
-            draw(filter({[_filter]: _value}));
-            label_key = _key
+
+            let tags = parse_filters_from_query()
+
+            draw(filter(tags));
         }
 
         // глобальная функция для кнопок тегов в карточках
@@ -762,25 +764,36 @@ function init(data) {
 
         document.querySelectorAll('.filter-btn').forEach(item => {
             item.addEventListener('click', () => {
+                let need_filtering = false
+
                 if ('where' in item.dataset) {
                     if (add_filter_to_query(item.dataset.where, item.dataset.is_reverse)) {
                         render_selected_filters()
+
+                        need_filtering = true
                     }
                 }
 
                 if ('year' in item.dataset) {
                     if (add_filter_to_query(item.dataset.year, item.dataset.is_reverse)) {
                         render_selected_filters()
+
+                        need_filtering = true
                     }
                 }
 
                 if ('tag' in item.dataset) {
                     if (add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)) {
                         render_selected_filters()
+
+                        need_filtering = true
                     }
                 }
 
-                route_scroll_to_rc();
+                if (need_filtering) {
+                    draw_with_filter();
+                    route_scroll_to_rc();
+                }
             })
 
         });
@@ -806,27 +819,29 @@ function init(data) {
      * @returns {*[]}
      */
     function filter(filters) {
-        let year;
-        if (filters['year'] !== undefined) {
-            year = filters['year']
-        }
-
-        let where;
-        if (filters['where'] !== undefined) {
-            where = filters['where']
-        }
-
-        let tag;
-        if (filters['tag'] !== undefined) {
-            tag = filters['tag']
+        if (filters.length == 0) {
+            return full_recordset
         }
 
         return full_recordset.filter(function (record) {
-            let year_check = !(year !== undefined) || (record.date.year === Number(year));    // (no filter) || (filter passed)
-            let where_check = !(where !== undefined) || (record.where === where);
-            let tag_check = !(tag !== undefined) || (record.tags && record.tags.includes(tag)); // handle undefined tags on record
+            let is_acceptable = true
+            filters.forEach(filter => {
+                let raw_filter = filter
+                let is_reverse = (filter.indexOf('!') == 0)
 
-            return year_check && where_check && tag_check
+                if (is_reverse) {
+                    raw_filter = filter.substring(1)
+                }
+
+                if (record.tags.includes(raw_filter) && !is_reverse) {
+                } else if (!record.tags.includes(raw_filter) && is_reverse) {
+                } else {
+                    // TODO should break the cycle if found non accepable
+                    is_acceptable = false
+                }
+            });
+
+            return is_acceptable
         })
     }
 
