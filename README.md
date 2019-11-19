@@ -1,6 +1,7 @@
 # Мемориал Евгения Баранова
 
-> ### [baranov.maxsic.ru](https://baranov.maxsic.ru)
+> ### [baranov.dtf.ru](https://baranov.dtf.ru)
+> ##### [nev3rfail.github.io/baranov-memorial](https://nev3rfail.github.io/baranov-memorial)
 
 [Помоги проекту в Discord!](https://discord.gg/zDxKb44)
 
@@ -22,7 +23,7 @@
     "url": "ссылка_на_материал"
   }
 ```
-3. Через [данный сервис](https://jsonformatter.curiousconcept.com/) проверить корректность получившегося файла
+3. Через [данный сервис](https://jsonformatter.curiousconcept.com/) проверь корректность получившегося файла
 
 ### Если добавляется новое издание
 1. Создать файл(ы) в папке `data/` с расширением `.json`.
@@ -37,7 +38,7 @@
     "icon": "unique_name.png"
   }
 ```
-3. Через [данный сервис](https://jsonformatter.curiousconcept.com/) проверить корректность `manifest.json`
+3. Через [данный сервис](https://jsonformatter.curiousconcept.com/) проверь корректность `manifest.json`
 4. Следовать инструкции **"Как добавлять материалы"**
 
 ## Для разработчиков
