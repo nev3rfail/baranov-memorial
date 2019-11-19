@@ -20,7 +20,8 @@
     "files": [
       "stopgame_main",
       "stopgame_stream",
-      "stopgame_infact"
+      "stopgame_infact",
+      "stopgame_uif"
     ],
     "name": "StopGame.ru",
     "icon": "stopgame.png"
