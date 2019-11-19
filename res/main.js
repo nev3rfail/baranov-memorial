@@ -204,6 +204,11 @@ function init(data) {
             record.tags.forEach(tag => {
                 tagsList += card_tag.replace(/{tag}/g, tag);
             });
+
+            // add pseudo tags from source and year
+            tagsList += card_tag.replace(/{tag}/g, fancy_names[record.where]);
+            tagsList += card_tag.replace(/{tag}/g, record.date.year);
+
             card = card.replace('{tags}', tagsList);
         } else {
             card = card.replace('{tags}', '<small>Тэгов нет</small>');
@@ -615,9 +620,6 @@ function init(data) {
                 }
                 ++tags[tag]
             })
-
-            record.tags.push(fancy_names[record.where]);
-            record.tags.push(record.date.year);
         }
 
         const filter_years = Object.keys(years).reverse().map(year =>
