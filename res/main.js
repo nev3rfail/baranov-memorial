@@ -280,14 +280,14 @@ function init(data) {
         if (per_page >= _records.length) {
             per_page = _records.length;
         }
-
+        /*
         console.group('Pagination details');
         console.log('Per page:', per_page);
         console.log('Total pages:', total_pages);
         console.log('Current page:', current_page);
         console.log('Visible pages:', visible_pages);
         console.log('Pages before and after:', pages_before_after);
-        console.groupEnd();
+        console.groupEnd();*/
 
         pagination_container_top.innerHTML = '';
         pagination_container_bottom.innerHTML = '';
@@ -428,33 +428,33 @@ function init(data) {
     }
 
     function util_update_query_param(param_name, param_val) {
-        let query_string = decodeURIComponent(window.location.href)
-
+        let hash_string = decodeURIComponent(parent.location.hash)
+        console.log(param_name, '/', param_val, 'qs:',hash_string)
         // no params in query
-        if (query_string.indexOf('?') < 0) {
-            window.location.href += '?' + param_name + '=' + param_val
+        if (hash_string.length == 0) {
+            parent.location.hash = param_name + '=' + param_val
         } else {
-            let param_start = query_string.indexOf('?'+param_name+'=')
-            let param_start_not_first = query_string.indexOf('&'+param_name+'=')
+            let param_start = hash_string.indexOf('#'+param_name+'=')
+            let param_start_not_first = hash_string.indexOf('&'+param_name+'=')
 
             console.log ('check:', param_start, param_start_not_first)
 
             // if param is not first
             if (param_start_not_first > param_start) {
-                param_start = param_start
+                param_start = param_start_not_first
             }
             // there some params in query, but no 'param_name'
             if (param_start < 0) {
-                window.location.href += '&' + param_name + '=' + param_val
+                parent.location.hash += '&' + param_name + '=' + param_val
             } else {
-                let param_end = query_string.indexOf('&', param_start+1)
+                let param_end = hash_string.indexOf('&', param_start+1)
 
                 // our param to change is the last, so taking line-length as end
                 if (param_end < 0) {
-                    param_end = query_string.length;
+                    param_end = hash_string.length;
                 }
 
-                window.location.href = query_string.substring(0,param_start+1) + param_name + '=' + param_val + query_string.substr(param_end)
+                parent.location.hash = hash_string.substring(0,param_start+1) + param_name + '=' + param_val + hash_string.substr(param_end)
             }
         }
     }
@@ -462,11 +462,11 @@ function init(data) {
     function util_get_query_param(param_name) {
         let param_val = '' // '' will be returned if there is no such param
 
-        let query_string = decodeURIComponent(window.location.href)
-
-        let param_start = query_string.indexOf('?')
-        if (param_start > 0) {
-            let param_strings = query_string.substr(param_start+1).split('&')
+        let hash_string = decodeURIComponent(parent.location.hash)
+        console.log('gh', hash_string)
+        if (hash_string.length > 0) {
+            // starting from char 1 to skip first '#'
+            let param_strings = hash_string.substring(1).split('&')
             console.log('has get', param_strings)
             param_strings.forEach(function (str) {
                 let cur_param_splited = str.split('=')
@@ -485,12 +485,12 @@ function init(data) {
     }
 
     function parse_filters_from_query() {
-        let query_string = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+        let filter_string = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
 
         let tags_array = []
 
-        if (query_string.length > 0) {
-            tags_array = query_string.split(',')
+        if (filter_string.length > 0) {
+            tags_array = filter_string.split(',')
         }
 
         return tags_array
