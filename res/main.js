@@ -105,7 +105,7 @@ function init(data) {
     /**
      * Templates
      */
-    const filter_item = `<li class="dropdown-item filter-link"><div class="px-1 pt-1 d-inline-block">{text}</div><div class="d-inline-block float-right"><button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="false" {data-tags}>+</button><button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="true" {data-tags} >не</button></div></li>  `;
+    const filter_item = `<li class="dropdown-item filter-link"><div class="px-1 py-1 d-inline-block">{text}</div><div class="d-inline-block float-right"><button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="false" {data-tags}>+</button><button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="true" {data-tags} >не</button></div></li>  `;
     const base_card = `<div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
                 {icon}

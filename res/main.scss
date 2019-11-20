@@ -156,3 +156,10 @@ $pagination-disabled-border-color: transparent !default;
 .dropdown-menu {
     width: 300px;
 }
+
+.dropdown-item:hover {
+    background-color: #4673a3;
+}
+.dropdown-item:focus {
+    background-color: #4673a3;
+}
