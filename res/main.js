@@ -580,6 +580,7 @@ function init(data) {
 
     function render_selected_part (tag_type) {
         let tags_array = parse_filters_from_query(tag_type)
+
         if (tags_array.length == 0) return ''
 
         let tags_badges = ''
@@ -637,13 +638,15 @@ function init(data) {
         elem.innerHTML = ''
 
         if (insertion_html.length > 0) {
+            document.getElementById("navbar-main-link").href = '/' + parent.location.hash
+
             insertion_html += '<div class="col w-100"></div>'
             insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить</a>';
-
 
             document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
             elem.insertAdjacentHTML('afterbegin', insertion_html);
         } else {
+            document.getElementById("navbar-main-link").href = '/'
             document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
         }
     }
