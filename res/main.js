@@ -79,6 +79,8 @@ function init(data) {
     const YEAR_FILTER_PARAM_NAME = 'y'
     const TAG_FILTER_PARAM_NAME = 't'
 
+    const modifier_tags = ["текст", "видео"]
+
     let full_recordset = [];
     let current_recordset = [];
     let running_interval;
@@ -871,28 +873,41 @@ function init(data) {
         if (filters.length == 0) return true
 
         let is_acceptable = false
+        let is_modifier_accepted = false
+        let is_modifier_only = true
+        let has_modifier = false
         let is_blocked = false
 
         console.log(record, filters)
 
         filters.forEach(filter => {
             let raw_filter = filter
-            let is_reverse = (filter.indexOf('!') == 0)
 
+            let is_reverse = (filter.indexOf('!') == 0)
             if (is_reverse) {
                 raw_filter = filter.substring(1)
             }
 
+            let is_modifier = modifier_tags.includes(raw_filter)
+            if (is_modifier) {
+                has_modifier = true
+            } else {
+                is_modifier_only = false
+            }
+
             if (!is_reverse && record.tags.includes(raw_filter)) {
-                is_acceptable = true
+                if (is_modifier) {
+                    is_modifier_accepted = true
+                } else {
+                    is_acceptable = true
+                }
             } else if (is_reverse && record.tags.includes(raw_filter)) {
                 is_blocked = true
             }
             console.log(is_reverse, raw_filter, is_acceptable, is_blocked)
         });
 
-
-        return is_acceptable && !is_blocked
+        return (is_acceptable || is_modifier_only) && (!has_modifier || is_modifier_accepted) && !is_blocked
     }
 
     /**
