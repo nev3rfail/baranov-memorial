@@ -553,7 +553,6 @@ function init(data) {
 
             if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
                 if (cur_filter_tags.indexOf(final_tag) < 0) {
-                    console.log('af', add_first)
                     if (add_first) {
                         util_update_query_param(filter_type, final_tag + ',' + cur_filter_param) // just add the tag before all (ex.: for modifiers)
                     } else {
@@ -803,7 +802,6 @@ function init(data) {
                 }
 
                 if ('tag' in item.dataset) {
-                    console.log(modifier_tags, modifier_tags.includes(item.dataset.tag))
                     if (add_filter_to_query(TAG_FILTER_PARAM_NAME, item.dataset.tag, item.dataset.is_reverse, modifier_tags.includes(item.dataset.tag))) {
                         render_selected_filters()
 
@@ -841,6 +839,7 @@ function init(data) {
 
         let is_acceptable = false
         let is_blocked = false
+        let has_only_reversed = true
 
         filters.forEach(filter => {
             let raw_filter = filter
@@ -848,6 +847,8 @@ function init(data) {
 
             if (is_reverse) {
                 raw_filter = filter.substring(1)
+            } else {
+                has_only_reversed = false
             }
 
             if (!is_reverse && record.where === raw_filter) {
@@ -857,13 +858,14 @@ function init(data) {
             }
         });
 
-        return is_acceptable && !is_blocked
+        return (is_acceptable || has_only_reversed) && !is_blocked
     }
     function filter_by_year(record, filters) {
         if (filters.length == 0) return true
 
         let is_acceptable = false
         let is_blocked = false
+        let has_only_reversed = true
 
         filters.forEach(filter => {
             let raw_filter = filter
@@ -871,6 +873,8 @@ function init(data) {
 
             if (is_reverse) {
                 raw_filter = filter.substring(1)
+            } else {
+                has_only_reversed = false
             }
 
             raw_filter = parseInt(raw_filter, 10)
@@ -882,15 +886,18 @@ function init(data) {
             }
         });
 
-        return is_acceptable && !is_blocked
+        return (is_acceptable || has_only_reversed) && !is_blocked
     }
     function filter_by_tag(record, filters) {
         if (filters.length == 0) return true
 
         let is_acceptable = false
+        let has_only_reversed = true
+
         let is_modifier_accepted = false
         let is_modifier_only = true
-        let has_not_rev_modifier = false
+        let has_only_reversed_modifiers = true
+
         let is_blocked = false
 
         filters.forEach(filter => {
@@ -899,11 +906,13 @@ function init(data) {
             let is_reverse = (filter.indexOf('!') == 0)
             if (is_reverse) {
                 raw_filter = filter.substring(1)
+            } else {
+                has_only_reversed = false
             }
 
             let is_modifier = modifier_tags.includes(raw_filter)
             if (is_modifier) {
-                if (!is_reverse) has_not_rev_modifier = true
+                if (!is_reverse) has_only_reversed_modifiers = false
             } else {
                 is_modifier_only = false
             }
@@ -919,7 +928,7 @@ function init(data) {
             }
         });
 
-        return (is_acceptable || is_modifier_only) && (!has_not_rev_modifier || is_modifier_accepted) && !is_blocked
+        return (is_acceptable || has_only_reversed || is_modifier_only) && (is_modifier_accepted || has_only_reversed_modifiers) && !is_blocked
     }
 
     /**
