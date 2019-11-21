@@ -938,13 +938,13 @@ function init(data) {
                 is_modifier_only = false
             }
 
-            if (!is_reverse && record.tags.includes(raw_filter)) {
+            if (!is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
                 if (is_modifier) {
                     is_modifier_accepted = true
                 } else {
                     is_acceptable = true
                 }
-            } else if (is_reverse && record.tags.includes(raw_filter)) {
+            } else if (is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
                 is_blocked = true
             }
         });
