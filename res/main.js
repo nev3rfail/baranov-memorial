@@ -516,13 +516,13 @@ function init(data) {
     function parse_filters_from_query(filter_type) {
         let filter_string = util_get_query_param(filter_type)
 
-        let tags_array = []
+        let vals_array = []
 
         if (filter_string.length > 0) {
-            tags_array = filter_string.split(',')
+            vals_array = filter_string.split(',')
         }
 
-        return tags_array
+        return vals_array
     }
 
     function add_filter_to_query(filter_type, tag, is_reverse) {
@@ -731,9 +731,11 @@ function init(data) {
             current_page = 1;
             remove_cards();
 
-            let tags = parse_filters_from_query()
+            let where_filters = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
+            let year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
+            let tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
 
-            draw(filter(tags));
+            draw(filter(where_filters, year_filters, tag_filters));
         }
 
         // глобальная функция для кнопок тегов в карточках
@@ -816,47 +818,98 @@ function init(data) {
         Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
     }
 
+
+    function filter_by_where(record, filters) {
+        if (filters.length == 0) return true
+
+        let is_acceptable = false
+        let is_blocked = false
+
+        filters.forEach(filter => {
+            let raw_filter = filter
+            let is_reverse = (filter.indexOf('!') == 0)
+
+            if (is_reverse) {
+                raw_filter = filter.substring(1)
+            }
+
+            if (!is_reverse && record.where === raw_filter) {
+                is_acceptable = true
+            } else if (is_reverse && record.where === raw_filter) {
+                is_blocked = true
+            }
+        });
+
+        return is_acceptable && !is_blocked
+    }
+    function filter_by_year(record, filters) {
+        if (filters.length == 0) return true
+
+        let is_acceptable = false
+        let is_blocked = false
+
+        filters.forEach(filter => {
+            let raw_filter = filter
+            let is_reverse = (filter.indexOf('!') == 0)
+
+            if (is_reverse) {
+                raw_filter = filter.substring(1)
+            }
+
+            raw_filter = parseInt(raw_filter, 10)
+
+            if (!is_reverse && record.date.year === raw_filter) {
+                is_acceptable = true
+            } else if (is_reverse && record.date.year === raw_filter) {
+                is_blocked = true
+            }
+        });
+
+        return is_acceptable && !is_blocked
+    }
+    function filter_by_tag(record, filters) {
+        if (filters.length == 0) return true
+
+        let is_acceptable = false
+        let is_blocked = false
+
+        console.log(record, filters)
+
+        filters.forEach(filter => {
+            let raw_filter = filter
+            let is_reverse = (filter.indexOf('!') == 0)
+
+            if (is_reverse) {
+                raw_filter = filter.substring(1)
+            }
+
+            if (!is_reverse && record.tags.includes(raw_filter)) {
+                is_acceptable = true
+            } else if (is_reverse && record.tags.includes(raw_filter)) {
+                is_blocked = true
+            }
+            console.log(is_reverse, raw_filter, is_acceptable, is_blocked)
+        });
+
+
+        return is_acceptable && !is_blocked
+    }
+
     /**
      * @param filters
      * @returns {*[]}
      */
-    function filter(filters) {
-        if (filters.length == 0) {
+    function filter(where_filters, year_filters, tag_filters) {
+        if (where_filters.length + year_filters.length + tag_filters.length == 0) {
             return full_recordset
         }
 
-        console.log('full:',full_recordset)
+        console.log('full:', full_recordset)
 
         return full_recordset.filter(function (record) {
-            let is_acceptable = false
-            let is_blocked = false
-
-            if (!record.pseudotaged) {
-                record.tags.push(record.where)
-                record.tags.push(record.date.year.toString())
-                record.pseudotaged = true
-            }
-
-            console.log('r:', record)
-            filters.forEach(filter => {
-                let raw_filter = filter
-                let is_reverse = (filter.indexOf('!') == 0)
-
-                if (is_reverse) {
-                    raw_filter = filter.substring(1)
-                }
-
-                console.log('f:',filter,raw_filter,is_reverse)
-                if (!is_reverse && record.tags.includes(raw_filter)) {
-                    console.log('worked rule 1',(record.tags.includes(raw_filter) && !is_reverse))
-                    is_acceptable = true
-                } else if (is_reverse && record.tags.includes(raw_filter)) {
-                    console.log('worked rule 2',(!record.tags.includes(raw_filter) && is_reverse))
-                    is_blocked = true
-                }
-            });
-
-            return is_acceptable && !is_blocked
+            return filter_by_where(record, where_filters) &&
+                    filter_by_year(record, year_filters) &&
+                    filter_by_tag(record, tag_filters)
         })
     }
 
