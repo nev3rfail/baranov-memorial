@@ -599,14 +599,35 @@ function init(data) {
     }
 
     function render_selected_filters() {
-        let tags_badges = render_selected_part(WHERE_FILTER_PARAM_NAME) + '<div class="col w-100"></div>'
-        tags_badges += render_selected_part(YEAR_FILTER_PARAM_NAME) + '<div class="col w-100"></div>'
-        tags_badges += render_selected_part(TAG_FILTER_PARAM_NAME)
+        let insertion_html = ''
+        let badges_part = ''
+
+        badges_part = render_selected_part(WHERE_FILTER_PARAM_NAME)
+        if (badges_part.length >  0) {
+            insertion_html = badges_part + '<div class="col w-100"></div>'
+        }
+
+        badges_part = render_selected_part(YEAR_FILTER_PARAM_NAME)
+        if (badges_part.length >  0) {
+            insertion_html += badges_part + '<div class="col w-100"></div>'
+        }
+
+        badges_part = render_selected_part(TAG_FILTER_PARAM_NAME)
+        if (badges_part.length >  0) {
+            insertion_html += badges_part
+        }
+
 
         // possible performance issue here
         let elem = document.getElementById('selected-filters-block')
         elem.innerHTML = ''
-        elem.insertAdjacentHTML('afterbegin', tags_badges);
+
+        if (insertion_html.length > 0) {
+            document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
+            elem.insertAdjacentHTML('afterbegin', insertion_html);
+        } else {
+            document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
+        }
     }
 
     document.addEventListener('records.loaded', function () {
