@@ -64,10 +64,6 @@
                     <button class="dropdown-item" id="unfilter_tag" data-label-key="tags" onclick="remove_typed_filters('t')">Показать все</button>
                 </div>
             </li>
-
-            <li class="nav-item">
-                <button id="draw_nourl" class="btn nav-link">Показать элементы без ссылок</button>
-            </li>
         </ul>
 
         <div id="pre-divider-for-selected-filters" class="dropdown-divider d-block d-lg-none"></div>
@@ -76,26 +72,34 @@
         <div class="dropdown-divider d-block d-lg-none"></div>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <div class="mw-100 col-3">
+            <li class="nav-item col-3 mw-100">
+                <button id="draw_nourl" class="btn nav-link">Показать элементы без ссылок</button>
+            </li>
+
+            <li class="col w-100"></li>
+
+            <li class="nav-item col-1">
                 <a class="nav-link" href="https://discord.gg/zDxKb44">
                     <span class="iconify" data-icon="fa-brands:discord"></span>
                     <span class="d-inline d-lg-none pl-1">Discord</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-1">
                 <a class="nav-link" href="https://github.com/nev3rfail/baranov-memorial">
                     <span class="iconify" data-icon="fa-brands:github"></span>
                     <span class="d-inline d-lg-none pl-1">Github</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-1">
                 <button class="btn nav-link" data-toggle="modal" data-target="#settingsModal">
                     <span class="iconify" data-icon="fa:cog"></span>
                     <span class="pl-1">Настройки</span>
                 </button>
             </li>
+            </div>
         </ul>
     </div>
 </nav>
