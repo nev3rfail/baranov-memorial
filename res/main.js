@@ -584,6 +584,12 @@ function init(data) {
 
         let tags_badges = ''
 
+        if (tag_type === YEAR_FILTER_PARAM_NAME) {
+            tags_array.sort((a,b) => {
+                return parseInt(a,10) - parseInt(b,10)
+            })
+        }
+
         tags_array.forEach(tag => {
             let is_reverse = (tag.indexOf('!') == 0)
             let tag_text = tag
