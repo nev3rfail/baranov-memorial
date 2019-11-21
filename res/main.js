@@ -697,6 +697,7 @@ function init(data) {
                                 util_get_query_param(YEAR_FILTER_PARAM_NAME) +
                                 util_get_query_param(TAG_FILTER_PARAM_NAME)
         if (after_load_tags.length == 0) {
+            document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
             draw(full_recordset);
         } else {
             render_selected_filters();
