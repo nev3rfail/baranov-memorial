@@ -823,8 +823,19 @@ function init(data) {
             return full_recordset
         }
 
+        console.log('full:',full_recordset)
+
         return full_recordset.filter(function (record) {
-            let is_acceptable = true
+            let is_acceptable = false
+            let is_blocked = false
+
+            if (!record.pseudotaged) {
+                record.tags.push(record.where)
+                record.tags.push(record.date.year.toString())
+                record.pseudotaged = true
+            }
+
+            console.log('r:', record)
             filters.forEach(filter => {
                 let raw_filter = filter
                 let is_reverse = (filter.indexOf('!') == 0)
@@ -833,15 +844,17 @@ function init(data) {
                     raw_filter = filter.substring(1)
                 }
 
-                if (record.tags.includes(raw_filter) && !is_reverse) {
-                } else if (!record.tags.includes(raw_filter) && is_reverse) {
-                } else {
-                    // TODO should break the cycle if found non accepable
-                    is_acceptable = false
+                console.log('f:',filter,raw_filter,is_reverse)
+                if (!is_reverse && record.tags.includes(raw_filter)) {
+                    console.log('worked rule 1',(record.tags.includes(raw_filter) && !is_reverse))
+                    is_acceptable = true
+                } else if (is_reverse && record.tags.includes(raw_filter)) {
+                    console.log('worked rule 2',(!record.tags.includes(raw_filter) && is_reverse))
+                    is_blocked = true
                 }
             });
 
-            return is_acceptable
+            return is_acceptable && !is_blocked
         })
     }
 
