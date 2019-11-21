@@ -447,8 +447,6 @@ function init(data) {
             let param_start = hash_string.indexOf('#'+param_name+'=')
             let param_start_not_first = hash_string.indexOf('&'+param_name+'=')
 
-            console.log ('check:', param_start, param_start_not_first)
-
             // if param is not first
             if (param_start_not_first > param_start) {
                 param_start = param_start_not_first
@@ -527,8 +525,9 @@ function init(data) {
         return vals_array
     }
 
-    function add_filter_to_query(filter_type, tag, is_reverse) {
+    function add_filter_to_query(filter_type, tag, is_reverse, add_first = false) {
         let is_changed = false
+
         is_reverse = (is_reverse === 'true')
         let final_tag = ''
         if (!is_reverse) {
@@ -554,7 +553,12 @@ function init(data) {
 
             if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
                 if (cur_filter_tags.indexOf(final_tag) < 0) {
-                    util_update_query_param(filter_type, cur_filter_param + ',' + final_tag) // just add the tag
+                    console.log('af', add_first)
+                    if (add_first) {
+                        util_update_query_param(filter_type, final_tag + ',' + cur_filter_param) // just add the tag before all (ex.: for modifiers)
+                    } else {
+                        util_update_query_param(filter_type, cur_filter_param + ',' + final_tag) // just add the tag
+                    }
                     is_changed = true
                 }
             } else {
@@ -742,7 +746,7 @@ function init(data) {
 
         // глобальная функция для кнопок тегов в карточках
         window['filter_by_tag'] = function(tag) {
-            if (add_filter_to_query(tag, false)) {
+            if (add_filter_to_query(tag, false, modifier_tags.includes(tag))) {
                 render_selected_filters()
                 draw_with_filter()
                 route_scroll_to_rc()
@@ -789,7 +793,8 @@ function init(data) {
                 }
 
                 if ('tag' in item.dataset) {
-                    if (add_filter_to_query(TAG_FILTER_PARAM_NAME, item.dataset.tag, item.dataset.is_reverse)) {
+                    console.log(modifier_tags, modifier_tags.includes(item.dataset.tag))
+                    if (add_filter_to_query(TAG_FILTER_PARAM_NAME, item.dataset.tag, item.dataset.is_reverse, modifier_tags.includes(item.dataset.tag))) {
                         render_selected_filters()
 
                         need_filtering = true
@@ -875,10 +880,8 @@ function init(data) {
         let is_acceptable = false
         let is_modifier_accepted = false
         let is_modifier_only = true
-        let has_modifier = false
+        let has_not_rev_modifier = false
         let is_blocked = false
-
-        console.log(record, filters)
 
         filters.forEach(filter => {
             let raw_filter = filter
@@ -890,7 +893,7 @@ function init(data) {
 
             let is_modifier = modifier_tags.includes(raw_filter)
             if (is_modifier) {
-                has_modifier = true
+                if (!is_reverse) has_not_rev_modifier = true
             } else {
                 is_modifier_only = false
             }
@@ -904,10 +907,9 @@ function init(data) {
             } else if (is_reverse && record.tags.includes(raw_filter)) {
                 is_blocked = true
             }
-            console.log(is_reverse, raw_filter, is_acceptable, is_blocked)
         });
 
-        return (is_acceptable || is_modifier_only) && (!has_modifier || is_modifier_accepted) && !is_blocked
+        return (is_acceptable || is_modifier_only) && (!has_not_rev_modifier || is_modifier_accepted) && !is_blocked
     }
 
     /**
@@ -918,8 +920,6 @@ function init(data) {
         if (where_filters.length + year_filters.length + tag_filters.length == 0) {
             return full_recordset
         }
-
-        console.log('full:', full_recordset)
 
         return full_recordset.filter(function (record) {
             return filter_by_where(record, where_filters) &&
