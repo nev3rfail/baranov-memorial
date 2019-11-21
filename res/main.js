@@ -494,7 +494,7 @@ function init(data) {
                 if (query_tag === tag) {
                     is_changed = true
                 } else {
-                    new_query_string += (tag + ',')
+                    new_query_string += (query_tag + ',')
                 }
             });
 
