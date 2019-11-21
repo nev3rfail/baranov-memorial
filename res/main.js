@@ -572,7 +572,9 @@ function init(data) {
     }
 
     function render_selected_filters() {
-        let tags_array = parse_filters_from_query()
+        let tags_array = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
+        tags_array = tags_array.concat(parse_filters_from_query(YEAR_FILTER_PARAM_NAME))
+        tags_array = tags_array.concat(parse_filters_from_query(TAG_FILTER_PARAM_NAME))
         let tags_badges = ''
 
         tags_array.forEach(tag => {
