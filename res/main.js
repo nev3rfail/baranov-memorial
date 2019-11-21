@@ -791,7 +791,14 @@ function init(data) {
             let year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
             let tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
 
-            draw(filter(where_filters, year_filters, tag_filters));
+            let filtered_rset = filter(where_filters, year_filters, tag_filters)
+
+            if (filtered_rset.length == full_recordset.length) {
+                document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+            } else {
+                document.getElementById('filter_name').innerText = `Выбранные материалы (${filtered_rset.length})`;
+            }
+            draw(filtered_rset);
         }
 
         // глобальная функция для кнопок тегов в карточках
@@ -833,6 +840,8 @@ function init(data) {
                 remove_cards();
 
                 render_selected_filters()
+                document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+
                 draw(full_recordset)
                 route_scroll_to_rc()
             }
