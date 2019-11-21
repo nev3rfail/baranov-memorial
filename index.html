@@ -44,7 +44,7 @@
                 <button id="filter-label-sources" data-label-key="sources" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Издания</button>
                 <div class="dropdown-menu" id="filters_where" aria-labelledby="filter-label-sources">
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" id="unfilter_where" data-label-key="sources">Показать все</button>
+                    <button class="dropdown-item" id="unfilter_where" data-label-key="sources" onclick="remove_typed_filter('w')">Показать все</button>
                 </div>
             </li>
 
@@ -52,7 +52,7 @@
                 <button id="filter-label-years" data-label-key="years" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Годы</button>
                 <div class="dropdown-menu" id="filters_year" aria-labelledby="filter-label-years">
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" id="unfilter_year" data-label-key="years">Показать все</button>
+                    <button class="dropdown-item" id="unfilter_year" data-label-key="years" onclick="remove_typed_filter('y')">Показать все</button>
                 </div>
             </li>
 
@@ -61,7 +61,7 @@
 
                 <div class="dropdown-menu" id="filters_tag" aria-labelledby="filter-label-tags">
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" id="unfilter_tag" data-label-key="tags">Показать все</button>
+                    <button class="dropdown-item" id="unfilter_tag" data-label-key="tags" onclick="remove_typed_filter('t')">Показать все</button>
                 </div>
             </li>
 

@@ -437,15 +437,19 @@ function init(data) {
         }
     }
 
-    // TODO add url param protection
     function util_update_query_param(param_name, param_val) {
+        let is_changed = false
         let hash_string = decodeURIComponent(parent.location.hash)
+
         // no params in query
         if (hash_string.length == 0) {
             parent.location.hash = param_name + '=' + param_val
+            if (param_val !== '') is_changed = true
         } else {
             let param_start = hash_string.indexOf('#'+param_name+'=')
             let param_start_not_first = hash_string.indexOf('&'+param_name+'=')
+
+            let before_len = hash_string.length
 
             // if param is not first
             if (param_start_not_first > param_start) {
@@ -464,7 +468,11 @@ function init(data) {
 
                 parent.location.hash = hash_string.substring(0,param_start+1) + param_name + '=' + param_val + hash_string.substr(param_end)
             }
+
+            if (before_len !== parent.location.hash.length) is_changed = true
         }
+
+        return is_changed
     }
 
     function util_get_query_param(param_name) {
@@ -792,6 +800,15 @@ function init(data) {
             }
         };
 
+        // глобальная функция для кнопок удаления фильтров типа
+        window['remove_typed_filter'] = function(tag_type) {
+            if (util_update_query_param(tag_type, '')) {
+                render_selected_filters()
+                draw_with_filter()
+                route_scroll_to_rc()
+            }
+        };
+
         Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
             item.addEventListener('click', (e) => {
                 const {activated} = item.dataset;
@@ -973,24 +990,6 @@ function init(data) {
             document.getElementById('start').scrollIntoView({behavior: 'smooth', block: 'start'})
         }, draw_time);
     }
-
-    Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
-        document.getElementById(id).onclick = () => {
-            remove_current_active_filter();
-            current_page = 1;
-            remove_cards();
-            Array.from(document.getElementsByClassName('filter-label')).forEach(filter_label => {
-                const {dataset: {labelKey: orig_label_key}} = filter_label;
-                filter_label.innerText = get_default_text(orig_label_key);
-                filter_label.dataset.activated = 'false';
-            });
-
-            document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`;
-            draw(full_recordset);
-
-            route_scroll_to_rc();
-        }
-    });
 
     document.getElementById('draw_nourl').onclick = () => {
         current_page = 1;
