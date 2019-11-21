@@ -75,7 +75,9 @@ function init(data) {
         data_files.push(...data[entry].files);
     });
 
-    const FILTERS_QUERY_PARAM_NAME = 'f'
+    const WHERE_FILTER_PARAM_NAME = 'w'
+    const YEAR_FILTER_PARAM_NAME = 'y'
+    const TAG_FILTER_PARAM_NAME = 't'
 
     let full_recordset = [];
     let current_recordset = [];
@@ -483,10 +485,10 @@ function init(data) {
         return param_val
     }
 
-    function remove_filter_from_query (tag) {
+    function remove_filter_from_query (filter_type, tag) {
         let is_changed = false
 
-        let query_param = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+        let query_param = util_get_query_param(filter_type)
 
         if (query_param.length > 0) {
             let new_query_string = ''
@@ -501,9 +503,9 @@ function init(data) {
             if (is_changed) {
                 if (new_query_string.length > 0) {
                     // dont forget to remove unnesessary comma
-                    util_update_query_param(FILTERS_QUERY_PARAM_NAME, new_query_string.substr(0,new_query_string.length-1))
+                    util_update_query_param(filter_type, new_query_string.substr(0,new_query_string.length-1))
                 } else {
-                    util_update_query_param(FILTERS_QUERY_PARAM_NAME,'') // removed all filters
+                    util_update_query_param(filter_type,'') // removed all filters
                 }
             }
         }
@@ -511,8 +513,8 @@ function init(data) {
         return is_changed
     }
 
-    function parse_filters_from_query() {
-        let filter_string = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+    function parse_filters_from_query(filter_type) {
+        let filter_string = util_get_query_param(filter_type)
 
         let tags_array = []
 
@@ -523,7 +525,7 @@ function init(data) {
         return tags_array
     }
 
-    function add_filter_to_query(tag, is_reverse) {
+    function add_filter_to_query(filter_type, tag, is_reverse) {
         let is_changed = false
         is_reverse = (is_reverse === 'true')
         let final_tag = ''
@@ -533,10 +535,10 @@ function init(data) {
             final_tag = '!' + tag
         }
 
-        let cur_filter_param = util_get_query_param(FILTERS_QUERY_PARAM_NAME)
+        let cur_filter_param = util_get_query_param(filter_type)
 
         if (cur_filter_param === '') {
-            util_update_query_param(FILTERS_QUERY_PARAM_NAME,final_tag)
+            util_update_query_param(filter_type,final_tag)
             is_changed = true
         } else {
             let cur_filter_tags = cur_filter_param.split(',')
@@ -550,12 +552,12 @@ function init(data) {
 
             if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
                 if (cur_filter_tags.indexOf(final_tag) < 0) {
-                    util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param + ',' + final_tag) // just add the tag
+                    util_update_query_param(filter_type, cur_filter_param + ',' + final_tag) // just add the tag
                     is_changed = true
                 }
             } else {
                 cur_filter_param = cur_filter_param.replace(tag_reversed_ver, final_tag) // replace reversed tag on new one
-                util_update_query_param(FILTERS_QUERY_PARAM_NAME, cur_filter_param)
+                util_update_query_param(filter_type, cur_filter_param)
                 is_changed = true
             }
         }
@@ -767,7 +769,7 @@ function init(data) {
                 let need_filtering = false
 
                 if ('where' in item.dataset) {
-                    if (add_filter_to_query(item.dataset.where, item.dataset.is_reverse)) {
+                    if (add_filter_to_query(WHERE_FILTER_PARAM_NAME, item.dataset.where, item.dataset.is_reverse)) {
                         render_selected_filters()
 
                         need_filtering = true
@@ -775,7 +777,7 @@ function init(data) {
                 }
 
                 if ('year' in item.dataset) {
-                    if (add_filter_to_query(item.dataset.year, item.dataset.is_reverse)) {
+                    if (add_filter_to_query(YEAR_FILTER_PARAM_NAME, item.dataset.year, item.dataset.is_reverse)) {
                         render_selected_filters()
 
                         need_filtering = true
@@ -783,7 +785,7 @@ function init(data) {
                 }
 
                 if ('tag' in item.dataset) {
-                    if (add_filter_to_query(item.dataset.tag, item.dataset.is_reverse)) {
+                    if (add_filter_to_query(TAG_FILTER_PARAM_NAME, item.dataset.tag, item.dataset.is_reverse)) {
                         render_selected_filters()
 
                         need_filtering = true
