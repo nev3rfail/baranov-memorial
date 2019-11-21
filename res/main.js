@@ -128,8 +128,8 @@ function init(data) {
     const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">';
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
-    const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\')">{tag_text}</a>';
-    const filter_menu_tag = '<a class="badge badge-primary px-3 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\')">{tag_text} X</a>';
+    const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>';
+    const filter_menu_tag = '<a class="badge badge-primary px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')">{tag_text} X</a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.getElementById('records_container');
@@ -207,12 +207,12 @@ function init(data) {
         if ('tags' in record && record.tags.length !== 0) {
             let tagsList = '';
             record.tags.forEach(tag => {
-                tagsList += card_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag);
+                tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag);
             });
 
             // add pseudo tags from source and year
-            tagsList += card_tag.replace(/{tag}/, record.where).replace(/{tag_text}/, fancy_names[record.where]);
-            tagsList += card_tag.replace(/{tag}/, record.date.year).replace(/{tag_text}/, record.date.year);
+            tagsList += card_tag.replace(/{tag}/, record.where).replace(/{type}/, 'w').replace(/{tag_text}/, fancy_names[record.where]);
+            tagsList += card_tag.replace(/{tag}/, record.date.year).replace(/{type}/, 'y').replace(/{tag_text}/, record.date.year);
 
             card = card.replace('{tags}', tagsList);
         } else {
@@ -571,10 +571,10 @@ function init(data) {
         return is_changed
     }
 
-    function render_selected_filters() {
-        let tags_array = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
-        tags_array = tags_array.concat(parse_filters_from_query(YEAR_FILTER_PARAM_NAME))
-        tags_array = tags_array.concat(parse_filters_from_query(TAG_FILTER_PARAM_NAME))
+    function render_selected_part (tag_type) {
+        let tags_array = parse_filters_from_query(tag_type)
+        if (tags_array.length == 0) return ''
+
         let tags_badges = ''
 
         tags_array.forEach(tag => {
@@ -593,8 +593,16 @@ function init(data) {
                 tag_text = 'НЕ ' + tag_text
             }
 
-            tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{tag_text}/, tag_text);
+            tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{type}/, tag_type).replace(/{tag_text}/, tag_text);
         });
+
+        return tags_badges
+    }
+
+    function render_selected_filters() {
+        let tags_badges = render_selected_part(WHERE_FILTER_PARAM_NAME) + '<div class="col w-100"></div>'
+        tags_badges += render_selected_part(YEAR_FILTER_PARAM_NAME) + '<div class="col w-100"></div>'
+        tags_badges += render_selected_part(TAG_FILTER_PARAM_NAME)
 
         // possible performance issue here
         let elem = document.getElementById('selected-filters-block')
@@ -747,8 +755,8 @@ function init(data) {
         }
 
         // глобальная функция для кнопок тегов в карточках
-        window['filter_by_tag'] = function(tag) {
-            if (add_filter_to_query(tag, false, modifier_tags.includes(tag))) {
+        window['filter_by_tag'] = function(tag, tag_type) {
+            if (add_filter_to_query(tag_type, tag, false, modifier_tags.includes(tag))) {
                 render_selected_filters()
                 draw_with_filter()
                 route_scroll_to_rc()
@@ -756,8 +764,8 @@ function init(data) {
         };
 
         // глобальная функция для кнопок удаления фильтра
-        window['remove_selected_filter'] = function(tag) {
-            if (remove_filter_from_query(tag)) {
+        window['remove_selected_filter'] = function(tag, tag_type) {
+            if (remove_filter_from_query(tag_type, tag)) {
                 render_selected_filters()
                 draw_with_filter()
                 route_scroll_to_rc()
