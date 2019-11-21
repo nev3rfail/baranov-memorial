@@ -655,12 +655,12 @@ function init(data) {
         document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`;
 
 
-        let after_load_tags = parse_filters_from_query()
+        let after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) + util_get_query_param(YEAR_FILTER_PARAM_NAME) + util_get_query_param(TAG_FILTER_PARAM_NAME)
         if (after_load_tags.length == 0) {
             draw(full_recordset);
         } else {
             render_selected_filters();
-            draw(full_recordset);
+            draw_with_filter();
         }
 
         const years = {};
