@@ -763,11 +763,31 @@ function init(data) {
             return 0;
         });
 
-        const filter_tags = sorted_tags.map(tag =>
+        let modifier_search_idx = 0
+        let found_modifiers = 0
+        let mod_sorted_tags = []
+        console.log('f', modifier_tags, sorted_tags, found_modifiers, modifier_search_idx)
+        while (modifier_search_idx >= 0) {
+            modifier_search_idx = sorted_tags.findIndex((tag) => {
+                return modifier_tags.includes(tag)
+            })
+
+            if (modifier_search_idx >= 0) {
+                found_modifiers++
+
+                mod_sorted_tags.push(sorted_tags[modifier_search_idx])
+                sorted_tags.splice(modifier_search_idx,1)
+            }
+            console.log(mod_sorted_tags, sorted_tags, found_modifiers, modifier_search_idx)
+        }
+
+        mod_sorted_tags = mod_sorted_tags.concat(sorted_tags)
+
+        const filter_tags = mod_sorted_tags.map(tag =>
             build_filter_item({tag, text: `${tag} (${tags[tag]})`})
         );
 
-        filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
+        filter_tags.splice(found_modifiers, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
         document.getElementById('filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''));
 
         const filter_labels = Array.from(document.getElementsByClassName('filter-label'));
