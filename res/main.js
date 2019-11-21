@@ -631,6 +631,10 @@ function init(data) {
         elem.innerHTML = ''
 
         if (insertion_html.length > 0) {
+            insertion_html += '<div class="col w-100"></div>'
+            insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить</a>';
+
+
             document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
             elem.insertAdjacentHTML('afterbegin', insertion_html);
         } else {
@@ -683,7 +687,9 @@ function init(data) {
         document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`;
 
 
-        let after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) + util_get_query_param(YEAR_FILTER_PARAM_NAME) + util_get_query_param(TAG_FILTER_PARAM_NAME)
+        let after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) +
+                                util_get_query_param(YEAR_FILTER_PARAM_NAME) +
+                                util_get_query_param(TAG_FILTER_PARAM_NAME)
         if (after_load_tags.length == 0) {
             draw(full_recordset);
         } else {
@@ -801,10 +807,27 @@ function init(data) {
         };
 
         // глобальная функция для кнопок удаления фильтров типа
-        window['remove_typed_filter'] = function(tag_type) {
+        window['remove_typed_filters'] = function(tag_type) {
             if (util_update_query_param(tag_type, '')) {
                 render_selected_filters()
                 draw_with_filter()
+                route_scroll_to_rc()
+            }
+        };
+
+        // глобальная функция для кнопок удаления фильтров всех типов
+        window['remove_all_filters'] = function() {
+            let is_changed = false
+            is_changed = util_update_query_param(WHERE_FILTER_PARAM_NAME, '') || is_changed
+            is_changed = util_update_query_param(YEAR_FILTER_PARAM_NAME, '') || is_changed
+            is_changed = util_update_query_param(TAG_FILTER_PARAM_NAME, '') || is_changed
+
+            if (is_changed) {
+                current_page = 1;
+                remove_cards();
+
+                render_selected_filters()
+                draw(full_recordset)
                 route_scroll_to_rc()
             }
         };
