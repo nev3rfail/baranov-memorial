@@ -135,7 +135,7 @@ function init(data) {
     const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
     const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
     const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>';
-    const filter_menu_tag = '<a class="badge badge-primary px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')"><div class="d-inline-block align-text-bottom">{tag_text}</div><div class="badge ml-1 pd-2 badge-danger">X</div></a>';
+    const filter_menu_tag = '<a class="badge badge-primary px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')"><div class="d-inline-block align-middle">{tag_text}</div><span class="iconify ml-1" data-icon="ic:baseline-cancel" data-inline="false" style="font-size: 16px; font-wight: 400"></span></a>';
 
     const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
     const records_container = document.getElementById('records_container');
