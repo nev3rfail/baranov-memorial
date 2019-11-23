@@ -109,12 +109,27 @@ function init(data) {
     /**
      * Templates
      */
-    const filter_item = `<li class="dropdown-item filter-link"><div class="px-1 py-1 d-inline-block">{text}</div><div class="d-inline-block float-right">` +
-                        `<button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="false" {data-tags}>` +
-                            `<span class="iconify" data-icon="ic-baseline-control-point" data-inline="false" style="font-size: 18px; font-wight: 400"></span>` +
-                        `</button><button class="btn btn-primary btn-sm ml-1 filter-btn" data-is_reverse="true" {data-tags} >` +
-                            `<span class="iconify" data-icon="ic:baseline-do-not-disturb-alt" data-inline="false" style="font-size: 18px; font-wight: 400"></span></span>` +
-                        `</button></div></li>`;
+    const filter_item = `<li class="dropdown-item filter-link pt-1 pb-2">
+                            <div class="mt-1 px-1 py-1 d-inline-block">
+                                {text}
+                            </div>
+                            <div class="d-inline-block float-right">
+                                <button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
+                                    <svg style="font-size: 18px; font-weight: 400"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="currentColor"/>
+                                        <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" />
+                                        +
+                                    </svg>
+                                </button><button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
+                                    <svg style="font-size: 18px; font-weight: 500"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
+                                        <path class="st0" d="M9.9,14.2L9.9,14.2C9.9,14.1,9.9,14.1,9.9,14.2z" fill="currentColor"/>
+                                        <path class="st0" d="M12,9c-1.7,0-3,1.3-3,3c0,0.5,0.1,0.9,0.3,1.3l4-4C12.9,9.1,12.5,9,12,9z" fill="currentColor"/>
+                                        <path class="st0" d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,17c-2.8,0-5-2.2-5-5s2.2-5,5-5s5,2.2,5,5 S14.8,17,12,17z" fill="currentColor"/>
+                                        <path class="st0" d="M10.7,14.7c0.4,0.2,0.8,0.3,1.3,0.3c1.7,0,3-1.3,3-3c0-0.5-0.1-0.9-0.3-1.3L10.7,14.7z" fill="currentColor"/>
+                                    -</svg>
+                                </button>
+                            </div>
+                        </li>`;
 
     const base_card = `<div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
             <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
