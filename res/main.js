@@ -109,8 +109,8 @@ function init(data) {
     /**
      * Templates
      */
-    const filter_item = `<li class="dropdown-item filter-link pt-1 pb-2">
-                            <div class="mt-1 px-1 py-1 d-inline-block">
+    const filter_item = `<li class="dropdown-item filter-link pt-1 pb-1">
+                            <div class="mt-1 px-1 pb-2 d-inline-block">
                                 {text}
                             </div>
                             <div class="d-inline-block float-right">
