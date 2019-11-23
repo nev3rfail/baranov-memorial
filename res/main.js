@@ -122,11 +122,11 @@ function init(data) {
                                     </svg>
                                 </button><button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
                                         <svg style="font-size: 18px; font-weight: 500"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
-                                        <path class="st0" d="M9.7,14.4L9.7,14.4C9.7,14.3,9.7,14.3,9.7,14.4z"/>
-                                        <path class="st0" d="M12,8.7c-1.8,0-3.3,1.5-3.3,3.3c0,0.5,0.1,1,0.3,1.4L13.4,9C13,8.8,12.5,8.7,12,8.7z"/>
+                                        <path class="st0" d="M9.7,14.4L9.7,14.4C9.7,14.3,9.7,14.3,9.7,14.4z" fill="currentColor"/>
+                                        <path class="st0" d="M12,8.7c-1.8,0-3.3,1.5-3.3,3.3c0,0.5,0.1,1,0.3,1.4L13.4,9C13,8.8,12.5,8.7,12,8.7z" fill="currentColor"/>
                                         <path class="st0" d="M12,1C5.9,1,1,5.9,1,12s4.9,11,11,11s11-4.9,11-11S18.1,1,12,1z M12,17.5c-3,0-5.5-2.5-5.5-5.5S9,6.5,12,6.5
-                                            S17.5,9,17.5,12S15,17.5,12,17.5z"/>
-                                        <path class="st0" d="M10.6,15c0.4,0.2,0.9,0.3,1.4,0.3c1.8,0,3.3-1.5,3.3-3.3c0-0.5-0.1-1-0.3-1.4L10.6,15z"/>
+                                            S17.5,9,17.5,12S15,17.5,12,17.5z" fill="currentColor"/>
+                                        <path class="st0" d="M10.6,15c0.4,0.2,0.9,0.3,1.4,0.3c1.8,0,3.3-1.5,3.3-3.3c0-0.5-0.1-1-0.3-1.4L10.6,15z" fill="currentColor"/>
                                         -
                                     </svg>
                                 </button>
