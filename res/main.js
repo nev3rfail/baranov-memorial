@@ -793,7 +793,7 @@ function init(data) {
         let modifier_search_idx = 0
         let found_modifiers = 0
         let mod_sorted_tags = []
-        console.log('f', modifier_tags, sorted_tags, found_modifiers, modifier_search_idx)
+
         while (modifier_search_idx >= 0) {
             modifier_search_idx = sorted_tags.findIndex((tag) => {
                 return modifier_tags.includes(tag)
@@ -1055,8 +1055,30 @@ function init(data) {
     }
 
     /**
-     * @param filters
-     * @returns {*[]}
+     * filter - центральная функция фильтрации
+     * Фильтрация происходит по трем категориям: Издания, Года, Теги
+     * Им соответствуют значения в хэше url под обозначениями 'w', 'y', 't'
+     * Эти константы заданы выше (WHERE_FILTER_PARAM_NAME, например)
+     * Между категориями фильтрация по правилу И
+     * Т.е. выбранные фильтры Издание: игромания и Годы: 2019
+     * оставит только карточки И с игромании, И 2019г
+     * Внутри категории фильтрация по правилу ИЛИ
+     * Т.е. выбранные фильтры Годы: 2018, 2019
+     * оставят карточки месет и за 18ый и за 19ый год
+     * Исключение - Модификаторы - особые фильтры в разделе Теги
+     * Указаны вверху в константе modifier_tags ("текст", "видео")
+     * Один из этих тегов должен быть по задумке у каждой карточки
+     * Они относятся к остальным тегам (если такие есть) по правилу И
+     * Т.е. если указан только тег(и)-модификатор(ы) (текст, например),
+     * то будут возвращены все записи с этим тегом
+     * Если в фильтрах есть и обычные теги, и модификатор (Например: текст, обзор, статья)
+     * то из выборки обычных тегов (т.е. объединеное множество обзоров и статей) остануться
+     * только те, у которых еще и есть тег-мадификатор (текст, в данном случае)
+     *
+     * @param {Array[String]} where_filters
+     * @param {Array[String]} year_filters
+     * @param {Array[String]} tag_filters
+     * @returns {Array[Object]}
      */
     function filter(where_filters, year_filters, tag_filters) {
         if (where_filters.length + year_filters.length + tag_filters.length == 0) {
