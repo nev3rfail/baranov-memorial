@@ -111,7 +111,7 @@ function init(data) {
      */
     const filter_item = `<li class="dropdown-item filter-link pt-1 pb-1">
                             <div class="mt-1 px-1 pb-2 d-inline-block">
-                                {text}
+                                <div class="d-inline-block align-baseline" style="position: relative; top: 0.15rem;">{text}</div>
                             </div>
                             <div class="d-inline-block float-right">
                                 <button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
