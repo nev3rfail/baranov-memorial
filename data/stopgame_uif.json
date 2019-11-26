@@ -8,7 +8,11 @@
       "year": 2019
     },
     "img": "https://i.ytimg.com/vi/UxzL5sw169A/maxresdefault.jpg",
-    "where": "stopgame", "tags": ["видео","Уэс и Флинн"],
+    "where": "stopgame",
+    "tags": [
+      "видео",
+      "Уэс и Флинн"
+    ],
     "url": "https://www.youtube.com/watch?v=UxzL5sw169A"
   },
   {
@@ -20,7 +24,11 @@
       "year": 2019
     },
     "img": "https://i.ytimg.com/vi/qx8hwIfaCcE/maxresdefault.jpg",
-    "where": "stopgame", "tags": ["видео","Уэс и Флинн"],
+    "where": "stopgame",
+    "tags": [
+      "видео",
+      "Уэс и Флинн"
+    ],
     "url": "https://www.youtube.com/watch?v=qx8hwIfaCcE"
   }
 ]

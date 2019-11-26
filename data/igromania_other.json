@@ -9,7 +9,10 @@
     },
     "img": "https://i.ytimg.com/vi/B1VrxUVmH30/maxresdefault.jpg",
     "where": "igromania",
-    "tags": ["видео","автор текста"],
+    "tags": [
+      "видео",
+      "автор текста"
+    ],
     "url": "https://www.youtube.com/watch?v=B1VrxUVmH30"
   },
   {
@@ -22,7 +25,10 @@
     },
     "img": "https://i.ytimg.com/vi/Ec6E8Fs7UlY/maxresdefault.jpg",
     "where": "igromania",
-    "tags": ["видео","автор текста"],
+    "tags": [
+      "видео",
+      "автор текста"
+    ],
     "url": "https://www.youtube.com/watch?v=Ec6E8Fs7UlY"
   },
   {
@@ -35,7 +41,10 @@
     },
     "img": "https://i.ytimg.com/vi/pedctGiD8qw/maxresdefault.jpg",
     "where": "igromania",
-    "tags": ["видео","автор текста"],
+    "tags": [
+      "видео",
+      "автор текста"
+    ],
     "url": "https://www.youtube.com/watch?v=pedctGiD8qw"
   },
   {
@@ -48,7 +57,10 @@
     },
     "img": "https://i.ytimg.com/vi/GGVgBwMUeQo/maxresdefault.jpg",
     "where": "igromania",
-    "tags": ["видео","автор текста"],
+    "tags": [
+      "видео",
+      "автор текста"
+    ],
     "url": "https://www.youtube.com/watch?v=GGVgBwMUeQo"
   }
 ]
