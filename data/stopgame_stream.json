@@ -57,8 +57,7 @@
     },
     "img": "https://stopga.me/images/uploads/images/152745/form/2017/04/14/normal_1492177874.jpg",
     "url": "https://vk.com/video-17833376_456243075",
-    "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": ""
+    "where": "stopgame", "tags": ["видео","трансляция"]
   },
   {
     "title": "Albion Online. Выжить любой ценой",
@@ -430,7 +429,7 @@
     },
     "img": "",
     "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": ""
+    "url": "https://mega.nz/#!Ex9VlIqI!ptUkS03zKqMZaDoSVJO-TqNfnjhA_VE0zOJIcOjbse0"
   },
   {
     "title": "Бесконечное лето. Новые гости «Совёнка»",
@@ -478,7 +477,7 @@
     },
     "img": "",
     "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": ""
+    "url": "https://mega.nz/#!vE4EkAwI!sxR9VyKixGQQWCJRcogmOPmQXhC9WLR4pKMkIq5d1M0"
   },
   {
     "title": "Jurassic World Evolution. Укрощение долбоящеров",
@@ -526,7 +525,7 @@
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/07/11/normal_1531261603.jpg",
     "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": ""
+    "url": "https://mega.nz/#!ycoBjKpZ!zf7sgHr4eoAB5AG-6YDGgzmK-HsmP5Y78hXmmqmTmD4"
   },
   {
     "title": "Dig or Die. Копай-убивай!",
@@ -538,7 +537,7 @@
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/07/16/normal_1531739949.jpg",
     "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": "https://www.youtube.com/watch?v=ILXZUlnu0ZE"
+    "url": "https://mega.nz/#!NkckEYzZ!CK27fRDrRWfa2L0g0sRIchrkKOslRxpo_rjFQfVN4ow"
   },
   {
     "title": "Warhammer 40000: Gladius — Relics of War. Ересь повсюду!",
@@ -550,7 +549,7 @@
     },
     "img": "https://stopga.me/images/uploads/images/52402/form/2018/07/28/normal_1532727915.jpg",
     "where": "stopgame", "tags": ["видео","трансляция"],
-    "url": ""
+    "url": "https://mega.nz/#!7dgBzKIa!sfSSVLzZkTzyrlLzMl72a8TbY5PXd7VM0QHFn2MliV8"
   },
   {
     "title": "Бесконечное лето. Последние дни в Лагере",
@@ -2279,6 +2278,30 @@
     },
     "img": "https://i.ytimg.com/vi/xBjw5AEnTjs/maxresdefault.jpg",
     "url": "https://www.youtube.com/watch?v=xBjw5AEnTjs",
+    "where": "stopgame", "tags": ["видео","трансляция"]
+  },
+  {
+    "title": "Sea of Thieves. Бесконечные моря и квесты.",
+    "teaser_text": "",
+    "date": {
+      "day": 23,
+      "month": 3,
+      "year": 2018
+    },
+    "img": "",
+    "url": "https://mega.nz/#!tstDSSyS!FmywQk3gzfzbKTvd6XzvFQbMIQYQGxEsiSUrtc_Fnyo",
+    "where": "stopgame", "tags": ["видео","трансляция"]
+  },
+  {
+    "title": "Assassin's Creed Origins. На панель!",
+    "teaser_text": "",
+    "date": {
+      "day": 21,
+      "month": 4,
+      "year": 2018
+    },
+    "img": "",
+    "url": "https://mega.nz/#!ghNiGYxY!Mnvsz8vnPOSkUVtIggx2dnm_l24hweqYRhXzv-kFUgM",
     "where": "stopgame", "tags": ["видео","трансляция"]
   }
 ]
