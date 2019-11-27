@@ -1,0 +1,9 @@
+{
+  "extends": "standard",
+  "rules": {
+    "camelcase": "off"
+  },
+  "env": {
+    "browser": true
+  }
+}
