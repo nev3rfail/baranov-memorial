@@ -49,6 +49,12 @@ function init (data) {
     data_files.push(...data[entry].files)
   })
 
+  const WHERE_FILTER_PARAM_NAME = 'w'
+  const YEAR_FILTER_PARAM_NAME = 'y'
+  const TAG_FILTER_PARAM_NAME = 't'
+
+  const modifier_tags = ["текст", "видео"]
+
   let full_recordset = []
   let current_recordset = []
   let running_interval
