@@ -201,15 +201,16 @@ function init (data) {
       card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
     }
 
-    if ('tags' in record && record.tags.length !== 0) {
-      let tagsList = ''
-      record.tags.forEach(tag => {
-        tagsList += card_tag.replace(/{tag}/g, tag)
-      })
-      card = card.replace('{tags}', tagsList)
-    } else {
-      card = card.replace('{tags}', '<small>Тэгов нет</small>')
-    }
+    let tagsList = ''
+    record.tags.forEach(tag => {
+        tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag);
+    })
+
+    // add pseudo tags from source and year
+    tagsList += card_tag.replace(/{tag}/, record.where).replace(/{type}/, 'w').replace(/{tag_text}/, fancy_names[record.where]);
+    tagsList += card_tag.replace(/{tag}/, record.date.year).replace(/{type}/, 'y').replace(/{tag_text}/, record.date.year);
+
+    card = card.replace('{tags}', tagsList)
 
     records_container.insertAdjacentHTML('beforeend', card)
   }
