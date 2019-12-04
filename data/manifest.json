@@ -1,0 +1,64 @@
+{
+  "dtf": {
+    "files": [
+      "dtf_main"
+    ],
+    "name": "DTF",
+    "icon": "dtf.png"
+  },
+  "igromania": {
+    "files": [
+      "igromania_main",
+      "igromania_forum",
+      "igromania_stream",
+      "igromania_other"
+    ],
+    "name": "Игромания",
+    "icon": "igromania.svg"
+  },
+  "stopgame": {
+    "files": [
+      "stopgame_main",
+      "stopgame_stream",
+      "stopgame_infact",
+      "stopgame_uif"
+    ],
+    "name": "StopGame.ru",
+    "icon": "stopgame.png"
+  },
+  "kanobu": {
+    "files": [
+      "kanobu"
+    ],
+    "name": "Канобу",
+    "icon": "kanobu.png"
+  },
+  "lki": {
+    "files": [
+      "lki"
+    ],
+    "name": "ЛКИ",
+    "icon": "lki.png"
+  },
+  "bestgamer": {
+    "files": [
+      "bestgamer"
+    ],
+    "name": "BestGamer.ru",
+    "icon": "bestgamer.png"
+  },
+  "zog": {
+    "files": [
+      "zog"
+    ],
+    "name": "Zone of Games",
+    "icon": "zog.png"
+  },
+  "vch": {
+    "files": [
+      "vch"
+    ],
+    "name": "Вечерние Челны",
+    "icon": "vch.png"
+  }
+}

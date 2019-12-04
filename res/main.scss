@@ -1,14 +1,6 @@
-$logos: (
-    'igromania': 'igromania.svg',
-    'igromania_other': 'igromania.svg',
-    'dtf': 'dtf.png',
-    'stopgame': 'stopgame.png',
-    'kanobu': 'kanobu.png',
-    'lki': 'lki.png',
-    'bestgamer': 'bestgamerICON.png',
-    'zog': 'zog.png',
-    'vch': 'vch.png'
-);
+body, nav {
+    min-width: 340px;
+}
 
 .memorial-card {
     position: relative;
@@ -31,29 +23,21 @@ $logos: (
         padding: 0.25rem 0.25rem;
     }
 
-    animation: .3s fadeIn;
+    animation: .5s fadeIn;
     animation-fill-mode: forwards;
 
     visibility: hidden;
 
-    &::before {
+    .icon {
         position: absolute;
-        top: 5px; right: 5px;
-        content: '';
+        top: 5px;
+        right: 5px;
 
-        background-position: top center;
-        background-repeat: no-repeat;
-        background-size: contain;
-
-        width: 40px; height: 40px;
+        width: 40px;
+        height: auto;
 
         opacity: .7;
-    }
-
-    @each $tag, $logo in $logos {
-        &[data-what="#{$tag}"]::before {
-            background-image: url("../res/image/#{$logo}");
-        }
+        pointer-events: none;
     }
 }
 
@@ -159,25 +143,14 @@ $pagination-disabled-border-color: transparent !default;
     margin-top: 70px;
 }
 
-.icon {
-    width: 24px;
-    height: 24px;
-    opacity: 0.5;
-    transition: opacity 0.15s ease-in;
-    &:hover {
-        opacity: 1;
-    }
+.navbar-icon {
+    width: 30px;
+    height: 30px;
 }
 
-.top-menu-navbar {
-    .nav-link {
-        background-color: transparent;
-        border: 0;
-    }
-
-    &__settings-btn {
-        padding: 0;
-    }
+.badge-tag {
+    cursor: pointer;
+    margin-right: 4px;
 }
 
 .dropdown-menu {
