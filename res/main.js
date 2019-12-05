@@ -930,6 +930,7 @@ function init(data) {
 
     return (is_acceptable || has_only_reversed) && !is_blocked
   }
+
   function filter_by_year(record, filters) {
     if (filters.length == 0) return true
 
@@ -958,15 +959,15 @@ function init(data) {
 
     return (is_acceptable || has_only_reversed) && !is_blocked
   }
+
   function filter_by_tag(record, filters) {
     if (filters.length == 0) return true
 
-    let is_acceptable = false
-    let has_only_reversed = true
+    let modifiers_group = false
+    let has_accepting_modifiers = false
 
-    let is_modifier_accepted = false
-    let is_modifier_only = true
-    let has_only_reversed_modifiers = true
+    let tags_group = false
+    let has_accepting_tags = false
 
     let is_blocked = false
 
@@ -976,29 +977,26 @@ function init(data) {
       let is_reverse = (filter.indexOf('!') == 0)
       if (is_reverse) {
         raw_filter = filter.substring(1)
-      } else {
-        has_only_reversed = false
       }
 
       let is_modifier = modifier_tags.includes(raw_filter)
-      if (is_modifier) {
-        if (!is_reverse) has_only_reversed_modifiers = false
-      } else {
-        is_modifier_only = false
+
+      if  (!is_reverse) {
+        if (is_modifier){
+          has_accepting_modifiers = true
+          modifiers_group |= record.tags.includes(raw_filter)
+        } else {
+          has_accepting_tags = true
+          tags_group |= record.tags.includes(raw_filter)
+        }
       }
 
-      if (!is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
-        if (is_modifier) {
-          is_modifier_accepted = true
-        } else {
-          is_acceptable = true
-        }
-      } else if (is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
+      if (is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
         is_blocked = true
       }
-    });
+    })
 
-    return (is_acceptable || has_only_reversed || is_modifier_only) && (is_modifier_accepted || has_only_reversed_modifiers) && !is_blocked
+    return (!has_accepting_modifiers || modifiers_group) && (!has_accepting_tags || tags_group) && !is_blocked
   }
 
   /**
