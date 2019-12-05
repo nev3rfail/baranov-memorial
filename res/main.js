@@ -788,11 +788,22 @@ function init(data) {
      * @param _value
      * @param _key
      */
-    function draw_with_filter(_filter, _value, _key) {
-      current_page = 1
-      remove_cards()
-      draw(filter({ [_filter]: _value }))
-      label_key = _key
+    function draw_with_filter() {
+      current_page = 1;
+      remove_cards();
+
+      let where_filters = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
+      let year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
+      let tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
+
+      let filtered_rset = filter(where_filters, year_filters, tag_filters)
+
+      if (filtered_rset.length == full_recordset.length) {
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+      } else {
+        document.getElementById('filter_name').innerText = `Выбранные материалы (${filtered_rset.length})`;
+      }
+      draw(filtered_rset);
     }
 
     /**
