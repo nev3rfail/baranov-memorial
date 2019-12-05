@@ -3049,7 +3049,11 @@
     },
     "img": "",
     "url": "https://mega.nz/#!tstDSSyS!FmywQk3gzfzbKTvd6XzvFQbMIQYQGxEsiSUrtc_Fnyo",
-    "where": "stopgame", "tags": ["видео","трансляция"]
+    "where": "stopgame",
+    "tags": [
+      "видео",
+      "трансляция"
+    ]
   },
   {
     "title": "Assassin's Creed Origins. На панель!",
@@ -3061,6 +3065,10 @@
     },
     "img": "",
     "url": "https://mega.nz/#!ghNiGYxY!Mnvsz8vnPOSkUVtIggx2dnm_l24hweqYRhXzv-kFUgM",
-    "where": "stopgame", "tags": ["видео","трансляция"]
+    "where": "stopgame",
+    "tags": [
+      "видео",
+      "трансляция"
+    ]
   }
 ]
