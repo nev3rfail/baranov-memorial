@@ -414,6 +414,147 @@ function init(data) {
     return filter_item.replace(/{data-tags}/, dataset).replace(/{text}/, text)
   }
 
+  function util_update_query_param(param_name, param_val) {
+    let is_changed = false
+    let hash_string = decodeURIComponent(parent.location.hash)
+
+    // no params in query
+    if (hash_string.length == 0) {
+      parent.location.hash = param_name + '=' + param_val
+      if (param_val !== '') is_changed = true
+    } else {
+      let param_start = hash_string.indexOf('#' + param_name + '=')
+      let param_start_not_first = hash_string.indexOf('&' + param_name + '=')
+
+      let before_len = hash_string.length
+
+      // if param is not first
+      if (param_start_not_first > param_start) {
+        param_start = param_start_not_first
+      }
+      // there some params in query, but no 'param_name'
+      if (param_start < 0) {
+        parent.location.hash += '&' + param_name + '=' + param_val
+      } else {
+        let param_end = hash_string.indexOf('&', param_start + 1)
+
+        // our param to change is the last, so taking line-length as end
+        if (param_end < 0) {
+          param_end = hash_string.length;
+        }
+
+        parent.location.hash = hash_string.substring(0, param_start + 1) + param_name + '=' + param_val + hash_string.substr(param_end)
+      }
+
+      if (before_len !== parent.location.hash.length) is_changed = true
+    }
+
+    return is_changed
+  }
+
+  function util_get_query_param(param_name) {
+    let param_val = '' // '' will be returned if there is no such param
+
+    let hash_string = decodeURIComponent(parent.location.hash)
+    if (hash_string.length > 0) {
+      // starting from char 1 to skip first '#'
+      let param_strings = hash_string.substring(1).split('&')
+      param_strings.forEach(function (str) {
+        let cur_param_splited = str.split('=')
+        if (cur_param_splited[0] === param_name) {
+          param_val = cur_param_splited[1]
+        }
+      });
+    }
+
+    return param_val
+  }
+
+  function remove_filter_from_query(filter_type, tag) {
+    let is_changed = false
+
+    let query_param = util_get_query_param(filter_type)
+
+    if (query_param.length > 0) {
+      let new_query_string = ''
+      query_param.split(',').forEach(query_tag => {
+        if (query_tag === tag) {
+          is_changed = true
+        } else {
+          new_query_string += (query_tag + ',')
+        }
+      });
+
+      if (is_changed) {
+        if (new_query_string.length > 0) {
+          // dont forget to remove unnesessary comma
+          util_update_query_param(filter_type, new_query_string.substr(0, new_query_string.length - 1))
+        } else {
+          util_update_query_param(filter_type, '') // removed all filters
+        }
+      }
+    }
+
+    return is_changed
+  }
+
+  function parse_filters_from_query(filter_type) {
+    let filter_string = util_get_query_param(filter_type)
+
+    let vals_array = []
+
+    if (filter_string.length > 0) {
+      vals_array = filter_string.split(',')
+    }
+
+    return vals_array
+  }
+
+  function add_filter_to_query(filter_type, tag, is_reverse, add_first = false) {
+    let is_changed = false
+
+    is_reverse = (is_reverse === 'true')
+    let final_tag = ''
+    if (!is_reverse) {
+      final_tag = tag
+    } else {
+      final_tag = '!' + tag
+    }
+
+    let cur_filter_param = util_get_query_param(filter_type)
+
+    if (cur_filter_param === '') {
+      util_update_query_param(filter_type, final_tag)
+      is_changed = true
+    } else {
+      let cur_filter_tags = cur_filter_param.split(',')
+
+      let tag_reversed_ver = '' // gonna check reversed version of tag being added to just replace it if needed
+      if (!is_reverse) {
+        tag_reversed_ver = '!' + tag
+      } else {
+        tag_reversed_ver = tag
+      }
+
+      if (cur_filter_tags.indexOf(tag_reversed_ver) < 0) {
+        if (cur_filter_tags.indexOf(final_tag) < 0) {
+          if (add_first) {
+            util_update_query_param(filter_type, final_tag + ',' + cur_filter_param) // just add the tag before all (ex.: for modifiers)
+          } else {
+            util_update_query_param(filter_type, cur_filter_param + ',' + final_tag) // just add the tag
+          }
+          is_changed = true
+        }
+      } else {
+        cur_filter_param = cur_filter_param.replace(tag_reversed_ver, final_tag) // replace reversed tag on new one
+        util_update_query_param(filter_type, cur_filter_param)
+        is_changed = true
+      }
+    }
+
+    return is_changed
+  }
+
   document.addEventListener('records.loaded', function () {
     /**
      * Необходимо отсортировать полный recordset
