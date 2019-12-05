@@ -737,27 +737,36 @@ function init(data) {
     )
     document.getElementById('filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''))
 
-    const sorted_tags = Object.keys(tags).sort(function (a, b) {
-      if (tags[a] > tags[b]) {
-        return -1
-      }
-      if (tags[a] < tags[b]) {
-        return 1
-      }
-      return 0
-    })
+    let modifier_search_idx = 0
+    let found_modifiers = 0
+    let mod_sorted_tags = []
 
-    const filter_tags = sorted_tags.map(tag =>
+    while (modifier_search_idx >= 0) {
+      modifier_search_idx = sorted_tags.findIndex((tag) => {
+        return modifier_tags.includes(tag)
+      })
+
+      if (modifier_search_idx >= 0) {
+        found_modifiers++
+
+        mod_sorted_tags.push(sorted_tags[modifier_search_idx])
+        sorted_tags.splice(modifier_search_idx, 1)
+      }
+    }
+
+    mod_sorted_tags = mod_sorted_tags.concat(sorted_tags)
+
+    const filter_tags = mod_sorted_tags.map(tag =>
       build_filter_item({
         tag,
         text: `${tag} (${tags[tag]})`
       })
     )
 
-    filter_tags.splice(2, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
+    filter_tags.splice(found_modifiers, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
     document.getElementById('filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''))
 
-    const filter_labels = Array.from(document.getElementsByClassName('filter-label'))
+    const filter_labels = Array.from(document.getElementsByClassName('filter-label'));
     filter_labels.forEach(filter_label => {
       filter_label.dataset.originalKey = filter_label.innerText.trim()
     })
