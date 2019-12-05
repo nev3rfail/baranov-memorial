@@ -596,12 +596,12 @@ function init(data) {
 
     badges_part = render_selected_part(WHERE_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
-      insertion_html = badges_part + '<div class="col w-100"></div>'
+      insertion_html = badges_part
     }
 
     badges_part = render_selected_part(YEAR_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
-      insertion_html += badges_part + '<div class="col w-100"></div>'
+      insertion_html += badges_part
     }
 
     badges_part = render_selected_part(TAG_FILTER_PARAM_NAME)
@@ -617,8 +617,7 @@ function init(data) {
     if (insertion_html.length > 0) {
       document.getElementById("navbar-main-link").href = '/' + parent.location.hash
 
-      insertion_html += '<div class="col w-100"></div>'
-      insertion_html += '<a class="badge badge-danger px-lg-2 py-lg-2 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все</a>';
+      insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все<span class="iconify ml-1" data-icon="ic:baseline-cancel" data-inline="false" style="font-size: 16px; font-wight: 400"></span></a>';
 
       document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
       elem.insertAdjacentHTML('afterbegin', insertion_html);
