@@ -414,24 +414,6 @@ function init (data) {
     return filter_item.replace(/{data-tags}/, dataset).replace(/{text}/, text)
   }
 
-  /**
-   * Возвращает текст по умолчанию для фильтра
-   * @param {string} label_key
-   */
-  function get_default_text (label_key) {
-    switch (label_key) {
-      case 'sources': {
-        return 'Издания'
-      }
-      case 'years': {
-        return 'Годы'
-      }
-      case 'tags': {
-        return 'Теги'
-      }
-    }
-  }
-
   document.addEventListener('records.loaded', function () {
     /**
      * Необходимо отсортировать полный recordset
