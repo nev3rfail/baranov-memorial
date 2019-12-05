@@ -95,12 +95,12 @@ function init(data) {
                                       +
                                   </svg>
                               </button><button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
-                                      <svg style="font-size: 18px; font-weight: 500"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
-                                      <path class="st0" d="M9.7,14.4L9.7,14.4C9.7,14.3,9.7,14.3,9.7,14.4z" fill="currentColor"/>
-                                      <path class="st0" d="M12,8.7c-1.8,0-3.3,1.5-3.3,3.3c0,0.5,0.1,1,0.3,1.4L13.4,9C13,8.8,12.5,8.7,12,8.7z" fill="currentColor"/>
-                                      <path class="st0" d="M12,1C5.9,1,1,5.9,1,12s4.9,11,11,11s11-4.9,11-11S18.1,1,12,1z M12,17.5c-3,0-5.5-2.5-5.5-5.5S9,6.5,12,6.5
-                                          S17.5,9,17.5,12S15,17.5,12,17.5z" fill="currentColor"/>
-                                      <path class="st0" d="M10.6,15c0.4,0.2,0.9,0.3,1.4,0.3c1.8,0,3.3-1.5,3.3-3.3c0-0.5-0.1-1-0.3-1.4L10.6,15z" fill="currentColor"/>
+                                    <svg style="font-size: 18px; font-weight: 500"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
+                                      <path class="st0" d="M9.8,14.4L9.8,14.4C9.8,14.3,9.8,14.3,9.8,14.4z" fill="currentColor"/>
+                                      <path class="st0" d="M12,8.9c-1.7,0-3.1,1.4-3.1,3.1c0,0.5,0.1,1,0.3,1.3l4.2-4.2C12.9,9,12.4,8.9,12,8.9z" fill="currentColor"/>
+                                      <path class="st0" d="M12,1.6C6.1,1.6,1.5,6.3,1.5,12.1S6.1,22.6,12,22.6s10.5-4.7,10.5-10.5S17.8,1.6,12,1.6z M12,17.3
+                                        c-2.9,0-5.2-2.4-5.2-5.3S9.1,6.8,12,6.8s5.3,2.4,5.3,5.2S14.8,17.3,12,17.3z" fill="currentColor"/>
+                                      <path class="st0" d="M10.6,14.9c0.4,0.2,0.9,0.3,1.3,0.3c1.7,0,3.2-1.4,3.2-3.2c0-0.5-0.1-1-0.3-1.3L10.6,14.9z" fill="currentColor"/>
                                       -
                                   </svg>
                               </button>
