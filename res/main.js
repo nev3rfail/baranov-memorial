@@ -781,8 +781,6 @@ function init(data) {
       filter_label.dataset.originalKey = filter_label.innerText.trim()
     })
 
-    let label_key
-
     /**
      * @param _filter
      * @param _value
@@ -806,61 +804,100 @@ function init(data) {
       draw(filtered_rset);
     }
 
-    /**
-     * @param _label
-     */
-    function update_filter_label(_label) {
-      filter_labels.forEach(filter_label => {
-        const { dataset: { labelKey: orig_label_key } } = filter_label
-        if (orig_label_key === label_key) {
-          filter_label.innerText = _label
-          filter_label.dataset.activated = 'true'
-        } else {
-          filter_label.innerText = get_default_text(orig_label_key)
-          filter_label.dataset.activated = 'false'
-        }
-      })
-
-      document.getElementById('filter_name').innerText = _label
-    }
-
     // глобальная функция для кнопок тегов в карточках
-    window.filter_by_tag = function (tag) {
-      draw_with_filter('tag', tag, 'tags')
-      update_filter_label(tag)
-      route_scroll_to_rc()
-    }
+    window['filter_by_tag'] = function (tag, tag_type) {
+      if (add_filter_to_query(tag_type, tag, false, modifier_tags.includes(tag))) {
+        render_selected_filters()
+        draw_with_filter()
+        route_scroll_to_rc()
+      }
+    };
+
+    // глобальная функция для кнопок удаления фильтра
+    window['remove_selected_filter'] = function (tag, tag_type) {
+      if (remove_filter_from_query(tag_type, tag)) {
+        render_selected_filters()
+        draw_with_filter()
+        route_scroll_to_rc()
+      }
+    };
+
+    // глобальная функция для кнопок удаления фильтров типа
+    window['remove_typed_filters'] = function (tag_type) {
+      if (util_update_query_param(tag_type, '')) {
+        render_selected_filters()
+        draw_with_filter()
+        route_scroll_to_rc()
+      }
+    };
+
+    // глобальная функция для кнопок удаления фильтров всех типов
+    window['remove_all_filters'] = function () {
+      let is_changed = false
+      is_changed = util_update_query_param(WHERE_FILTER_PARAM_NAME, '') || is_changed
+      is_changed = util_update_query_param(YEAR_FILTER_PARAM_NAME, '') || is_changed
+      is_changed = util_update_query_param(TAG_FILTER_PARAM_NAME, '') || is_changed
+
+      if (is_changed) {
+        current_page = 1;
+        remove_cards();
+
+        render_selected_filters()
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+
+        draw(full_recordset)
+        route_scroll_to_rc()
+      }
+    };
 
     Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
       item.addEventListener('click', (e) => {
-        const { activated } = item.dataset
+        const { activated } = item.dataset;
         if (activated === 'true') {
-          e.preventDefault()
-          return
+          e.preventDefault();
+          return;
         }
+      });
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(item => {
+      item.addEventListener('click', () => {
+        let need_filtering = false
 
         if ('where' in item.dataset) {
-          draw_with_filter('where', item.dataset.where, 'sources')
+          if (add_filter_to_query(WHERE_FILTER_PARAM_NAME, item.dataset.where, item.dataset.is_reverse)) {
+            render_selected_filters()
+
+            need_filtering = true
+          }
         }
 
         if ('year' in item.dataset) {
-          draw_with_filter('year', item.dataset.year, 'years')
+          if (add_filter_to_query(YEAR_FILTER_PARAM_NAME, item.dataset.year, item.dataset.is_reverse)) {
+            render_selected_filters()
+
+            need_filtering = true
+          }
         }
 
         if ('tag' in item.dataset) {
-          draw_with_filter('tag', item.dataset.tag, 'tags')
+          if (add_filter_to_query(TAG_FILTER_PARAM_NAME, item.dataset.tag, item.dataset.is_reverse, modifier_tags.includes(item.dataset.tag))) {
+            render_selected_filters()
+
+            need_filtering = true
+          }
         }
-        remove_current_active_filter()
-        item.id = 'current-active-filter'
-        item.dataset.activated = 'true'
-        update_filter_label(item.textContent)
 
-        route_scroll_to_rc()
+        if (need_filtering) {
+          draw_with_filter();
+          route_scroll_to_rc();
+        }
       })
-    })
-  })
 
-  compile_all()
+    });
+  });
+
+  compile_all();
 
   function remove_current_active_filter() {
     const current_active_filter = document.getElementById('current-active-filter')
