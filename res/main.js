@@ -737,6 +737,16 @@ function init(data) {
     )
     document.getElementById('filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''))
 
+    const sorted_tags = Object.keys(tags).sort(function (a, b) {
+      if (tags[a] > tags[b]) {
+        return -1;
+      }
+      if (tags[a] < tags[b]) {
+        return 1;
+      }
+      return 0;
+    });
+
     let modifier_search_idx = 0
     let found_modifiers = 0
     let mod_sorted_tags = []
