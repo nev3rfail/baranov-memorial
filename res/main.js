@@ -672,7 +672,16 @@ function init(data) {
     document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`
     document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`
 
-    draw(full_recordset)
+    let after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) +
+      util_get_query_param(YEAR_FILTER_PARAM_NAME) +
+      util_get_query_param(TAG_FILTER_PARAM_NAME)
+    if (after_load_tags.length == 0) {
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
+      draw(full_recordset);
+    } else {
+      render_selected_filters();
+      draw_with_filter();
+    }
 
     const years = {}
     const sources = {}
