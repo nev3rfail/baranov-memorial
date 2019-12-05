@@ -1051,24 +1051,6 @@ function init(data) {
     }, draw_time)
   }
 
-  Array.from(['unfilter_year', 'unfilter_where', 'unfilter_tag']).forEach(id => {
-    document.getElementById(id).onclick = () => {
-      remove_current_active_filter()
-      current_page = 1
-      remove_cards()
-      Array.from(document.getElementsByClassName('filter-label')).forEach(filter_label => {
-        const { dataset: { labelKey: orig_label_key } } = filter_label
-        filter_label.innerText = get_default_text(orig_label_key)
-        filter_label.dataset.activated = 'false'
-      })
-
-      document.getElementById('filter_name').innerText = `Все материалы (${full_recordset.length})`
-      draw(full_recordset)
-
-      route_scroll_to_rc()
-    }
-  })
-
   /*document.getElementById('draw_nourl').onclick = () => {
     current_page = 1
     remove_cards()
