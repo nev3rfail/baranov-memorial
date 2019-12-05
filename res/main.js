@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * @param {String} data.name
  * @param {String} data.icon
  */
-function init (data) {
+function init(data) {
   const fancy_names = {}
   const data_icons = {}
   const data_files = []
@@ -62,7 +62,7 @@ function init (data) {
     bubbles: true
   })
 
-  function compile_all () {
+  function compile_all() {
     const needed = data_files.length
     let finished = 0
     for (const i in data_files) {
@@ -142,7 +142,7 @@ function init (data) {
    * @param {Number} date.year
    * @returns {string}
    */
-  function format_date (date) {
+  function format_date(date) {
     let date_str = date.day + ''
 
     if (date_str === '0') { // no day
@@ -177,7 +177,7 @@ function init (data) {
    * @param {Array[String]} record.tags
    * @param {String} record.url
    */
-  function draw_card (record) {
+  function draw_card(record) {
     let card = base_card
       .replace('{title}', record.title)
       .replace('{teaser_text}', record.teaser_text)
@@ -203,7 +203,7 @@ function init (data) {
 
     let tagsList = ''
     record.tags.forEach(tag => {
-        tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag);
+      tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag);
     })
 
     // add pseudo tags from source and year
@@ -220,7 +220,7 @@ function init (data) {
    * @param {Object} _records
    * @returns {Generator<*, void, ?>}
    */
-  function * iterate (_records) {
+  function* iterate(_records) {
     for (const i in _records) {
       if (Object.prototype.hasOwnProperty.call(_records, i)) {
         yield _records[i]
@@ -239,7 +239,7 @@ function init (data) {
    *
    * @param {Object} [_records]
    */
-  function draw (_records) {
+  function draw(_records) {
     if (_records === undefined) {
       _records = current_recordset
     } else {
@@ -278,7 +278,7 @@ function init (data) {
    * @param {Number} per_page
    * @returns {*}
    */
-  function paginate (_records, per_page = Number(settings.per_page)) {
+  function paginate(_records, per_page = Number(settings.per_page)) {
     const page = current_page
     const total_pages = Math.ceil(_records.length / per_page)
 
@@ -372,7 +372,7 @@ function init (data) {
   /**
    * @param {Object} _records
    */
-  function draw_foreach (_records) {
+  function draw_foreach(_records) {
     console.log('drawing with foreach')
     _records.forEach(record => {
       draw_card(record)
@@ -382,7 +382,7 @@ function init (data) {
   /**
    * @param {Object} _records
    */
-  function draw_generator (_records) {
+  function draw_generator(_records) {
     console.log('drawing with generator')
     const iterator = iterate(_records)
     if (running_interval) {
@@ -405,7 +405,7 @@ function init (data) {
    * @param {...Object} filterParams
    * @returns {string}
    */
-  function build_filter_item ({ text, ...filterParams }) {
+  function build_filter_item({ text, ...filterParams }) {
     let dataset = ''
     Object.entries(filterParams).forEach(([key, val]) => {
       dataset += `data-${key}="${val}"`
@@ -546,7 +546,7 @@ function init (data) {
      * @param _value
      * @param _key
      */
-    function draw_with_filter (_filter, _value, _key) {
+    function draw_with_filter(_filter, _value, _key) {
       current_page = 1
       remove_cards()
       draw(filter({ [_filter]: _value }))
@@ -556,7 +556,7 @@ function init (data) {
     /**
      * @param _label
      */
-    function update_filter_label (_label) {
+    function update_filter_label(_label) {
       filter_labels.forEach(filter_label => {
         const { dataset: { labelKey: orig_label_key } } = filter_label
         if (orig_label_key === label_key) {
@@ -609,7 +609,7 @@ function init (data) {
 
   compile_all()
 
-  function remove_current_active_filter () {
+  function remove_current_active_filter() {
     const current_active_filter = document.getElementById('current-active-filter')
     if (current_active_filter) {
       current_active_filter.id = ''
@@ -617,7 +617,7 @@ function init (data) {
     }
   }
 
-  function remove_cards () {
+  function remove_cards() {
     document.getElementById('records_container').style.height = '1080px'
     Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
   }
@@ -626,7 +626,7 @@ function init (data) {
    * @param filters
    * @returns {*[]}
    */
-  function filter (filters) {
+  function filter(filters) {
     let year
     if (filters.year !== undefined) {
       year = filters.year
@@ -651,7 +651,7 @@ function init (data) {
     })
   }
 
-  function route_scroll_to_rc () {
+  function route_scroll_to_rc() {
     setTimeout(() => {
       document.getElementById('start').scrollIntoView({
         behavior: 'smooth',
@@ -711,7 +711,7 @@ function init (data) {
    * Update settings
    * @param {Object} new_settings
    */
-  function updateSettings (new_settings) {
+  function updateSettings(new_settings) {
     settings = new_settings
     Object.keys(new_settings).forEach(setting => {
       localStorage.setItem(setting, new_settings[setting])
