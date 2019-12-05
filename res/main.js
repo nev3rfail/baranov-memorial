@@ -618,7 +618,7 @@ function init(data) {
       document.getElementById("navbar-main-link").href = '/' + parent.location.hash
 
       insertion_html += '<div class="col w-100"></div>'
-      insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все</a>';
+      insertion_html += '<a class="badge badge-danger px-lg-2 py-lg-2 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все</a>';
 
       document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
       elem.insertAdjacentHTML('afterbegin', insertion_html);
