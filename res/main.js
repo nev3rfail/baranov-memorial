@@ -910,7 +910,7 @@ function init(data) {
     }
   })
 
-  document.getElementById('draw_nourl').onclick = () => {
+  /*document.getElementById('draw_nourl').onclick = () => {
     current_page = 1
     remove_cards()
     const nourl_recordset = full_recordset.filter(function (record) {
@@ -920,7 +920,7 @@ function init(data) {
     draw(nourl_recordset)
 
     route_scroll_to_rc()
-  }
+  }*/
 
   document.getElementById('default_settings').onclick = () => {
     if (confirm('Данное действие сбросит все настройки. Продолжить?')) {
