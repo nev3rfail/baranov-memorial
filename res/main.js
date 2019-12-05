@@ -411,7 +411,7 @@ function init(data) {
       dataset += `data-${key}="${val}"`
     })
 
-    return filter_item.replace(/{data-tags}/, dataset).replace(/{text}/, text)
+    return filter_item.replace(/{data-tags}/g, dataset).replace(/{text}/, text)
   }
 
   function util_update_query_param(param_name, param_val) {
