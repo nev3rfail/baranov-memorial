@@ -555,6 +555,79 @@ function init(data) {
     return is_changed
   }
 
+  function render_selected_part(tag_type) {
+    let tags_array = parse_filters_from_query(tag_type)
+
+    if (tags_array.length == 0) return ''
+
+    let tags_badges = ''
+
+    if (tag_type === YEAR_FILTER_PARAM_NAME) {
+      tags_array.sort((a, b) => {
+        return parseInt(a, 10) - parseInt(b, 10)
+      })
+    }
+
+    tags_array.forEach(tag => {
+      let is_reverse = (tag.indexOf('!') == 0)
+      let tag_text = tag
+
+      if (is_reverse) {
+        tag_text = tag.substring(1)
+      }
+
+      if (fancy_names[tag_text] !== undefined) {
+        tag_text = fancy_names[tag_text]
+      }
+
+      if (is_reverse) {
+        tag_text = 'НЕ ' + tag_text
+      }
+
+      tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{type}/, tag_type).replace(/{tag_text}/, tag_text);
+    });
+
+    return tags_badges
+  }
+
+  function render_selected_filters() {
+    let insertion_html = ''
+    let badges_part = ''
+
+    badges_part = render_selected_part(WHERE_FILTER_PARAM_NAME)
+    if (badges_part.length > 0) {
+      insertion_html = badges_part + '<div class="col w-100"></div>'
+    }
+
+    badges_part = render_selected_part(YEAR_FILTER_PARAM_NAME)
+    if (badges_part.length > 0) {
+      insertion_html += badges_part + '<div class="col w-100"></div>'
+    }
+
+    badges_part = render_selected_part(TAG_FILTER_PARAM_NAME)
+    if (badges_part.length > 0) {
+      insertion_html += badges_part
+    }
+
+
+    // possible performance issue here
+    let elem = document.getElementById('selected-filters-block')
+    elem.innerHTML = ''
+
+    if (insertion_html.length > 0) {
+      document.getElementById("navbar-main-link").href = '/' + parent.location.hash
+
+      insertion_html += '<div class="col w-100"></div>'
+      insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить</a>';
+
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
+      elem.insertAdjacentHTML('afterbegin', insertion_html);
+    } else {
+      document.getElementById("navbar-main-link").href = '/'
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
+    }
+  }
+
   document.addEventListener('records.loaded', function () {
     /**
      * Необходимо отсортировать полный recordset
