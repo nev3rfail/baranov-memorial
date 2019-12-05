@@ -904,32 +904,141 @@ function init(data) {
     Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
   }
 
+  function filter_by_where(record, filters) {
+    if (filters.length == 0) return true
+
+    let is_acceptable = false
+    let is_blocked = false
+    let has_only_reversed = true
+
+    filters.forEach(filter => {
+      let raw_filter = filter
+      let is_reverse = (filter.indexOf('!') == 0)
+
+      if (is_reverse) {
+        raw_filter = filter.substring(1)
+      } else {
+        has_only_reversed = false
+      }
+
+      if (!is_reverse && record.where === raw_filter) {
+        is_acceptable = true
+      } else if (is_reverse && record.where === raw_filter) {
+        is_blocked = true
+      }
+    });
+
+    return (is_acceptable || has_only_reversed) && !is_blocked
+  }
+  function filter_by_year(record, filters) {
+    if (filters.length == 0) return true
+
+    let is_acceptable = false
+    let is_blocked = false
+    let has_only_reversed = true
+
+    filters.forEach(filter => {
+      let raw_filter = filter
+      let is_reverse = (filter.indexOf('!') == 0)
+
+      if (is_reverse) {
+        raw_filter = filter.substring(1)
+      } else {
+        has_only_reversed = false
+      }
+
+      raw_filter = parseInt(raw_filter, 10)
+
+      if (!is_reverse && record.date.year === raw_filter) {
+        is_acceptable = true
+      } else if (is_reverse && record.date.year === raw_filter) {
+        is_blocked = true
+      }
+    });
+
+    return (is_acceptable || has_only_reversed) && !is_blocked
+  }
+  function filter_by_tag(record, filters) {
+    if (filters.length == 0) return true
+
+    let is_acceptable = false
+    let has_only_reversed = true
+
+    let is_modifier_accepted = false
+    let is_modifier_only = true
+    let has_only_reversed_modifiers = true
+
+    let is_blocked = false
+
+    filters.forEach(filter => {
+      let raw_filter = filter
+
+      let is_reverse = (filter.indexOf('!') == 0)
+      if (is_reverse) {
+        raw_filter = filter.substring(1)
+      } else {
+        has_only_reversed = false
+      }
+
+      let is_modifier = modifier_tags.includes(raw_filter)
+      if (is_modifier) {
+        if (!is_reverse) has_only_reversed_modifiers = false
+      } else {
+        is_modifier_only = false
+      }
+
+      if (!is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
+        if (is_modifier) {
+          is_modifier_accepted = true
+        } else {
+          is_acceptable = true
+        }
+      } else if (is_reverse && record.tags !== undefined && record.tags.includes(raw_filter)) {
+        is_blocked = true
+      }
+    });
+
+    return (is_acceptable || has_only_reversed || is_modifier_only) && (is_modifier_accepted || has_only_reversed_modifiers) && !is_blocked
+  }
+
   /**
-   * @param filters
-   * @returns {*[]}
+   * filter - центральная функция фильтрации
+   * Фильтрация происходит по трем категориям: Издания, Года, Теги
+   * Им соответствуют значения в хэше url под обозначениями 'w', 'y', 't'
+   * Эти константы заданы выше (WHERE_FILTER_PARAM_NAME, например)
+   * Между категориями фильтрация по правилу И
+   * Т.е. выбранные фильтры Издание: игромания и Годы: 2019
+   * оставит только карточки И с игромании, И 2019г
+   * Внутри категории фильтрация по правилу ИЛИ
+   * Т.е. выбранные фильтры Годы: 2018, 2019
+   * оставят карточки месет и за 18ый и за 19ый год
+   * Исключение - Модификаторы - особые фильтры в разделе Теги
+   * Указаны вверху в константе modifier_tags ("текст", "видео")
+   * Один из этих тегов должен быть по задумке у каждой карточки
+   * Они относятся к остальным тегам (если такие есть) по правилу И
+   * Т.е. если указан только тег(и)-модификатор(ы) (текст, например),
+   * то будут возвращены все записи с этим тегом
+   * Если в фильтрах есть и обычные теги, и модификатор (Например: текст, обзор, статья)
+   * то из выборки обычных тегов (т.е. объединеное множество обзоров и статей) остануться
+   * только те, у которых еще и есть тег-мадификатор (текст, в данном случае)
+   *
+   * Также тег может быть выбран в блокирующем (инверсном) режиме (в url помечается воскл.знаком)
+   * материалы с этим тегом будут удалены из выборки независимо от всех остальных тегов
+   *
+   * @param {Array[String]} where_filters
+   * @param {Array[String]} year_filters
+   * @param {Array[String]} tag_filters
+   * @returns {Array[Object]}
    */
-  function filter(filters) {
-    let year
-    if (filters.year !== undefined) {
-      year = filters.year
-    }
-
-    let where
-    if (filters.where !== undefined) {
-      where = filters.where
-    }
-
-    let tag
-    if (filters.tag !== undefined) {
-      tag = filters.tag
+  function filter(where_filters, year_filters, tag_filters) {
+    if (where_filters.length + year_filters.length + tag_filters.length == 0) {
+      return full_recordset
     }
 
     return full_recordset.filter(function (record) {
-      const year_check = !(year !== undefined) || (record.date.year === Number(year)) // (no filter) || (filter passed)
-      const where_check = !(where !== undefined) || (record.where === where)
-      const tag_check = !(tag !== undefined) || (record.tags && record.tags.includes(tag)) // handle undefined tags on record
-
-      return year_check && where_check && tag_check
+      return filter_by_where(record, where_filters) &&
+        filter_by_year(record, year_filters) &&
+        filter_by_tag(record, tag_filters)
     })
   }
 
