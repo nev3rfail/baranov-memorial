@@ -1,101 +1,100 @@
 body, nav {
-    min-width: 340px;
+  min-width: 340px;
 }
 
 .memorial-card {
-    position: relative;
-    height: 100%;
+  position: relative;
+  height: 100%;
 
-    .logo {
-        width: 50px;
-        position: absolute;
-        margin: 5px;
-        right: 0;
-    }
+  .logo {
+    width: 50px;
+    position: absolute;
+    margin: 5px;
+    right: 0;
+  }
 
-    .card-img-top {
-        width: 100% !important;
-        height: auto !important;
-        min-height: 1px;
-    }
+  .card-img-top {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 1px;
+  }
 
-    .date-span {
-        padding: 0.25rem 0.25rem;
-    }
+  .date-span {
+    padding: 0.25rem 0.25rem;
+  }
 
-    animation: .5s fadeIn;
-    animation-fill-mode: forwards;
+  animation: .5s fadeIn;
+  animation-fill-mode: forwards;
 
-    visibility: hidden;
+  visibility: hidden;
 
-    .icon {
-        position: absolute;
-        top: 5px;
-        right: 5px;
+  .icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 
-        width: 40px;
-        height: auto;
+    width: 40px;
+    height: auto;
 
-        opacity: .7;
-        pointer-events: none;
-    }
+    opacity: .7;
+    pointer-events: none;
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        visibility: visible;
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 .footer {
-    width: 100%;
-    background-color: #303030;
-    padding: 15px 0;
+  width: 100%;
+  background-color: #303030;
+  padding: 15px 0;
 
-    .container {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
+  .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
 }
 
 .description {
-    padding-top: 100px !important;
+  padding-top: 100px !important;
 }
 
 .jumbotron {
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background-color: #303030;
-    border-radius: 0.3rem;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #303030;
+  border-radius: 0.3rem;
 
-    .extra-links {
-        .btn {
-            margin-top: 5px;
-        }
+  .extra-links {
+    .btn {
+      margin-top: 5px;
     }
+  }
 }
 
 @media (min-width: 576px) {
-    .jumbotron {
-        padding: 2rem 2rem;
-    }
+  .jumbotron {
+    padding: 2rem 2rem;
+  }
 }
 
 #records_container {
-    max-width: 100%;
+  max-width: 100%;
 }
 
-
 .container-fluid {
-    width: 95%;
+  width: 95%;
 }
 
 $pagination-color: #ffffff !default;
@@ -115,44 +114,53 @@ $pagination-disabled-bg: darken($pagination-bg, 15%) !default;
 $pagination-disabled-border-color: transparent !default;
 
 .page-link {
-    color: $pagination-color;
-    background-color: $pagination-bg;
-    border: $pagination-border-width solid $pagination-border-color;
+  color: $pagination-color;
+  background-color: $pagination-bg;
+  border: $pagination-border-width solid $pagination-border-color;
 
-    &:hover {
-        color: $pagination-hover-color;
-        background-color: $pagination-hover-bg;
-        border-color: $pagination-hover-border-color;
-    }
+  &:hover {
+    color: $pagination-hover-color;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border-color;
+  }
 }
 
 .page-item {
-    &.active .page-link {
-        background-color: $pagination-active-bg;
-        border-color: $pagination-active-border-color;
-    }
+  &.active .page-link {
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border-color;
+  }
 
-    &.disabled .page-link {
-        color: $pagination-disabled-color;
-        background-color: $pagination-disabled-bg;
-        border-color: $pagination-disabled-border-color;
-    }
+  &.disabled .page-link {
+    color: $pagination-disabled-color;
+    background-color: $pagination-disabled-bg;
+    border-color: $pagination-disabled-border-color;
+  }
 }
 
 .bottom-filter-navbar {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 
 .navbar-icon {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .badge-tag {
-    cursor: pointer;
-    margin-right: 4px;
+  cursor: pointer;
+  margin-right: 4px;
 }
 
 .dropdown-menu {
-    min-width: 300px;
+  min-width: 300px;
+}
+
+.filter-btn {
+  padding: 0.5rem;
+  color: #fff;
+
+  &:hover {
+    color: darken(#fff, 15%)
+  }
 }

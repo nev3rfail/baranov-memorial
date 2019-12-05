@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * @param {String} data.name
  * @param {String} data.icon
  */
-function init(data) {
+function init (data) {
   const fancy_names = {}
   const data_icons = {}
   const data_files = []
@@ -53,7 +53,7 @@ function init(data) {
   const YEAR_FILTER_PARAM_NAME = 'y'
   const TAG_FILTER_PARAM_NAME = 't'
 
-  const modifier_tags = ["текст", "видео"]
+  const modifier_tags = ['текст', 'видео']
 
   let full_recordset = []
   let current_recordset = []
@@ -62,7 +62,7 @@ function init(data) {
     bubbles: true
   })
 
-  function compile_all() {
+  function compile_all () {
     const needed = data_files.length
     let finished = 0
     for (const i in data_files) {
@@ -85,27 +85,17 @@ function init(data) {
    */
   const filter_item = `<li class="dropdown-item filter-link pt-1 pb-1">
                           <div class="mt-1 px-1 pb-2 d-inline-block">
-                              <div class="d-inline-block align-baseline" style="position: relative; top: 0.15rem;">{text}</div>
+                              <div class="d-inline-block" style="position: relative; top: 0.15rem;">{text}</div>
                           </div>
                           <div class="d-inline-block float-right">
-                              <button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
-                                  <svg style="font-size: 18px; font-weight: 400"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
-                                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="currentColor"/>
-                                      <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" />
-                                      +
-                                  </svg>
-                              </button><button class="btn btn-primary btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
-                                    <svg style="font-size: 18px; font-weight: 500"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);">
-                                      <path class="st0" d="M9.8,14.4L9.8,14.4C9.8,14.3,9.8,14.3,9.8,14.4z" fill="currentColor"/>
-                                      <path class="st0" d="M12,8.9c-1.7,0-3.1,1.4-3.1,3.1c0,0.5,0.1,1,0.3,1.3l4.2-4.2C12.9,9,12.4,8.9,12,8.9z" fill="currentColor"/>
-                                      <path class="st0" d="M12,1.6C6.1,1.6,1.5,6.3,1.5,12.1S6.1,22.6,12,22.6s10.5-4.7,10.5-10.5S17.8,1.6,12,1.6z M12,17.3
-                                        c-2.9,0-5.2-2.4-5.2-5.3S9.1,6.8,12,6.8s5.3,2.4,5.3,5.2S14.8,17.3,12,17.3z" fill="currentColor"/>
-                                      <path class="st0" d="M10.6,14.9c0.4,0.2,0.9,0.3,1.3,0.3c1.7,0,3.2-1.4,3.2-3.2c0-0.5-0.1-1-0.3-1.3L10.6,14.9z" fill="currentColor"/>
-                                      -
-                                  </svg>
+                              <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
+                                  <span class="iconify filter-icon" data-icon="fa-solid:plus" data-inline="false" data-width="18" data-height="18"></span>
+                              </button>
+                              <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
+                                  <span class="iconify filter-icon" data-icon="fa-solid:minus" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
                           </div>
-                      </li>`;
+                      </li>`
 
   const base_card = `<div class="col-xs-12 col-md-4 col-xl-3 pb-4 memorial-card-column">
           <div class="card memorial-card {nourl}" data-year="{year}" data-what="{where}">
@@ -120,19 +110,19 @@ function init(data) {
                       {url} <span class="float-right date-span">{date}</span>
                   </div>
           </div>
-      </div>`;
+      </div>`
 
-  const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">';
-  const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">';
-  const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>';
-  const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>';
-  const filter_menu_tag = '<a class="badge badge-primary px-lg-2 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')"><div class="d-inline-block align-middle">{tag_text}</div><span class="iconify ml-1" data-icon="ic:baseline-cancel" data-inline="false" style="font-size: 16px; font-wight: 400"></span></a>';
+  const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">'
+  const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">'
+  const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>'
+  const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>'
+  const filter_menu_tag = '<a class="badge badge-primary px-lg-2 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')">{tag_text} <span class="iconify filter-icon ml-1" data-icon="fa-solid:times" data-inline="false"></span></a>'
 
-  const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>';
-  const records_container = document.getElementById('records_container');
-  const imgPlaceholder = './logo/placeholder.jpg';
-  const placeholder_element = document.getElementById('placeholder');
-  const draw_time = 10;
+  const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>'
+  const records_container = document.getElementById('records_container')
+  const imgPlaceholder = './logo/placeholder.jpg'
+  const placeholder_element = document.getElementById('placeholder')
+  const draw_time = 10
 
   /**
    * Format date
@@ -142,7 +132,7 @@ function init(data) {
    * @param {Number} date.year
    * @returns {string}
    */
-  function format_date(date) {
+  function format_date (date) {
     let date_str = date.day + ''
 
     if (date_str === '0') { // no day
@@ -177,7 +167,7 @@ function init(data) {
    * @param {Array[String]} record.tags
    * @param {String} record.url
    */
-  function draw_card(record) {
+  function draw_card (record) {
     let card = base_card
       .replace('{title}', record.title)
       .replace('{teaser_text}', record.teaser_text)
@@ -203,12 +193,12 @@ function init(data) {
 
     let tagsList = ''
     record.tags.forEach(tag => {
-      tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag);
+      tagsList += card_tag.replace(/{tag}/, tag).replace(/{type}/, 't').replace(/{tag_text}/, tag)
     })
 
     // add pseudo tags from source and year
-    tagsList += card_tag.replace(/{tag}/, record.where).replace(/{type}/, 'w').replace(/{tag_text}/, fancy_names[record.where]);
-    tagsList += card_tag.replace(/{tag}/, record.date.year).replace(/{type}/, 'y').replace(/{tag_text}/, record.date.year);
+    tagsList += card_tag.replace(/{tag}/, record.where).replace(/{type}/, 'w').replace(/{tag_text}/, fancy_names[record.where])
+    tagsList += card_tag.replace(/{tag}/, String(record.date.year)).replace(/{type}/, 'y').replace(/{tag_text}/, String(record.date.year))
 
     card = card.replace('{tags}', tagsList)
 
@@ -220,7 +210,7 @@ function init(data) {
    * @param {Object} _records
    * @returns {Generator<*, void, ?>}
    */
-  function* iterate(_records) {
+  function * iterate (_records) {
     for (const i in _records) {
       if (Object.prototype.hasOwnProperty.call(_records, i)) {
         yield _records[i]
@@ -239,7 +229,7 @@ function init(data) {
    *
    * @param {Object} [_records]
    */
-  function draw(_records) {
+  function draw (_records) {
     if (_records === undefined) {
       _records = current_recordset
     } else {
@@ -278,7 +268,7 @@ function init(data) {
    * @param {Number} per_page
    * @returns {*}
    */
-  function paginate(_records, per_page = Number(settings.per_page)) {
+  function paginate (_records, per_page = Number(settings.per_page)) {
     const page = current_page
     const total_pages = Math.ceil(_records.length / per_page)
 
@@ -322,7 +312,7 @@ function init(data) {
         .replace(/{num}/, '1') // data-num
         .replace(/{num}/, '&laquo; <em>1</em>') // button text
         .replace(/{state}/, page === 1 ? 'active' : '')
-      console.log('<<')
+      console.log('« 1')
     }
 
     // Pages
@@ -346,7 +336,7 @@ function init(data) {
         .replace(/{state}/, page === total_pages ? 'active' : '')
     }
 
-    console.log('>>')
+    console.log(total_pages + ' »')
     console.groupEnd()
 
     pagination_container_top.insertAdjacentHTML('beforeend', pagination_dom)
@@ -372,7 +362,7 @@ function init(data) {
   /**
    * @param {Object} _records
    */
-  function draw_foreach(_records) {
+  function draw_foreach (_records) {
     console.log('drawing with foreach')
     _records.forEach(record => {
       draw_card(record)
@@ -382,7 +372,7 @@ function init(data) {
   /**
    * @param {Object} _records
    */
-  function draw_generator(_records) {
+  function draw_generator (_records) {
     console.log('drawing with generator')
     const iterator = iterate(_records)
     if (running_interval) {
@@ -405,7 +395,7 @@ function init(data) {
    * @param {...Object} filterParams
    * @returns {string}
    */
-  function build_filter_item({ text, ...filterParams }) {
+  function build_filter_item ({ text, ...filterParams }) {
     let dataset = ''
     Object.entries(filterParams).forEach(([key, val]) => {
       dataset += `data-${key}="${val}"`
@@ -414,19 +404,21 @@ function init(data) {
     return filter_item.replace(/{data-tags}/g, dataset).replace(/{text}/, text)
   }
 
-  function util_update_query_param(param_name, param_val) {
+  function util_update_query_param (param_name, param_val) {
+    console.log(param_name, param_val, param_val.length)
+
     let is_changed = false
-    let hash_string = decodeURIComponent(parent.location.hash)
+    const hash_string = decodeURIComponent(parent.location.hash)
 
     // no params in query
-    if (hash_string.length == 0) {
+    if (hash_string.length === 0) {
       parent.location.hash = param_name + '=' + param_val
       if (param_val !== '') is_changed = true
     } else {
       let param_start = hash_string.indexOf('#' + param_name + '=')
-      let param_start_not_first = hash_string.indexOf('&' + param_name + '=')
+      const param_start_not_first = hash_string.indexOf('&' + param_name + '=')
 
-      let before_len = hash_string.length
+      const before_len = hash_string.length
 
       // if param is not first
       if (param_start_not_first > param_start) {
@@ -440,7 +432,7 @@ function init(data) {
 
         // our param to change is the last, so taking line-length as end
         if (param_end < 0) {
-          param_end = hash_string.length;
+          param_end = hash_string.length
         }
 
         parent.location.hash = hash_string.substring(0, param_start + 1) + param_name + '=' + param_val + hash_string.substr(param_end)
@@ -452,28 +444,28 @@ function init(data) {
     return is_changed
   }
 
-  function util_get_query_param(param_name) {
+  function util_get_query_param (param_name) {
     let param_val = '' // '' will be returned if there is no such param
 
-    let hash_string = decodeURIComponent(parent.location.hash)
+    const hash_string = decodeURIComponent(parent.location.hash)
     if (hash_string.length > 0) {
       // starting from char 1 to skip first '#'
-      let param_strings = hash_string.substring(1).split('&')
+      const param_strings = hash_string.substring(1).split('&')
       param_strings.forEach(function (str) {
-        let cur_param_splited = str.split('=')
+        const cur_param_splited = str.split('=')
         if (cur_param_splited[0] === param_name) {
           param_val = cur_param_splited[1]
         }
-      });
+      })
     }
 
     return param_val
   }
 
-  function remove_filter_from_query(filter_type, tag) {
+  function remove_filter_from_query (filter_type, tag) {
     let is_changed = false
 
-    let query_param = util_get_query_param(filter_type)
+    const query_param = util_get_query_param(filter_type)
 
     if (query_param.length > 0) {
       let new_query_string = ''
@@ -483,7 +475,7 @@ function init(data) {
         } else {
           new_query_string += (query_tag + ',')
         }
-      });
+      })
 
       if (is_changed) {
         if (new_query_string.length > 0) {
@@ -498,8 +490,8 @@ function init(data) {
     return is_changed
   }
 
-  function parse_filters_from_query(filter_type) {
-    let filter_string = util_get_query_param(filter_type)
+  function parse_filters_from_query (filter_type) {
+    const filter_string = util_get_query_param(filter_type)
 
     let vals_array = []
 
@@ -510,11 +502,11 @@ function init(data) {
     return vals_array
   }
 
-  function add_filter_to_query(filter_type, tag, is_reverse, add_first = false) {
+  function add_filter_to_query (filter_type, tag, is_reverse, add_first = false) {
     let is_changed = false
 
     is_reverse = (is_reverse === 'true')
-    let final_tag = ''
+    let final_tag
     if (!is_reverse) {
       final_tag = tag
     } else {
@@ -527,9 +519,9 @@ function init(data) {
       util_update_query_param(filter_type, final_tag)
       is_changed = true
     } else {
-      let cur_filter_tags = cur_filter_param.split(',')
+      const cur_filter_tags = cur_filter_param.split(',')
 
-      let tag_reversed_ver = '' // gonna check reversed version of tag being added to just replace it if needed
+      let tag_reversed_ver // gonna check reversed version of tag being added to just replace it if needed
       if (!is_reverse) {
         tag_reversed_ver = '!' + tag
       } else {
@@ -555,10 +547,10 @@ function init(data) {
     return is_changed
   }
 
-  function render_selected_part(tag_type) {
-    let tags_array = parse_filters_from_query(tag_type)
+  function render_selected_part (tag_type) {
+    const tags_array = parse_filters_from_query(tag_type)
 
-    if (tags_array.length == 0) return ''
+    if (tags_array.length === 0) return ''
 
     let tags_badges = ''
 
@@ -569,7 +561,7 @@ function init(data) {
     }
 
     tags_array.forEach(tag => {
-      let is_reverse = (tag.indexOf('!') == 0)
+      const is_reverse = (tag.indexOf('!') === 0)
       let tag_text = tag
 
       if (is_reverse) {
@@ -584,15 +576,15 @@ function init(data) {
         tag_text = 'НЕ ' + tag_text
       }
 
-      tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{type}/, tag_type).replace(/{tag_text}/, tag_text);
-    });
+      tags_badges += filter_menu_tag.replace(/{tag}/, tag).replace(/{type}/, tag_type).replace(/{tag_text}/, tag_text)
+    })
 
     return tags_badges
   }
 
-  function render_selected_filters() {
+  function render_selected_filters () {
     let insertion_html = ''
-    let badges_part = ''
+    let badges_part
 
     badges_part = render_selected_part(WHERE_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
@@ -609,21 +601,20 @@ function init(data) {
       insertion_html += badges_part
     }
 
-
     // possible performance issue here
-    let elem = document.getElementById('selected-filters-block')
+    const elem = document.getElementById('selected-filters-block')
     elem.innerHTML = ''
 
     if (insertion_html.length > 0) {
-      document.getElementById("navbar-main-link").href = '/' + parent.location.hash
+      document.getElementById('navbar-main-link').href = '/' + parent.location.hash
 
-      insertion_html += '<a class="badge badge-danger px-lg-1 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все<span class="iconify ml-1" data-icon="ic:baseline-cancel" data-inline="false" style="font-size: 16px; font-wight: 400"></span></a>';
+      insertion_html += '<a class="badge badge-danger px-lg-2 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_all_filters()">Сбросить все <span class="iconify filter-icon ml-1" data-icon="fa-solid:times" data-inline="false"></span></a>'
 
-      document.getElementById('pre-divider-for-selected-filters').style.visibility = "visible"
-      elem.insertAdjacentHTML('afterbegin', insertion_html);
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = 'visible'
+      elem.insertAdjacentHTML('afterbegin', insertion_html)
     } else {
-      document.getElementById("navbar-main-link").href = '/'
-      document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
+      document.getElementById('navbar-main-link').href = '/'
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = 'hidden'
     }
   }
 
@@ -671,15 +662,15 @@ function init(data) {
     document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`
     document.getElementById('records_count').innerText = `На текущий момент их ${full_recordset.length}.`
 
-    let after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) +
+    const after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) +
       util_get_query_param(YEAR_FILTER_PARAM_NAME) +
       util_get_query_param(TAG_FILTER_PARAM_NAME)
-    if (after_load_tags.length == 0) {
-      document.getElementById('pre-divider-for-selected-filters').style.visibility = "hidden"
-      draw(full_recordset);
+    if (after_load_tags.length === 0) {
+      document.getElementById('pre-divider-for-selected-filters').style.visibility = 'hidden'
+      draw(full_recordset)
     } else {
-      render_selected_filters();
-      draw_with_filter();
+      render_selected_filters()
+      draw_with_filter()
     }
 
     const years = {}
@@ -716,6 +707,7 @@ function init(data) {
       })
     )
     document.getElementById('filters_year').insertAdjacentHTML('afterbegin', filter_years.join(''))
+    document.getElementById('filter-label-years').innerText = `Годы (${filter_years.length})`
 
     const sorted_sources = Object.keys(sources).sort(function (a, b) {
       if (sources[a] > sources[b]) {
@@ -735,16 +727,17 @@ function init(data) {
       })
     )
     document.getElementById('filters_where').insertAdjacentHTML('afterbegin', filter_sources.join(''))
+    document.getElementById('filter-label-sources').innerText = `Издания (${filter_sources.length})`
 
     const sorted_tags = Object.keys(tags).sort(function (a, b) {
       if (tags[a] > tags[b]) {
-        return -1;
+        return -1
       }
       if (tags[a] < tags[b]) {
-        return 1;
+        return 1
       }
-      return 0;
-    });
+      return 0
+    })
 
     let modifier_search_idx = 0
     let found_modifiers = 0
@@ -772,94 +765,87 @@ function init(data) {
       })
     )
 
-    filter_tags.splice(found_modifiers, 0, '<div class="dropdown-divider"></div>'); // there are two main tag categories to be separated
+    filter_tags.splice(found_modifiers, 0, '<div class="dropdown-divider"></div>') // there are two main tag categories to be separated
     document.getElementById('filters_tag').insertAdjacentHTML('afterbegin', filter_tags.join(''))
+    document.getElementById('filter-label-tags').innerText = `Тэги (${filter_tags.length - 1})`
 
-    const filter_labels = Array.from(document.getElementsByClassName('filter-label'));
+    const filter_labels = Array.from(document.getElementsByClassName('filter-label'))
     filter_labels.forEach(filter_label => {
       filter_label.dataset.originalKey = filter_label.innerText.trim()
     })
 
-    /**
-     * @param _filter
-     * @param _value
-     * @param _key
-     */
-    function draw_with_filter() {
-      current_page = 1;
-      remove_cards();
+    function draw_with_filter () {
+      current_page = 1
+      remove_cards()
 
-      let where_filters = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
-      let year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
-      let tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
+      const where_filters = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
+      const year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
+      const tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
 
-      let filtered_rset = filter(where_filters, year_filters, tag_filters)
+      const filtered_rset = filter(where_filters, year_filters, tag_filters)
 
-      if (filtered_rset.length == full_recordset.length) {
-        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+      if (filtered_rset.length === full_recordset.length) {
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`
       } else {
-        document.getElementById('filter_name').innerText = `Выбранные материалы (${filtered_rset.length})`;
+        document.getElementById('filter_name').innerText = `Выбранные материалы (${filtered_rset.length})`
       }
-      draw(filtered_rset);
+
+      draw(filtered_rset)
     }
 
     // глобальная функция для кнопок тегов в карточках
-    window['filter_by_tag'] = function (tag, tag_type) {
+    window.filter_by_tag = function (tag, tag_type) {
       if (add_filter_to_query(tag_type, tag, false, modifier_tags.includes(tag))) {
         render_selected_filters()
         draw_with_filter()
         route_scroll_to_rc()
       }
-    };
+    }
 
     // глобальная функция для кнопок удаления фильтра
-    window['remove_selected_filter'] = function (tag, tag_type) {
+    window.remove_selected_filter = function (tag, tag_type) {
       if (remove_filter_from_query(tag_type, tag)) {
         render_selected_filters()
         draw_with_filter()
         route_scroll_to_rc()
       }
-    };
+    }
 
     // глобальная функция для кнопок удаления фильтров типа
-    window['remove_typed_filters'] = function (tag_type) {
+    window.remove_typed_filters = function (tag_type) {
       if (util_update_query_param(tag_type, '')) {
         render_selected_filters()
         draw_with_filter()
         route_scroll_to_rc()
       }
-    };
+    }
 
     // глобальная функция для кнопок удаления фильтров всех типов
-    window['remove_all_filters'] = function () {
+    window.remove_all_filters = function () {
       let is_changed = false
       is_changed = util_update_query_param(WHERE_FILTER_PARAM_NAME, '') || is_changed
       is_changed = util_update_query_param(YEAR_FILTER_PARAM_NAME, '') || is_changed
       is_changed = util_update_query_param(TAG_FILTER_PARAM_NAME, '') || is_changed
 
       if (is_changed) {
-        current_page = 1;
-        remove_cards();
+        current_page = 1
+        remove_cards()
 
         render_selected_filters()
-        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`;
+        document.getElementById('filter_name').innerText = `Все записи (${full_recordset.length})`
 
         draw(full_recordset)
         route_scroll_to_rc()
       }
-    };
+    }
 
     Array.from(document.getElementsByClassName('filter-link')).forEach(item => {
       item.addEventListener('click', (e) => {
-        const { activated } = item.dataset;
-        if (activated === 'true') {
-          e.preventDefault();
-          return;
-        }
-      });
-    });
+        e.stopPropagation()
+      })
+    })
 
-    document.querySelectorAll('.filter-btn').forEach(item => {
+    Array.from(document.getElementsByClassName('filter-btn')).forEach(item => {
       item.addEventListener('click', () => {
         let need_filtering = false
 
@@ -888,23 +874,22 @@ function init(data) {
         }
 
         if (need_filtering) {
-          draw_with_filter();
-          route_scroll_to_rc();
+          draw_with_filter()
+          route_scroll_to_rc()
         }
       })
+    })
+  })
 
-    });
-  });
+  compile_all()
 
-  compile_all();
-
-  function remove_cards() {
+  function remove_cards () {
     document.getElementById('records_container').style.height = '1080px'
     Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
   }
 
-  function filter_by_where(record, filters) {
-    if (filters.length == 0) return true
+  function filter_by_where (record, filters) {
+    if (filters.length === 0) return true
 
     let is_acceptable = false
     let is_blocked = false
@@ -912,7 +897,7 @@ function init(data) {
 
     filters.forEach(filter => {
       let raw_filter = filter
-      let is_reverse = (filter.indexOf('!') == 0)
+      const is_reverse = (filter.indexOf('!') === 0)
 
       if (is_reverse) {
         raw_filter = filter.substring(1)
@@ -925,13 +910,13 @@ function init(data) {
       } else if (is_reverse && record.where === raw_filter) {
         is_blocked = true
       }
-    });
+    })
 
     return (is_acceptable || has_only_reversed) && !is_blocked
   }
 
-  function filter_by_year(record, filters) {
-    if (filters.length == 0) return true
+  function filter_by_year (record, filters) {
+    if (filters.length === 0) return true
 
     let is_acceptable = false
     let is_blocked = false
@@ -939,7 +924,7 @@ function init(data) {
 
     filters.forEach(filter => {
       let raw_filter = filter
-      let is_reverse = (filter.indexOf('!') == 0)
+      const is_reverse = (filter.indexOf('!') === 0)
 
       if (is_reverse) {
         raw_filter = filter.substring(1)
@@ -954,13 +939,13 @@ function init(data) {
       } else if (is_reverse && record.date.year === raw_filter) {
         is_blocked = true
       }
-    });
+    })
 
     return (is_acceptable || has_only_reversed) && !is_blocked
   }
 
-  function filter_by_tag(record, filters) {
-    if (filters.length == 0) return true
+  function filter_by_tag (record, filters) {
+    if (filters.length === 0) return true
 
     let modifiers_group = false
     let has_accepting_modifiers = false
@@ -973,15 +958,15 @@ function init(data) {
     filters.forEach(filter => {
       let raw_filter = filter
 
-      let is_reverse = (filter.indexOf('!') == 0)
+      const is_reverse = (filter.indexOf('!') === 0)
       if (is_reverse) {
         raw_filter = filter.substring(1)
       }
 
-      let is_modifier = modifier_tags.includes(raw_filter)
+      const is_modifier = modifier_tags.includes(raw_filter)
 
-      if  (!is_reverse) {
-        if (is_modifier){
+      if (!is_reverse) {
+        if (is_modifier) {
           has_accepting_modifiers = true
           modifiers_group |= record.tags.includes(raw_filter)
         } else {
@@ -1022,24 +1007,23 @@ function init(data) {
    * Также тег может быть выбран в блокирующем (инверсном) режиме (в url помечается воскл.знаком)
    * материалы с этим тегом будут удалены из выборки независимо от всех остальных тегов
    *
-   * @param {Array[String]} where_filters
-   * @param {Array[String]} year_filters
-   * @param {Array[String]} tag_filters
-   * @returns {Array[Object]}
+   * @param {Array} where_filters
+   * @param {Array} year_filters
+   * @param {Array} tag_filters
+   * @returns {Array}
    */
-  function filter(where_filters, year_filters, tag_filters) {
-    if (where_filters.length + year_filters.length + tag_filters.length == 0) {
+  function filter (where_filters, year_filters, tag_filters) {
+    if (where_filters.length + year_filters.length + tag_filters.length === 0) {
       return full_recordset
     }
 
-    return full_recordset.filter(function (record) {
-      return filter_by_where(record, where_filters) &&
-        filter_by_year(record, year_filters) &&
-        filter_by_tag(record, tag_filters)
-    })
+    return full_recordset.filter(record =>
+      filter_by_where(record, where_filters) &&
+      filter_by_year(record, year_filters) &&
+      filter_by_tag(record, tag_filters))
   }
 
-  function route_scroll_to_rc() {
+  function route_scroll_to_rc () {
     setTimeout(() => {
       document.getElementById('start').scrollIntoView({
         behavior: 'smooth',
@@ -1047,18 +1031,6 @@ function init(data) {
       })
     }, draw_time)
   }
-
-  /*document.getElementById('draw_nourl').onclick = () => {
-    current_page = 1
-    remove_cards()
-    const nourl_recordset = full_recordset.filter(function (record) {
-      return !record.url
-    })
-    document.getElementById('filter_name').innerText = `Материалы без ссылок (${nourl_recordset.length})`
-    draw(nourl_recordset)
-
-    route_scroll_to_rc()
-  }*/
 
   document.getElementById('default_settings').onclick = () => {
     if (confirm('Данное действие сбросит все настройки. Продолжить?')) {
@@ -1081,7 +1053,7 @@ function init(data) {
    * Update settings
    * @param {Object} new_settings
    */
-  function updateSettings(new_settings) {
+  function updateSettings (new_settings) {
     settings = new_settings
     Object.keys(new_settings).forEach(setting => {
       localStorage.setItem(setting, new_settings[setting])
