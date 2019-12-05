@@ -899,14 +899,6 @@ function init(data) {
 
   compile_all();
 
-  function remove_current_active_filter() {
-    const current_active_filter = document.getElementById('current-active-filter')
-    if (current_active_filter) {
-      current_active_filter.id = ''
-      current_active_filter.dataset.activated = 'false'
-    }
-  }
-
   function remove_cards() {
     document.getElementById('records_container').style.height = '1080px'
     Array.from(document.getElementsByClassName('memorial-card-column')).forEach(card => card.remove())
