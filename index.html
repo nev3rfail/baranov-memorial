@@ -32,7 +32,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand mr-auto mr-md-3" href="/">
+  <a id="navbar-main-link" class="navbar-brand mr-auto mr-md-3" href="/">
     <img src="icons/favicon-32x32.png?v=1.1" class="d-inline-block align-top navbar-icon" alt="">
     Мемориал <span class="d-md-inline d-none">Евгения</span><span class="d-inline d-md-none">Е.</span> Баранова
   </a>
@@ -43,35 +43,34 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <button id="filter-label-sources" data-label-key="sources" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Издания</button>
-        <div class="dropdown-menu" id="filters_where" aria-labelledby="filter-label-sources">
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_where" data-label-key="sources">Показать все</button>
-        </div>
-      </li>
+        <li class="nav-item dropdown">
+            <button id="filter-label-sources" data-label-key="sources" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Издания</button>
+            <div class="dropdown-menu" id="filters_where" aria-labelledby="filter-label-sources">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" id="unfilter_where" data-label-key="sources" onclick="remove_typed_filters('w')">Показать все</button>
+            </div>
+        </li>
 
-      <li class="nav-item dropdown">
-        <button id="filter-label-years" data-label-key="years" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Годы</button>
-        <div class="dropdown-menu" id="filters_year" aria-labelledby="filter-label-years">
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_year" data-label-key="years">Показать все</button>
-        </div>
-      </li>
+        <li class="nav-item dropdown">
+            <button id="filter-label-years" data-label-key="years" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Годы</button>
+            <div class="dropdown-menu" id="filters_year" aria-labelledby="filter-label-years">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" id="unfilter_year" data-label-key="years" onclick="remove_typed_filters('y')">Показать все</button>
+            </div>
+        </li>
 
-      <li class="nav-item dropdown">
-        <button id="filter-label-tags" data-label-key="tags" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Теги</button>
+        <li class="nav-item dropdown">
+            <button id="filter-label-tags" data-label-key="tags" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Теги</button>
 
-        <div class="dropdown-menu" id="filters_tag" aria-labelledby="filter-label-tags">
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_tag" data-label-key="tags">Показать все</button>
-        </div>
-      </li>
-
-      <li class="nav-item">
-        <button id="draw_nourl" class="btn nav-link">Показать элементы без ссылок</button>
-      </li>
+            <div class="dropdown-menu" id="filters_tag" aria-labelledby="filter-label-tags">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" id="unfilter_tag" data-label-key="tags" onclick="remove_typed_filters('t')">Показать все</button>
+            </div>
+        </li>
     </ul>
+
+    <div id="pre-divider-for-selected-filters" class="dropdown-divider d-block d-lg-none"></div>
+    <div id="selected-filters-block" class="px-2"></div>
 
     <div class="dropdown-divider d-block d-lg-none"></div>
 
@@ -93,7 +92,7 @@
       <li class="nav-item">
         <button class="btn nav-link" data-toggle="modal" data-target="#settingsModal">
           <span class="iconify" data-icon="fa:cog"></span>
-          <span class="pl-1">Настройки</span>
+          <span class="d-inline d-lg-none pl-1">Настройки</span>
         </button>
       </li>
     </ul>

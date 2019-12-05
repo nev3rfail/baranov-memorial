@@ -152,3 +152,7 @@ $pagination-disabled-border-color: transparent !default;
     cursor: pointer;
     margin-right: 4px;
 }
+
+.dropdown-menu {
+    min-width: 300px;
+}
