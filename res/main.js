@@ -85,14 +85,14 @@ function init (data) {
    */
   const filter_item = `<li class="dropdown-item filter-link pt-1 pb-1">
                           <div class="mt-1 px-1 pb-2 d-inline-block">
-                              <div class="d-inline-block" style="position: relative; top: 0.15rem;">{text}</div>
+                              <div class="d-inline-block" style="position: relative; top: 0.2rem;">{text}</div>
                           </div>
                           <div class="d-inline-block float-right">
                               <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
-                                  <span class="iconify filter-icon" data-icon="fa-solid:plus" data-inline="false" data-width="18" data-height="18"></span>
+                                <span class="d-inline-block align-baseline iconify filter-icon" data-icon="fa-solid:eye" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
                               <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
-                                  <span class="iconify filter-icon" data-icon="fa-solid:minus" data-inline="false" data-width="18" data-height="18"></span>
+                                <span class="d-inline-block align-baseline iconify filter-icon" data-icon="fa-solid:eye-slash" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
                           </div>
                       </li>`
