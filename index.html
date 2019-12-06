@@ -3,75 +3,74 @@
 <head>
   <title>Мемориал Евгения Баранова</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
-  <meta property="og:description" content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура.">
-  <meta name="description" content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура.">
-  <meta property="og:title" content="Мемориал Евгения Баранова">
-  <meta property="og:url" content="https://baranov.dtf.ru/">
-  <meta property="og:image" content="https://baranov.dtf.ru/logo/ogp.jpg">
+  <meta content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура." property="og:description">
+  <meta content="Данная страница - дань уважения за все, что Женя сделал для российского игрожура." name="description">
+  <meta content="Мемориал Евгения Баранова" property="og:title">
+  <meta content="https://baranov.dtf.ru/" property="og:url">
+  <meta content="https://baranov.dtf.ru/logo/ogp.jpg" property="og:image">
 
-  <link rel="dns-prefetch" href="//images.weserv.nl">
+  <link href="//images.weserv.nl" rel="dns-prefetch">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=1.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=1.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=1.1">
-  <link rel="manifest" href="site.webmanifest?v=1.1">
-  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=1.1" color="#303030">
-  <link rel="shortcut icon" href="favicon.ico?v=1.1">
-  <meta name="msapplication-TileColor" content="#303030">
-  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=1.1">
-  <meta name="theme-color" content="#303030">
+  <link href="/icons/apple-touch-icon.png?v=2.0" rel="apple-touch-icon" sizes="180x180">
+  <link href="/icons/favicon-32x32.png?v=2.0" rel="icon" sizes="32x32" type="image/png">
+  <link href="/icons/favicon-16x16.png?v=2.0" rel="icon" sizes="16x16" type="image/png">
+  <link href="site.webmanifest?v=2.0" rel="manifest">
+  <link color="#303030" href="/icons/safari-pinned-tab.svg?v=2.0" rel="mask-icon">
+  <link href="favicon.ico?v=2.0" rel="shortcut icon">
+  <meta content="#303030" name="msapplication-TileColor">
+  <meta content="/icons/browserconfig.xml?v=2.0" name="msapplication-config">
+  <meta content="#303030" name="theme-color">
 
-  <meta name="google-site-verification" content="jqF506ABREqZ9DE1f7FN6WB8BxmAA1Fk8eRR7yzmcmE"/>
-  <meta name="yandex-verification" content="353fc6359b06b5dc"/>
+  <meta content="jqF506ABREqZ9DE1f7FN6WB8BxmAA1Fk8eRR7yzmcmE" name="google-site-verification"/>
+  <meta content="353fc6359b06b5dc" name="yandex-verification"/>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.4.0/dist/darkly/bootstrap.min.css" integrity="sha256-L0Xjc+lmGXsyv4vJVmZKbXLNqLUSeR3+fyqeiBqJzmM=" crossorigin="anonymous">
-  <link rel="stylesheet" href="dist/main.css?v=1.1">
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootswatch@4.4.1/dist/darkly/bootstrap.min.css" integrity="sha256-WzKrnqJMmUZVHL8Im0hFLIOJ3UiQtgwK7zNfwxb5Bx0=" rel="stylesheet">
+  <link href="dist/main.css?v=2.0" rel="stylesheet">
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand mr-auto mr-md-3" href="/">
-    <img src="icons/favicon-32x32.png?v=1.1" class="d-inline-block align-top navbar-icon" alt="">
+  <a class="navbar-brand mr-auto mr-md-3" href="/" id="navbar-main-link">
+    <img alt="" class="d-inline-block align-top navbar-icon" src="icons/favicon-32x32.png?v=2.0">
     Мемориал <span class="d-md-inline d-none">Евгения</span><span class="d-inline d-md-none">Е.</span> Баранова
   </a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+  <button class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-        <button id="filter-label-sources" data-label-key="sources" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Издания</button>
-        <div class="dropdown-menu" id="filters_where" aria-labelledby="filter-label-sources">
+        <button class="btn nav-link dropdown-toggle filter-label" data-label-key="sources" data-toggle="dropdown" id="filter-label-sources">Издания</button>
+        <div aria-labelledby="filter-label-sources" class="dropdown-menu" id="filters_where">
           <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_where" data-label-key="sources">Показать все</button>
+          <button class="dropdown-item" data-label-key="sources" id="unfilter_where" onclick="remove_typed_filters('w')">Показать все</button>
         </div>
       </li>
 
       <li class="nav-item dropdown">
-        <button id="filter-label-years" data-label-key="years" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Годы</button>
-        <div class="dropdown-menu" id="filters_year" aria-labelledby="filter-label-years">
+        <button class="btn nav-link dropdown-toggle filter-label" data-label-key="years" data-toggle="dropdown" id="filter-label-years">Годы</button>
+        <div aria-labelledby="filter-label-years" class="dropdown-menu" id="filters_year">
           <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_year" data-label-key="years">Показать все</button>
+          <button class="dropdown-item" data-label-key="years" id="unfilter_year" onclick="remove_typed_filters('y')">Показать все</button>
         </div>
       </li>
 
       <li class="nav-item dropdown">
-        <button id="filter-label-tags" data-label-key="tags" class="btn nav-link dropdown-toggle filter-label" data-toggle="dropdown">Теги</button>
+        <button class="btn nav-link dropdown-toggle filter-label" data-label-key="tags" data-toggle="dropdown" id="filter-label-tags">Теги</button>
 
-        <div class="dropdown-menu" id="filters_tag" aria-labelledby="filter-label-tags">
+        <div aria-labelledby="filter-label-tags" class="dropdown-menu" id="filters_tag">
           <div class="dropdown-divider"></div>
-          <button class="dropdown-item" id="unfilter_tag" data-label-key="tags">Показать все</button>
+          <button class="dropdown-item" data-label-key="tags" id="unfilter_tag" onclick="remove_typed_filters('t')">Показать все</button>
         </div>
-      </li>
-
-      <li class="nav-item">
-        <button id="draw_nourl" class="btn nav-link">Показать элементы без ссылок</button>
       </li>
     </ul>
+
+    <div class="dropdown-divider d-block d-lg-none" id="pre-divider-for-selected-filters"></div>
+    <div class="px-2" id="selected-filters-block"></div>
 
     <div class="dropdown-divider d-block d-lg-none"></div>
 
@@ -91,10 +90,10 @@
       </li>
 
       <li class="nav-item">
-        <button class="btn nav-link" data-toggle="modal" data-target="#settingsModal">
+        <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#settingsModal" >
           <span class="iconify" data-icon="fa:cog"></span>
-          <span class="pl-1">Настройки</span>
-        </button>
+          <span class="d-inline d-lg-none pl-1">Настройки</span>
+        </a>
       </li>
     </ul>
   </div>
@@ -102,7 +101,7 @@
 
 <div class="container description">
   <div class="jumbotron">
-    <img src="res/image/RAULduke.jpg?v=1.1" alt="Фото Евгения Баранова" class="rounded float-xl-right align-center mx-auto d-block">
+    <img alt="Фото Евгения Баранова" class="rounded float-xl-right align-center mx-auto d-block" src="res/image/RAULduke.jpg?v=2.0">
     <h1 class="display-4 text-center text-xl-left">Мемориал Евгения Баранова</h1>
     <p class="lead text-center text-xl-left">
       <i>Ночью 12 ноября 2019 года не стало игрового журналиста Евгения Баранова.<br class="d-none d-xl-block"/> Ему было 27 лет.<br class="d-none d-xl-block"/> Данная страница - дань уважения за все, что Женя сделал для российского игрожура.</i><br/>
@@ -134,10 +133,10 @@
 
 <div class="container-fluid">
   <h4 class="display-4 text-center" id="filter_name">Все материалы</h4>
-  <ul id="pagination_container_top" class="pagination justify-content-center pt-2"></ul>
+  <ul class="pagination justify-content-center pt-2" id="pagination_container_top"></ul>
   <div class="row mx-auto" id="records_container">
     <div class="card mx-auto d-block mb-4" id="placeholder">
-      <img src="./logo/placeholder.jpg?v=1.1" class="card-img-top" alt="Заглушка">
+      <img alt="Заглушка" class="card-img-top" src="./logo/placeholder.jpg?v=2.0">
       <div class="card-body d-flex flex-column justify-content-between">
         <div>
           <h5 class="card-title">Загрузка данных</h5>
@@ -146,27 +145,27 @@
       </div>
     </div>
   </div>
-  <ul id="pagination_container_bottom" class="pagination justify-content-center"></ul>
+  <ul class="pagination justify-content-center" id="pagination_container_bottom"></ul>
 </div>
 
 <div>
-  <img src="res/image/poster.jpg?v=1.1" alt="Постер" class="img-fluid rounded mx-auto d-block">
+  <img alt="Постер" class="img-fluid rounded mx-auto d-block" src="res/image/poster.jpg?v=2.0">
 </div>
 
 <footer class="footer">
   <div class="container">
-        <span class="text-muted">
-            Автор идеи и исходной базы данных - <a href="https://github.com/nev3rfail" target="_blank">nev3rfail</a>. Исходный домен - <a href="https://nev3rfail.github.io/baranov-memorial">nev3rfail.github.io/baranov-memorial</a>. База данных проекта распространяется по лицензии <a href="https://creativecommons.org/licenses/by/3.0/deed.ru" target="_blank">Creative Commons «Attribution» («Атрибуция») 3.0 Непортированная</a>. Исходный код проекта доступен по лицензии MIT. Права на исходные материалы принадлежат их правообладателям, если не оговорено иное.
-        </span>
+    <span class="text-muted">
+      Автор идеи и исходной базы данных - <a href="https://github.com/nev3rfail" target="_blank">nev3rfail</a>. <a href="https://github.com/nev3rfail/baranov-memorial/graphs/contributors" target="_blank">Контрибьюторы</a>. Исходный домен - <a href="https://nev3rfail.github.io/baranov-memorial">nev3rfail.github.io/baranov-memorial</a>.<br/>База данных проекта распространяется по лицензии <a href="https://creativecommons.org/licenses/by/3.0/deed.ru" target="_blank">Creative Commons «Attribution» («Атрибуция») 3.0 Непортированная</a>. Исходный код проекта доступен по лицензии MIT. Права на исходные материалы принадлежат их правообладателям, если не оговорено иное.
+    </span>
   </div>
 </footer>
 
 <div class="modal fade" id="settingsModal" tabindex="-1">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="settingsModalLabel">Настройки</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -174,7 +173,7 @@
         <form id="settings_form">
           <div class="form-group">
             <label for="image_quality_setting">Качество превью</label>
-            <input type="range" class="form-control custom-range" min="10" max="100" step="10" id="image_quality_setting">
+            <input class="form-control custom-range" id="image_quality_setting" max="100" min="10" step="10" type="range">
             <small class="form-text text-muted">Чем больше значение, тем выше качество превью (ценой трафика).</small>
           </div>
 
@@ -182,7 +181,7 @@
 
           <div class="form-group">
             <label for="per_page_setting">Материалов на страницу</label>
-            <input type="range" class="form-control custom-range" min="24" max="1008" step="12" id="per_page_setting">
+            <input class="form-control custom-range" id="per_page_setting" max="1008" min="24" step="12" type="range">
             <small class="form-text text-muted">Чем больше значение, тем больше карточек на одну страницу. Выбор очень высокого значения может повлечь за собой ухудшение производительности!</small>
           </div>
 
@@ -192,11 +191,11 @@
             <label for="draw_mode_standard">Вариант отрисовки карточек</label>
             <br/>
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="draw_mode_standard" name="draw_mode_setting" class="custom-control-input" value="standard">
+              <input class="custom-control-input" id="draw_mode_standard" name="draw_mode_setting" type="radio" value="standard">
               <label class="custom-control-label" for="draw_mode_standard">Обычный</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="draw_mode_generator" name="draw_mode_setting" class="custom-control-input" value="generator">
+              <input class="custom-control-input" id="draw_mode_generator" name="draw_mode_setting" type="radio" value="generator">
               <label class="custom-control-label" for="draw_mode_generator">Старый</label>
             </div>
             <small class="form-text text-muted">ТОЛЬКО ДЛЯ ТЕСТИРОВАНИЯ! Не меняйте, если не знаете, что делаете.</small>
@@ -205,18 +204,18 @@
       </div>
       <div class="modal-footer">
         <span class="text-muted">Настройки сохраняются сразу после изменения.</span>
-        <button type="button" class="btn btn-secondary" id="default_settings">Сбросить</button>
+        <button class="btn" id="default_settings" type="button">Сбросить</button>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://code.iconify.design/1/1.0.3/iconify.min.js" defer></script>
+<script defer src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 <!-- https://thednp.github.io/bootstrap.native/v4.html -->
-<script src="https://cdn.jsdelivr.net/npm/ie10-viewport-bug-workaround.js@1.0.0/ie10-viewport-bug-workaround.js" integrity="sha256-TEepY4CGW/8yywhOWW+7pS87pE/3wuuSxv8ohc64eFo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.27/dist/bootstrap-native-v4.min.js" integrity="sha256-k5gE8gnbCCVtz/4z2LzbAIpMdH8K1Bjl4cTCjm6SZS8=" crossorigin="anonymous"></script>
+<script crossorigin="anonymous" integrity="sha256-TEepY4CGW/8yywhOWW+7pS87pE/3wuuSxv8ohc64eFo=" src="https://cdn.jsdelivr.net/npm/ie10-viewport-bug-workaround.js@1.0.0/ie10-viewport-bug-workaround.js"></script>
+<script crossorigin="anonymous" integrity="sha256-k5gE8gnbCCVtz/4z2LzbAIpMdH8K1Bjl4cTCjm6SZS8=" src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.27/dist/bootstrap-native-v4.min.js"></script>
 
-<script src="dist/main.js?v=1.1" defer></script>
+<script defer src="dist/main.js?v=2.0"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152337165-1"></script>
 <script>
