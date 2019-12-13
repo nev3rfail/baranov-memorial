@@ -88,10 +88,10 @@ function init (data) {
                               <div class="d-inline-block filter-text">{text}</div>
                           </div>
                           <div class="d-inline-block float-right">
-                              <button class="btn btn-primary btn-sm filter-btn" data-is_reverse="false" {data-tags}>
+                              <button class="btn btn-primary btn-sm filter-btn filter-btn-allow" data-is_reverse="false" {data-tags}>
                                 <span class="d-inline-block iconify filter-icon" data-icon="fa-solid:eye" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
-                              <button class="btn btn-primary btn-sm filter-btn" data-is_reverse="true" {data-tags} >
+                              <button class="btn btn-primary btn-sm filter-btn filter-btn-block" data-is_reverse="true" {data-tags} >
                                 <span class="d-inline-block iconify filter-icon" data-icon="fa-solid:eye-slash" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
                           </div>
