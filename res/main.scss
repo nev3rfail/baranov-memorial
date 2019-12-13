@@ -180,13 +180,17 @@ $pagination-disabled-border-color: transparent !default;
 
 .filter-btn {
   padding: 0.45rem;
-  color: #fff;
+  color: #222;
 
   line-height: 50%;
 
   &:hover {
     color: darken(#fff, 15%)
   }
+}
+
+.filter-btn-activated {
+  color: #fff;
 }
 
 .dropdown-menu {

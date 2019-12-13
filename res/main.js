@@ -582,6 +582,66 @@ function init (data) {
     return tags_badges
   }
 
+  const FILTER_BTN_ACTIVE_CLASS_NAME = "filter-btn-activated"
+  function add_active_class_filter_btn (element) {
+    var classes = element.className.split(" ")
+    var i = classes.indexOf(FILTER_BTN_ACTIVE_CLASS_NAME)
+
+    if (i < 0) {
+      classes.push(FILTER_BTN_ACTIVE_CLASS_NAME)
+      element.className = classes.join(" ")
+      console.log('added')
+    }
+  }
+  function remove_active_class_filter_btn (element) {
+    var classes = element.className.split(" ")
+    var i = classes.indexOf(FILTER_BTN_ACTIVE_CLASS_NAME)
+
+    if (i >= 0) {
+      classes.splice(i, 1)
+      element.className = classes.join(" ")
+      console.log('added')
+    }
+  }
+
+  function render_btns_by_selected_filters () {
+    const where_filters = parse_filters_from_query(WHERE_FILTER_PARAM_NAME)
+    const year_filters = parse_filters_from_query(YEAR_FILTER_PARAM_NAME)
+    const tag_filters = parse_filters_from_query(TAG_FILTER_PARAM_NAME)
+    let btns = 0
+
+    console.log(btns)
+
+    Array.from(document.getElementsByClassName('filter-btn')).forEach(item => {
+      let btn_tag = ''
+      let is_active = false
+
+      if ('where' in item.dataset) {
+        btn_tag = item.dataset.where
+        if (item.dataset.is_reverse === 'true') btn_tag = '!' + btn_tag
+        is_active = where_filters.includes(btn_tag)
+      } else if ('year' in item.dataset) {
+        btn_tag = item.dataset.year
+        if (item.dataset.is_reverse === 'true') btn_tag = '!' + btn_tag
+        is_active = year_filters.includes(btn_tag)
+      } else if ('tag' in item.dataset) {
+        btn_tag = item.dataset.tag
+        if (item.dataset.is_reverse === 'true') btn_tag = '!' + btn_tag
+        is_active = tag_filters.includes(btn_tag)
+      }
+
+      if (is_active) {
+        add_active_class_filter_btn(item)
+      } else {
+        remove_active_class_filter_btn(item)
+      }
+
+      btns++
+    })
+
+    console.log(btns)
+  }
+
   function render_selected_filters () {
     let insertion_html = ''
     let badges_part
@@ -616,6 +676,8 @@ function init (data) {
       document.getElementById('navbar-main-link').href = '/'
       document.getElementById('pre-divider-for-selected-filters').style.visibility = 'hidden'
     }
+
+    render_btns_by_selected_filters()
   }
 
   document.addEventListener('records.loaded', function () {
@@ -773,6 +835,8 @@ function init (data) {
     filter_labels.forEach(filter_label => {
       filter_label.dataset.originalKey = filter_label.innerText.trim()
     })
+
+    render_btns_by_selected_filters() // rerender selected btns after menuitems loaded
 
     function draw_with_filter () {
       current_page = 1
