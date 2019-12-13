@@ -83,16 +83,16 @@ function init (data) {
   /**
    * Templates
    */
-  const filter_item = `<li class="dropdown-item filter-link pt-1 pb-1">
+  const filter_item = `<li class="dropdown-item filter-link">
                           <div class="mt-1 px-1 pb-2 d-inline-block">
-                              <div class="d-inline-block" style="position: relative; top: 0.2rem;">{text}</div>
+                              <div class="d-inline-block filter-text">{text}</div>
                           </div>
                           <div class="d-inline-block float-right">
-                              <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="false" {data-tags}>
-                                <span class="d-inline-block align-baseline iconify filter-icon" data-icon="fa-solid:eye" data-inline="false" data-width="18" data-height="18"></span>
+                              <button class="btn btn-primary btn-sm filter-btn" data-is_reverse="false" {data-tags}>
+                                <span class="d-inline-block iconify filter-icon" data-icon="fa-solid:eye" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
-                              <button class="btn btn-link btn-sm ml-1 filter-btn px-1" data-is_reverse="true" {data-tags} >
-                                <span class="d-inline-block align-baseline iconify filter-icon" data-icon="fa-solid:eye-slash" data-inline="false" data-width="18" data-height="18"></span>
+                              <button class="btn btn-primary btn-sm filter-btn" data-is_reverse="true" {data-tags} >
+                                <span class="d-inline-block iconify filter-icon" data-icon="fa-solid:eye-slash" data-inline="false" data-width="18" data-height="18"></span>
                               </button>
                           </div>
                       </li>`

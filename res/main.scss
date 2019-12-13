@@ -156,9 +156,16 @@ $pagination-disabled-border-color: transparent !default;
   min-width: 300px;
 }
 
+.filter-text {
+  position: relative;
+  top: 0.15rem;
+}
+
 .filter-btn {
-  padding: 0.5rem;
+  padding: 0.45rem;
   color: #fff;
+
+  line-height: 50%;
 
   &:hover {
     color: darken(#fff, 15%)
