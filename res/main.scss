@@ -156,6 +156,23 @@ $pagination-disabled-border-color: transparent !default;
   min-width: 300px;
 }
 
+.scrollable-menu {
+  height: auto;
+  max-height: 900px;
+  overflow-x: hidden;
+}
+
+@media (max-height: 720px) {
+  .scrollable-menu {
+    max-height: 600px;
+  }
+}
+@media (max-height: 600px) {
+  .scrollable-menu {
+    max-height: 400px;
+  }
+}
+
 .filter-text {
   position: relative;
   top: 0.15rem;
