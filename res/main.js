@@ -727,7 +727,11 @@ function init (data) {
     const after_load_tags = util_get_query_param(WHERE_FILTER_PARAM_NAME) +
       util_get_query_param(YEAR_FILTER_PARAM_NAME) +
       util_get_query_param(TAG_FILTER_PARAM_NAME)
-    if (after_load_tags.length === 0) {
+
+    if (util_get_query_param("nourls").length !== 0) {
+      draw_nourl()
+      util_update_query_param("nourls","")
+    } else if (after_load_tags.length === 0) {
       document.getElementById('pre-divider-for-selected-filters').style.visibility = 'hidden'
       draw(full_recordset)
     } else {
@@ -855,6 +859,18 @@ function init (data) {
       }
 
       draw(filtered_rset)
+    }
+
+    function draw_nourl () {
+      current_page = 1
+      remove_cards()
+      const nourl_recordset = full_recordset.filter(function (record) {
+        return !record.url
+      })
+      document.getElementById('filter_name').innerText = `Материалы без ссылок (${nourl_recordset.length})`
+      draw(nourl_recordset)
+
+      route_scroll_to_rc()
     }
 
     // глобальная функция для кнопок тегов в карточках
