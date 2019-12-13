@@ -173,6 +173,10 @@ $pagination-disabled-border-color: transparent !default;
   }
 }
 
+.dropdown-item:hover {
+  background-color: $pagination-hover-bg;
+}
+
 .filter-text {
   position: relative;
   top: 0.15rem;
