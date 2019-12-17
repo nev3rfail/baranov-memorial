@@ -118,6 +118,8 @@ function init (data) {
   const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>'
   const filter_menu_tag = '<a class="badge badge-primary px-lg-2 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')">{tag_text} <span class="iconify filter-icon ml-1" data-icon="fa-solid:times" data-inline="false"></span></a>'
 
+  const filter_menu_divider = '<span class="d-inline-block mx-2 invisible"></span>'
+
   const card_nourl = '<a href="https://discord.gg/zDxKb44" target="_blank" class="btn btn-danger btn-sm">Нужна помощь в поиске!</a>'
   const records_container = document.getElementById('records_container')
   const imgPlaceholder = './logo/placeholder.jpg'
@@ -647,20 +649,41 @@ function init (data) {
   function render_selected_filters () {
     let insertion_html = ''
     let badges_part
+    let has_prev_part = false
 
     badges_part = render_selected_part(WHERE_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
       insertion_html = badges_part
+
+      has_prev_part = true
     }
 
+    if (has_prev_part) {
+      insertion_html += filter_menu_divider
+      has_prev_part = false
+    }
     badges_part = render_selected_part(YEAR_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
       insertion_html += badges_part
+
+      has_prev_part = true
+    }
+
+    if (has_prev_part) {
+      insertion_html += filter_menu_divider
+      has_prev_part = false
     }
 
     badges_part = render_selected_part(TAG_FILTER_PARAM_NAME)
     if (badges_part.length > 0) {
       insertion_html += badges_part
+
+      has_prev_part = true
+    }
+
+    if (has_prev_part) {
+      insertion_html += filter_menu_divider
+      has_prev_part = false
     }
 
     // possible performance issue here
