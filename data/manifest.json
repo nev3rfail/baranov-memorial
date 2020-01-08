@@ -60,5 +60,12 @@
     ],
     "name": "Вечерние Челны",
     "icon": "vch.png"
+  },
+  "samizdat": {
+    "files": [
+      "samizdat"
+    ],
+    "name": "Самиздат",
+    "icon": "logo.png"
   }
 }
