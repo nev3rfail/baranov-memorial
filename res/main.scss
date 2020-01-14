@@ -156,6 +156,12 @@ $pagination-disabled-border-color: transparent !default;
   min-width: 300px;
 }
 
+.scrollable-menu {
+  height: auto;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
 .filter-btn {
   padding: 0.5rem;
   color: #fff;
@@ -163,8 +169,4 @@ $pagination-disabled-border-color: transparent !default;
   &:hover {
     color: darken(#fff, 15%)
   }
-}
-
-.dropdown-menu {
-    width: 300px;
 }
