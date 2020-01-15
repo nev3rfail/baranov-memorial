@@ -556,6 +556,8 @@ function init (data) {
 
     if (tag_type === YEAR_FILTER_PARAM_NAME) {
       tags_array.sort((a, b) => {
+        if (a[0]==="!") a = a.substring(1)
+        if (b[0]==="!") b = b.substring(1)
         return parseInt(a, 10) - parseInt(b, 10)
       })
     }
