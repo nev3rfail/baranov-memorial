@@ -186,7 +186,8 @@ function init (data) {
     }
 
     if ('img' in record && record.img !== '') {
-      card = card.replace('{img}', card_image.replace('{img}', `https://images.weserv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&output=jpg`))
+      const url = record.img.split('://')[1]
+      card = card.replace('{img}', card_image.replace('{img}', `https://cdn.statically.io/img/${url}?w=480&quality=${settings.image_quality}`))
     } else {
       card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
     }
@@ -556,8 +557,8 @@ function init (data) {
 
     if (tag_type === YEAR_FILTER_PARAM_NAME) {
       tags_array.sort((a, b) => {
-        if (a[0]==="!") a = a.substring(1)
-        if (b[0]==="!") b = b.substring(1)
+        if (a[0] === '!') a = a.substring(1)
+        if (b[0] === '!') b = b.substring(1)
         return parseInt(a, 10) - parseInt(b, 10)
       })
     }
