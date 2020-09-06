@@ -1,8 +1,7 @@
 const mix = require('laravel-mix')
 
 mix.js('res/main.js', 'dist')
-
-mix.sass('res/main.scss', 'dist')
+  .sass('res/main.scss', 'dist')
   .options({
     cssNano: {
       preset: 'advanced',

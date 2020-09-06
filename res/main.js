@@ -14,7 +14,8 @@ if (!('remove' in Element.prototype)) {
 const default_settings = {
   per_page: 24,
   image_quality: 80,
-  draw_mode: 'standard'
+  draw_mode: 'standard',
+  version: window.v ?? '0'
 }
 let settings = {
   per_page: Number(localStorage.getItem('per_page') || default_settings.per_page),
@@ -23,7 +24,7 @@ let settings = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('./data/manifest.json')
+  fetch(`./data/manifest.json?v=${default_settings.version}`)
     .then(res => res.json())
     .then(data => {
       console.log('Manifest', data)
@@ -67,7 +68,7 @@ function init (data) {
     let finished = 0
     for (const i in data_files) {
       if (Object.prototype.hasOwnProperty.call(data_files, i)) {
-        fetch(`./data/${data_files[i]}.json`)
+        fetch(`./data/${data_files[i]}.json?v=${default_settings.version}`)
           .then(res => res.json())
           .then(data => {
             full_recordset = full_recordset.concat(data)
