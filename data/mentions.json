@@ -1,0 +1,19 @@
+[
+  {
+    "title": "StopGate",
+    "teaser_text": "Визуальная новелла от команды Антона Паули. Персонаж Ивген Голдефлис, автор мини-книги (вторая глава).",
+    "date": {
+      "day": 1,
+      "month": 9,
+      "year": 2020
+    },
+    "img": "https://cdn.cloudflare.steamstatic.com/steam/apps/1376420/capsule_616x353.jpg?t=1597152055",
+    "where": "mentions",
+    "tags": [
+      "автор текста",
+      "рассказ",
+      "игра"
+    ],
+    "url": "https://store.steampowered.com/app/1376420/StopGate/"
+  }
+]

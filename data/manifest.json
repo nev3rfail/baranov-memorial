@@ -67,5 +67,12 @@
     ],
     "name": "Самиздат",
     "icon": "logo.png"
+  },
+  "mentions" : {
+    "files": [
+      "mentions"
+    ],
+    "name": "Упоминания",
+    "icon": "logo.png"
   }
 }

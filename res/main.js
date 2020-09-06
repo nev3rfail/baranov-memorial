@@ -67,7 +67,7 @@ function init (data) {
     let finished = 0
     for (const i in data_files) {
       if (Object.prototype.hasOwnProperty.call(data_files, i)) {
-        fetch('./data/' + data_files[i] + '.json')
+        fetch(`./data/${data_files[i]}.json`)
           .then(res => res.json())
           .then(data => {
             full_recordset = full_recordset.concat(data)
@@ -113,7 +113,7 @@ function init (data) {
       </div>`
 
   const card_icon = '<img src="{icon}" class="icon" alt="Иконка издания">'
-  const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">'
+  const card_image = '<img src="{img}" class="card-img-top" alt="Превью материала" loading="lazy" onerror="this.onerror=null;this.src=\'logo/placeholder.jpg\';">'
   const card_url = '<a href="{url}" target="_blank" class="btn btn-primary btn-sm">Перейти к материалу</a>'
   const card_tag = '<a class="badge badge-primary badge-tag" onclick="filter_by_tag(\'{tag}\',\'{type}\')">{tag_text}</a>'
   const filter_menu_tag = '<a class="badge badge-primary px-lg-2 py-lg-1 m-lg-1 px-2 py-2 m-1 badge-tag selected-tags" onclick="remove_selected_filter(\'{tag}\',\'{type}\')">{tag_text} <span class="iconify filter-icon ml-1" data-icon="fa-solid:times" data-inline="false"></span></a>'
@@ -187,7 +187,7 @@ function init (data) {
 
     if ('img' in record && record.img !== '') {
       const url = record.img.split('://')[1]
-      card = card.replace('{img}', card_image.replace('{img}', `https://cdn.statically.io/img/${url}?w=480&quality=${settings.image_quality}`))
+      card = card.replace('{img}', card_image.replace('{img}', `https://cdn.statically.io/img/${url}?f=auto&w=480&quality=${settings.image_quality}`))
     } else {
       card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
     }
