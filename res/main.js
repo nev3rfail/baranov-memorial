@@ -187,8 +187,7 @@ function init (data) {
     }
 
     if ('img' in record && record.img !== '') {
-      const url = record.img.split('://')[1]
-      card = card.replace('{img}', card_image.replace('{img}', `https://cdn.statically.io/img/${url}?f=auto&w=480&quality=${settings.image_quality}`))
+      card = card.replace('{img}', card_image.replace('{img}', `https://wsrv.nl/?url=${record.img}&q=${settings.image_quality}&w=480&il&default=https://baranov.dtf.ru/logo/placeholder.jpg`))
     } else {
       card = card.replace('{img}', card_image.replace('{img}', imgPlaceholder))
     }
